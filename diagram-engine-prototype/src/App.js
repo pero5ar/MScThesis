@@ -1,25 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import {
+	DiagramEngine,
+	DiagramModel,
+	DefaultNodeModel,
+	DiagramWidget,
+} from 'storm-react-diagrams';
 import './App.css';
+import 'storm-react-diagrams/dist/style.min.css';
 
-class App extends Component {
+class App extends React.Component {
   render() {
+    const engine = new DiagramEngine();
+    engine.installDefaultFactories();
+
+    //2) setup the diagram model
+    const model = new DiagramModel();
+
+    //3-A) create a default node
+    const node1 = new DefaultNodeModel("Node 1", "rgb(0,192,255)");
+    const port1 = node1.addOutPort("Out");
+    node1.setPosition(100, 100);
+
+    //3-B) create another default node
+    const node2 = new DefaultNodeModel("Node 2", "rgb(192,255,0)");
+    const port2 = node2.addInPort("In");
+    node2.setPosition(400, 100);
+
+    // link the ports
+    const link1 = port1.link(port2);
+    link1.addLabel("Hello World!");
+
+    //4) add the models to the root graph
+    model.addAll(node1, node2, link1);
+
+    //5) load model into engine
+    engine.setDiagramModel(model);
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <DiagramWidget className="srd-demo-canvas" diagramEngine={engine} />
       </div>
     );
   }
