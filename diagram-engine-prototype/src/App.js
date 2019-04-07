@@ -9,6 +9,40 @@ import './App.css';
 import 'storm-react-diagrams/dist/style.min.css';
 
 class App extends React.Component {
+
+  componentDidMount() {
+    document.addEventListener("touchstart", this.touchHandler, true);
+    document.addEventListener("touchmove", this.touchHandler, true);
+    document.addEventListener("touchend", this.touchHandler, true);
+    document.addEventListener("touchcancel", this.touchHandler, true);
+  }
+
+  touchHandler = (event) => {
+      var touches = event.changedTouches,
+          first = touches[0],
+          type = "";
+      switch(event.type)
+      {
+          case "touchstart": type = "mousedown"; break;
+          case "touchmove":  type = "mousemove"; break;        
+          case "touchend":   type = "mouseup";   break;
+          default:           return;
+      }
+
+      // initMouseEvent(type, canBubble, cancelable, view, clickCount, 
+      //                screenX, screenY, clientX, clientY, ctrlKey, 
+      //                altKey, shiftKey, metaKey, button, relatedTarget);
+
+      var simulatedEvent = document.createEvent("MouseEvent");
+      simulatedEvent.initMouseEvent(type, true, true, window, 1, 
+                                    first.screenX, first.screenY, 
+                                    first.clientX, first.clientY, false, 
+                                    false, false, false, 0/*left*/, null);
+
+      first.target.dispatchEvent(simulatedEvent);
+      event.preventDefault();
+  }
+
   render() {
     const engine = new DiagramEngine();
     engine.installDefaultFactories();
@@ -26,19 +60,28 @@ class App extends React.Component {
     const port2 = node2.addInPort("In");
     node2.setPosition(400, 100);
 
-    // link the ports
-    const link1 = port1.link(port2);
-    link1.addLabel("Hello World!");
-
     //4) add the models to the root graph
-    model.addAll(node1, node2, link1);
+    model.addAll(node1, node2);
+
+    console.log(model, node1, node2);
 
     //5) load model into engine
     engine.setDiagramModel(model);
 
     return (
       <div className="App">
-        <DiagramWidget className="srd-demo-canvas" diagramEngine={engine} />
+        <button
+          onClick={() => {
+            console.log(model.serializeDiagram());
+          }}
+        >
+          Serialize Graph
+        </button>
+        <DiagramWidget 
+          className="srd-demo-canvas"
+          diagramEngine={engine}
+          onMouseOver={console.warn}
+        />
       </div>
     );
   }

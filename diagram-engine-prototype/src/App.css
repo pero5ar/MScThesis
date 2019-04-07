@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+div {
+  touch-action: none;
+}
+
 .srd-demo-workspace {
   background: black;
   display: flex;
