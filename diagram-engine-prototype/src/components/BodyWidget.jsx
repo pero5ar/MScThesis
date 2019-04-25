@@ -2,101 +2,58 @@
 import * as React from "react";
 import { TrayWidget } from "./TrayWidget";
 import { TrayItemWidget } from "./TrayItemWidget";
-import { DefaultNodeModel, DiagramWidget, MoveItemsAction, PointModel, LinkModel } from "storm-react-diagrams";
+import { DiagramWidget, MoveItemsAction, PointModel } from "storm-react-diagrams";
 
 export class BodyWidget extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
-  }
-  
-  addModel = (event, data) => {
-    const nodesCount = Object.keys(
-      this.props.app
-        .getDiagramEngine()
-        .getDiagramModel()
-        .getNodes()
-    ).length;
+		this.state = {
+			hasStart: false,
+			hasEnd: false,
+		};
+	}
+	
+	addModel = (event, data) => {
+		const { name, color, disabled } = data;
+		if (disabled) {
+			return;
+		}
+		const points = this.props.engine.getDiagramEngine().getRelativeMousePoint(event);
+		const x = points.x + 200;
+		const y = points.y + 200;
+		this.props.engine.addNode(name, color, x, y, name !== 'Start', name !== 'End');
 
-    let node = null;
-    if (data.type === "in") {
-      node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
-      node.addInPort("In");
-    } else {
-      node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
-      node.addOutPort("Out");
-    }
-    const points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x + 200;
-    node.y = points.y + 200;
-    this.props.app
-      .getDiagramEngine()
-      .getDiagramModel()
-      .addNode(node);
-    this.forceUpdate();
-  }
+		if (name === 'Start') {
+			this.setState(() => ({ hasStart: true }));
+		} else if (name === 'End') {
+			this.setState(() => ({ hasEnd: true }));
+		} else {
+			this.forceUpdate();
+		}
+	}
 
-  onActionStoppedFiring = (action) => {
-    console.log(action);
-    if (!action || !(action instanceof MoveItemsAction) || !action.selectionModels || action.selectionModels.length !== 1) {
-      return;
-    }
-    const point = action.selectionModels[0].model;
-    if (!point || !(point instanceof PointModel)) {
-      return;
-    }
-    const link = point.getParent();
-    if (!link) {
-      return;
-    }
+	onActionStoppedFiring = (action) => {
+		console.log(action);
+		if (!action || !(action instanceof MoveItemsAction) || !action.selectionModels || action.selectionModels.length !== 1) {
+			return;
+		}
+		const point = action.selectionModels[0].model;
+		if (!point || !(point instanceof PointModel)) {
+			return;
+		}
+		const link = point.getParent();
+		if (!link) {
+			return;
+		}
 
-    console.log(this.props.app
-      .getDiagramEngine()
-      .getDiagramModel()
-      .getNodes())
+		this.props.engine.tryToConnectLinkOnPoint(link, point);
 
-    const nodes = Object.values(
-      this.props.app
-        .getDiagramEngine()
-        .getDiagramModel()
-        .getNodes()
-    );
-    const inPorts = nodes.reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], []);
-
-    const sourceId = link.getSourcePort().id;
-    const outPort = nodes.reduce((_outPort, _node) => _outPort || _node.getOutPorts().find((_port) => _port.id === sourceId), null);
-
-    console.log(inPorts);
-    console.log(outPort);
-    
-    inPorts.some(port => {
-      if (port.isLocked()) {
-        return false;
-      }
-      const { x: x0, y: y0, width, height } = this.props.app.getDiagramEngine().getPortCoords(port);
-      const x1 = x0 + width;
-      const y1 = y0 + height; 
-      console.log(x0, x1, y0, y1);
-      if (point.x >= x0 && point.x <= x1 && point.y >= y0 && point.y <= y1) {
-        link.setTargetPort(port);
-        link.setSourcePort(outPort);
-        outPort.addLink(link);
-        console.log(link);
-  
-        this.props.app
-          .getDiagramEngine()
-          .getDiagramModel()
-          .addLink(link);
-    
-        this.forceUpdate();
-        console.log("yay")
-        return true;
-      }
-      return false;
-    })
-  }
+		this.forceUpdate();
+	}
 
 	render() {
+		const { hasStart, hasEnd } = this.state;
+
 		return (
 			<div className="body">
 				<div className="header">
@@ -105,25 +62,35 @@ export class BodyWidget extends React.Component {
 				<div className="content">
 					<TrayWidget>
 						<TrayItemWidget
-              model={{ type: "in" }}
-              name="In Node"
-              color="rgb(192,255,0)"
-              addModel={this.addModel}
-            />
+							name="Start"
+							color="rgb(79, 219, 24)"
+							addModel={this.addModel}
+							disabled={hasStart}
+						/>
 						<TrayItemWidget
-              model={{ type: "out" }}
-              name="Out Node"
-              color="rgb(0,192,255)"
-              addModel={this.addModel}
-            />
+							name="Select"
+							color="rgb(0, 70, 234)"
+							addModel={this.addModel}
+						/>
+						<TrayItemWidget
+							name="Where"
+							color="rgb(232, 228, 16)"
+							addModel={this.addModel}
+						/>
+						<TrayItemWidget
+							name="End"
+							color="rgb(221, 15, 180)"
+							addModel={this.addModel}
+							disabled={hasEnd}
+						/>
 					</TrayWidget>
 					<div
 						className="diagram-layer"
 					>
 						<DiagramWidget
-              className="srd-demo-canvas"
-              diagramEngine={this.props.app.getDiagramEngine()}
-              actionStoppedFiring={this.onActionStoppedFiring} />
+							className="srd-demo-canvas"
+							diagramEngine={this.props.engine.getDiagramEngine()}
+							actionStoppedFiring={this.onActionStoppedFiring} />
 					</div>
 				</div>
 			</div>

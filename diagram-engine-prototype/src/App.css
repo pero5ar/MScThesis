@@ -87,6 +87,7 @@ div {
 .content .diagram-layer {
   position: relative;
   flex-grow: 1;
+  height: 700px;
 }
 
 .content .tray {
