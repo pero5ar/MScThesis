@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Engine } from './core/engine';
-import { traverseNodesFromStart } from './core/queryBuilder'
+import * as Engine from './core/engine';
 
-import { BodyWidget } from './components/BodyWidget';
+import { Body } from './components/Body';
 
 import { touchHandler } from './utils/touch.utils';
+import { traverseNodesFromStart } from './utils/engine.utils.js';
 
 import './App.css';
 import 'storm-react-diagrams/dist/style.min.css';
@@ -14,7 +14,7 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.engine = new Engine();
+		this.engine = Engine.getInstance();
 	}
 
 	componentDidMount() {
@@ -31,12 +31,12 @@ class App extends React.Component {
 					type="button"
 					onClick={() => {
 						console.log(this.engine.getActiveDiagram().serializeDiagram());
-						traverseNodesFromStart(this.engine.getActiveDiagram())
+						traverseNodesFromStart();
 					}}
 				>
 					Serialize Graph
 				</button>
-				<BodyWidget engine={this.engine} />
+				<Body engine={this.engine} />
 			</div>
 		);
 	}

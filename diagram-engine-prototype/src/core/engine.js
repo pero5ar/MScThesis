@@ -1,10 +1,15 @@
-import {
-	DiagramEngine,
-	DiagramModel,
-	DefaultNodeModel,
-} from 'storm-react-diagrams';
+import { DiagramEngine, DiagramModel, DefaultNodeModel, NodeModel } from 'storm-react-diagrams';
 
-export class Engine {
+let instance = null;
+
+export function getInstance() {
+	if (instance === null) {
+		instance = new Engine();
+	}
+	return instance;
+}
+
+class Engine {
 	constructor() {
 		this.diagramEngine = new DiagramEngine();
 		this.diagramEngine.installDefaultFactories();
@@ -37,20 +42,16 @@ export class Engine {
 		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getOutPorts()], [])
 	}
 
-	addNode(name, color, x, y, hasIn = true, hasOut = true) {
-		const node = new DefaultNodeModel(name, color);
-		node.x = x;
-		node.y = y;
-
-		if (hasIn) {
-			const inPort = node.addInPort(">|");
-			inPort.setMaximumLinks(1);
-		}
-		if (hasOut) {
-			const outPort = node.addOutPort("|>");
-			outPort.setMaximumLinks(1);
-		}
+	/**
+	 * 
+	 * @param {new (x: number, y: number) => DefaultNodeModel} Model 
+	 * @param {number} x 
+	 * @param {number} y 
+	 */
+	addNode(Model, x, y) {
+		const node = new Model(x, y);
 		this.activeModel.addNode(node);
+		return node;
 	}
 
 	tryToConnectLinkOnPoint(link, point) {

@@ -1,10 +1,11 @@
 
-import * as React from "react";
-import { TrayWidget } from "./TrayWidget";
-import { TrayItemWidget } from "./TrayItemWidget";
-import { DiagramWidget, MoveItemsAction, PointModel } from "storm-react-diagrams";
+import * as React from 'react';
+import { TrayItem } from './TrayItem';
+import { DiagramWidget, MoveItemsAction, PointModel } from 'storm-react-diagrams';
 
-export class BodyWidget extends React.Component {
+import { StartNodeModel, EndNodeModel, SelectNodeModel, WhereNodeModel } from '../core/nodeModels';
+
+export class Body extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,19 +14,15 @@ export class BodyWidget extends React.Component {
 		};
 	}
 	
-	addModel = (event, data) => {
-		const { name, color, disabled } = data;
-		if (disabled) {
-			return;
-		}
+	addModel = (event, model) => {
 		const points = this.props.engine.getDiagramEngine().getRelativeMousePoint(event);
 		const x = points.x + 200;
 		const y = points.y + 200;
-		this.props.engine.addNode(name, color, x, y, name !== 'Start', name !== 'End');
+		const node = this.props.engine.addNode(model, x, y);
 
-		if (name === 'Start') {
+		if (node.name === 'Start') {
 			this.setState(() => ({ hasStart: true }));
-		} else if (name === 'End') {
+		} else if (node.name === 'End') {
 			this.setState(() => ({ hasEnd: true }));
 		} else {
 			this.forceUpdate();
@@ -60,38 +57,35 @@ export class BodyWidget extends React.Component {
 					<div className="title">Test Space</div>
 				</div>
 				<div className="content">
-					<TrayWidget>
-						<TrayItemWidget
-							name="Start"
-							color="rgb(79, 219, 24)"
-							addModel={this.addModel}
+					<div className="tray">
+						<TrayItem
+							model={StartNodeModel}
+							onClick={this.addModel}
 							disabled={hasStart}
 						/>
-						<TrayItemWidget
-							name="Select"
-							color="rgb(0, 70, 234)"
-							addModel={this.addModel}
+						<TrayItem
+							model={SelectNodeModel}
+							onClick={this.addModel}
 						/>
-						<TrayItemWidget
-							name="Where"
-							color="rgb(232, 228, 16)"
-							addModel={this.addModel}
+						<TrayItem
+							model={WhereNodeModel}
+							onClick={this.addModel}
 						/>
-						<TrayItemWidget
-							name="End"
-							color="rgb(221, 15, 180)"
-							addModel={this.addModel}
+						<TrayItem
+							model={EndNodeModel}
+							onClick={this.addModel}
 							disabled={hasEnd}
 						/>
-					</TrayWidget>
-					<div
-						className="diagram-layer"
-					>
+					</div>
+					<div className="diagram-layer">
 						<DiagramWidget
 							className="srd-demo-canvas"
 							diagramEngine={this.props.engine.getDiagramEngine()}
 							actionStoppedFiring={this.onActionStoppedFiring} />
 					</div>
+				</div>
+				<div className="footer">
+					
 				</div>
 			</div>
 		);

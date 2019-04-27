@@ -1,5 +1,7 @@
 import { DiagramModel, NodeModel, PortModel, LinkModel } from 'storm-react-diagrams';
 
+import * as Engine from '../core/engine';
+
 /**
  * 
  * @param {NodeModel} node
@@ -31,9 +33,9 @@ function getNextLink(oldLink, node) {
  * 
  * @param {DiagramModel} activeModel
  */
-export function traverseNodesFromStart(activeModel) {
+export function traverseNodesFromStart() {
 	/** @type {NodeModel} */
-	const startNode = Object.values(activeModel.getNodes()).find(_node => _node.name === 'Start');
+	const startNode = Object.values(Engine.getInstance().getNodes()).find(_node => _node.name === 'Start');
 	if (!startNode) {
 		return;
 	}
