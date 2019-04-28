@@ -1,5 +1,8 @@
-import { DiagramEngine, DiagramModel, DefaultNodeModel, NodeModel } from 'storm-react-diagrams';
+import { DiagramEngine, DiagramModel, DefaultNodeModel, BaseModelListener } from 'storm-react-diagrams';
 
+/**
+ * @type {Engine}
+ */
 let instance = null;
 
 export function getInstance() {
@@ -9,7 +12,7 @@ export function getInstance() {
 	return instance;
 }
 
-class Engine {
+export class Engine {
 	constructor() {
 		this.diagramEngine = new DiagramEngine();
 		this.diagramEngine.installDefaultFactories();
@@ -47,10 +50,16 @@ class Engine {
 	 * @param {new (x: number, y: number) => DefaultNodeModel} Model 
 	 * @param {number} x 
 	 * @param {number} y 
+	 * @param {(entity) => void} [onSelect] 
 	 */
-	addNode(Model, x, y) {
+	addNode(Model, x, y, selectionChangedListener) {
 		const node = new Model(x, y);
 		this.activeModel.addNode(node);
+		if (selectionChangedListener) {
+			node.addListener({
+				selectionChanged: selectionChangedListener
+			})
+		}
 		return node;
 	}
 

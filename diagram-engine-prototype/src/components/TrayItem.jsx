@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class TrayItem extends React.PureComponent {
+export default class TrayItem extends React.PureComponent {
 	static defaultProps = {
 		disabled: false,
 	}

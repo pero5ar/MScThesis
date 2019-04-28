@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as Engine from './core/engine';
 
-import { Body } from './components/Body';
+import Body from './components/Body';
 
 import { touchHandler } from './utils/touch.utils';
 import { traverseNodesFromStart } from './utils/engine.utils.js';
@@ -36,7 +36,7 @@ class App extends React.Component {
 				>
 					Serialize Graph
 				</button>
-				<Body engine={this.engine} />
+				<Body />
 			</div>
 		);
 	}

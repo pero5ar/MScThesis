@@ -1,4 +1,4 @@
-import { DiagramModel, NodeModel, PortModel, LinkModel } from 'storm-react-diagrams';
+import { DiagramModel, NodeModel, PortModel, LinkModel, BaseEvent, BaseModel } from 'storm-react-diagrams';
 
 import * as Engine from '../core/engine';
 
@@ -50,4 +50,13 @@ export function traverseNodesFromStart() {
 		link = getNextLink(link, targetNode);
 	}
 	console.log(nodes)
+}
+
+/**
+ * 
+ * @param {(entityId: string | null) => void} onSelectionChanged
+ * @return {(event: BaseEvent<BaseModel> & { isSelected: boolean; }) => void}  
+ */
+export function generateSelectionChangedListener(onSelectionChanged) {
+	return (event) => event.isSelected ? onSelectionChanged(event.entity.id) : onSelectionChanged(null);
 }
