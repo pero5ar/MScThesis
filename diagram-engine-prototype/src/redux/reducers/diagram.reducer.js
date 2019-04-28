@@ -14,6 +14,9 @@ export default function diagramReducer(state = initialState, action) {
 
 		case DIAGRAM_ACTIONS.ADD_NODE:
 			const node = action.node;
+			if (!node) {
+				return state;
+			}
 			const isStartNode = node instanceof NodeModels.StartNodeModel;
 			const isEndNode = node instanceof NodeModels.EndNodeModel;
 
@@ -32,6 +35,7 @@ export default function diagramReducer(state = initialState, action) {
 				node.remove();
 				return state;
 			}
+			node.isTracked = true;
 			return {
 				...state,
 				startNodeId: isStartNode ? node.id : state.startNodeId,
@@ -44,6 +48,7 @@ export default function diagramReducer(state = initialState, action) {
 				...state,
 				startNodeId: action.nodeId === state.startNodeId ? null : state.startNodeId,
 				endNodeId: action.nodeId === state.endNodeId ? null : state.endNodeId,
+				selectedNodeId: action.nodeId === state.selectedNodeId ? null : state.selectedNodeId,
 				nodeSettings: Object.keys(state.nodeSettings).reduce((_obj, _key) => {
 					if (_key !== action.nodeId) {
 						_obj[_key] = state.nodeSettings[_key];

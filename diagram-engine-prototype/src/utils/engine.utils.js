@@ -35,9 +35,9 @@ function getNextLink(oldLink, node) {
  */
 export function traverseNodesFromStart() {
 	/** @type {NodeModel} */
-	const startNode = Object.values(Engine.getInstance().getNodes()).find(_node => _node.name === 'Start');
+	const startNode = Object.values(Engine.getInstance().getAllNodes()).find(_node => _node.name === 'Start');
 	if (!startNode) {
-		return;
+		return [];
 	}
 	const nodes = [startNode];
 
@@ -49,14 +49,33 @@ export function traverseNodesFromStart() {
 		nodes.push(targetNode);
 		link = getNextLink(link, targetNode);
 	}
-	console.log(nodes)
+
+	return nodes;
 }
 
 /**
  * 
- * @param {(entityId: string | null) => void} onSelectionChanged
- * @return {(event: BaseEvent<BaseModel> & { isSelected: boolean; }) => void}  
+ * @param {(entityId: string | null) => void} onSelectionChanged 
+ * @return {(event: BaseEvent<BaseModel> & { isSelected: boolean; }) => void} 
  */
 export function generateSelectionChangedListener(onSelectionChanged) {
-	return (event) => event.isSelected ? onSelectionChanged(event.entity.id) : onSelectionChanged(null);
+	return (event) => !event.isSelected ? onSelectionChanged(null) : event.entity.isTracked && onSelectionChanged(event.entity.id);
+}
+
+/**
+ * 
+ * @param {(entityId: string | null) => void} onEntityRemoved 
+ * @return {(event: BaseEvent<BaseModel>) => void} 
+ */
+export function generateEntityRemovedListener(onEntityRemoved) {
+	return (event) => event.entity.isTracked && onEntityRemoved(event.entity.id)
+}
+
+/**
+ * 
+ * @param {(entityId: string | null, settings: object) => void} onSettingsChanged 
+ * @return {(event: BaseEvent<BaseModel>) => void} 
+ */
+export function generateSettingsChangedListener(onSettingsChanged) {
+	return (event) => event.entity.isTracked && onSettingsChanged(event.entity.id, event.entity.settings);
 }

@@ -5,7 +5,6 @@ import * as Engine from './core/engine';
 import Body from './components/Body';
 
 import { touchHandler } from './utils/touch.utils';
-import { traverseNodesFromStart } from './utils/engine.utils.js';
 
 import './App.css';
 import 'storm-react-diagrams/dist/style.min.css';
@@ -31,7 +30,6 @@ class App extends React.Component {
 					type="button"
 					onClick={() => {
 						console.log(this.engine.getActiveDiagram().serializeDiagram());
-						traverseNodesFromStart();
 					}}
 				>
 					Serialize Graph

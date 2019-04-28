@@ -87,7 +87,7 @@ div {
 .content .diagram-layer {
   position: relative;
   flex-grow: 1;
-  height: 700px;
+  height: 500px;
 }
 
 .content .tray {
@@ -106,4 +106,18 @@ div {
   border-radius: 5px;
   margin-bottom: 2px;
   cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  align-items: stretch;
+  height: 200px;
+}
+
+.footer > div {
+  width: 50%;
+}
+
+.footer .node-settings {
+  border: 5px black;
 }

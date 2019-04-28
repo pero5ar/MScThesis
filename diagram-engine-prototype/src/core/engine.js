@@ -50,14 +50,26 @@ export class Engine {
 	 * @param {new (x: number, y: number) => DefaultNodeModel} Model 
 	 * @param {number} x 
 	 * @param {number} y 
-	 * @param {(entity) => void} [onSelect] 
+	 * @param {(entity) => void} [selectionChangedListener] 
+	 * @param {(entity) => void} [entityRemovedListener] 
+	 * @param {(entity) => void} [settingsChangedListener] 
 	 */
-	addNode(Model, x, y, selectionChangedListener) {
+	addNode(Model, x, y, selectionChangedListener, entityRemovedListener, settingsChangedListener) {
 		const node = new Model(x, y);
 		this.activeModel.addNode(node);
 		if (selectionChangedListener) {
 			node.addListener({
 				selectionChanged: selectionChangedListener
+			})
+		}
+		if (entityRemovedListener) {
+			node.addListener({
+				entityRemoved: entityRemovedListener
+			})
+		}
+		if (settingsChangedListener) {
+			node.addListener({
+				settingsChanged: settingsChangedListener
 			})
 		}
 		return node;

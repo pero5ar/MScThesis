@@ -3,33 +3,36 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { DiagramWidget, MoveItemsAction, PointModel } from 'storm-react-diagrams';
 
-import { getInstance } from '../core/engine';
-// import { StartNodeModel, EndNodeModel, SelectNodeModel, WhereNodeModel } from '../core/nodeModels';
-import StartNodeModel from '../core/nodeModels/start.nodeModel';
-import EndNodeModel from '../core/nodeModels/end.nodeModel';
-import SelectNodeModel from '../core/nodeModels/select.nodeModel';
-import WhereNodeModel from '../core/nodeModels/where.nodeModel';
+import * as Engine from '../core/engine';
+import NodeModels from '../core/nodeModels/index';
 
-import { ADD_NODE, SELECT_NODE } from '../redux/actionCreators/diagram.actionCreators';
+import { ADD_NODE, SELECT_NODE, REMOVE_NODE, SET_NODE_SETTINGS } from '../redux/actionCreators/diagram.actionCreators';
 
-import { generateSelectionChangedListener } from '../utils/engine.utils';
+import { generateSelectionChangedListener, generateEntityRemovedListener, generateSettingsChangedListener } from '../utils/engine.utils';
 
+import NodeSettings from './NodeSettings';
+import QueryPreview from './QueryPreview';
 import TrayItem from './TrayItem';
 
 class Body extends React.PureComponent {
 
 	constructor(props) {
 		super(props);
-		this.engine = getInstance();
+		this.engine = Engine.getInstance();
 	}
 
-	addModel = (event, model) => {
-		const { addNode, selectNode } = this.props;
+	addNode = (event, model) => {
+		const { addNode, selectNode, removeNode, changeSettings } = this.props;
+
 		const points = this.engine.getDiagramEngine().getRelativeMousePoint(event);
 		const x = points.x + 200;
 		const y = points.y + 200;
+
 		const selectionChangedListener = generateSelectionChangedListener(selectNode);
-		const node = this.engine.addNode(model, x, y, selectionChangedListener);
+		const entityRemovedListener = generateEntityRemovedListener(removeNode);
+		const settingsChangedListener = generateSettingsChangedListener(changeSettings);
+
+		const node = this.engine.addNode(model, x, y, selectionChangedListener, entityRemovedListener, settingsChangedListener);
 		addNode(node);
 	}
 
@@ -63,21 +66,21 @@ class Body extends React.PureComponent {
 				<div className="content">
 					<div className="tray">
 						<TrayItem
-							model={StartNodeModel}
-							onClick={this.addModel}
+							model={NodeModels.StartNodeModel}
+							onClick={this.addNode}
 							disabled={hasStart}
 						/>
 						<TrayItem
-							model={SelectNodeModel}
-							onClick={this.addModel}
+							model={NodeModels.SelectNodeModel}
+							onClick={this.addNode}
 						/>
 						<TrayItem
-							model={WhereNodeModel}
-							onClick={this.addModel}
+							model={NodeModels.WhereNodeModel}
+							onClick={this.addNode}
 						/>
 						<TrayItem
-							model={EndNodeModel}
-							onClick={this.addModel}
+							model={NodeModels.EndNodeModel}
+							onClick={this.addNode}
 							disabled={hasEnd}
 						/>
 					</div>
@@ -89,7 +92,8 @@ class Body extends React.PureComponent {
 					</div>
 				</div>
 				<div className="footer">
-
+					<QueryPreview />
+					<NodeSettings />
 				</div>
 			</div>
 		);
@@ -98,7 +102,7 @@ class Body extends React.PureComponent {
 
 function mapStateToProps(state) {
 	return {
-		hasState: !!state.diagram.startNodeId,
+		hasStart: !!state.diagram.startNodeId,
 		hasEnd: !!state.diagram.endNodeId,
 		nodesLength: Object.keys(state.diagram.nodeSettings)
 	};
@@ -106,7 +110,9 @@ function mapStateToProps(state) {
 
 const actions = {
 	addNode: ADD_NODE,
+	removeNode: REMOVE_NODE,
 	selectNode: SELECT_NODE,
+	changeSettings: SET_NODE_SETTINGS,
 }
 
 export default connect(mapStateToProps, actions)(Body);
