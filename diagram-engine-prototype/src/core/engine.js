@@ -1,4 +1,4 @@
-import { DiagramEngine, DiagramModel, DefaultNodeModel, BaseModelListener } from 'storm-react-diagrams';
+import { DiagramEngine, DiagramModel, DefaultNodeModel, NodeModel, PortModel, LinkModel, PointModel } from 'storm-react-diagrams';
 
 /**
  * @type {Engine}
@@ -33,20 +33,28 @@ export class Engine {
 		return this.diagramEngine;
 	}
 
+	/**
+	 * @returns {NodeModel[]}
+	 */
 	getAllNodes() {
 		return Object.values(this.activeModel.getNodes());
 	}
 
+	/**
+	 * @returns {PortModel[]}
+	 */
 	getAllInPorts() {
 		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], [])
 	}
 
+	/**
+	 * @returns {PortModel[]}
+	 */
 	getAllOutPorts() {
 		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getOutPorts()], [])
 	}
 
 	/**
-	 * 
 	 * @param {new (x: number, y: number) => DefaultNodeModel} Model 
 	 * @param {number} x 
 	 * @param {number} y 
@@ -75,13 +83,18 @@ export class Engine {
 		return node;
 	}
 
-	tryToConnectLinkOnPoint(link, point) {
+	/**
+	 * @param {LinkModel} link 
+	 * @param {PointModel} point 
+	 * @param {(entity) => void} [entityRemovedListener] 
+	 * @returns {boolean}
+	 */
+	tryToConnectLinkOnPoint(link, point, entityRemovedListener) {
 		const sourceId = link.getSourcePort().id;
 		const outPort = this.getAllOutPorts().find((_port) => _port.id === sourceId);
 		if (!outPort) {
 			link.remove();
 		}
-
 		const inPorts = this.getAllInPorts();
 
 		const hasConnected = inPorts.some(port => {
@@ -98,6 +111,12 @@ export class Engine {
 				link.setSourcePort(outPort);
 				outPort.addLink(link);
 
+				if (entityRemovedListener) {
+					link.isTracked = true;
+					link.addListener({
+						entityRemoved: entityRemovedListener
+					})
+				}
 				this.activeModel.addLink(link);
 				return true;
 			}
@@ -107,5 +126,6 @@ export class Engine {
 		if (!hasConnected) {
 			link.remove();
 		}
+		return hasConnected;
 	}
 }

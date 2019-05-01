@@ -1,9 +1,8 @@
-import { DiagramModel, NodeModel, PortModel, LinkModel, BaseEvent, BaseModel } from 'storm-react-diagrams';
+import { NodeModel, PortModel, LinkModel, BaseEvent, BaseModel } from 'storm-react-diagrams';
 
 import * as Engine from '../core/engine';
 
 /**
- * 
  * @param {NodeModel} node
  * @returns {PortModel}
  */
@@ -13,7 +12,6 @@ function getOutPort(node) {
 }
 
 /**
- * 
  * @param {LinkModel} oldLink
  * @param {NodeModel} node
  * @returns {LinkModel}
@@ -29,10 +27,6 @@ function getNextLink(oldLink, node) {
 	return Object.values(outPort.getLinks()).find(_link => _link.id !== oldLink.id);
 }
 
-/**
- * 
- * @param {DiagramModel} activeModel
- */
 export function traverseNodesFromStart() {
 	/** @type {NodeModel} */
 	const startNode = Object.values(Engine.getInstance().getAllNodes()).find(_node => _node.name === 'Start');
@@ -54,7 +48,6 @@ export function traverseNodesFromStart() {
 }
 
 /**
- * 
  * @param {(entityId: string | null) => void} onSelectionChanged 
  * @return {(event: BaseEvent<BaseModel> & { isSelected: boolean; }) => void} 
  */
@@ -63,7 +56,6 @@ export function generateSelectionChangedListener(onSelectionChanged) {
 }
 
 /**
- * 
  * @param {(entityId: string | null) => void} onEntityRemoved 
  * @return {(event: BaseEvent<BaseModel>) => void} 
  */
@@ -72,7 +64,6 @@ export function generateEntityRemovedListener(onEntityRemoved) {
 }
 
 /**
- * 
  * @param {(entityId: string | null, settings: object) => void} onSettingsChanged 
  * @return {(event: BaseEvent<BaseModel>) => void} 
  */

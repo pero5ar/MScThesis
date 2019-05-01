@@ -29,7 +29,7 @@ class NodeSettings extends React.PureComponent {
 		this.engine = Engine.getInstance();
 		this.state = {
 			node: null
-		}
+		};
 	}
 
 	removeNode = () => {

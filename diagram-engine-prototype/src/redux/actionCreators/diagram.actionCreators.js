@@ -28,3 +28,19 @@ export function SET_NODE_SETTINGS(nodeId, settings) {
 		settings,
 	};
 }
+
+export function ADD_LINK(linkId, sourceNodeId, targetNodeId) {
+	return {
+		type: DIAGRAM_ACTIONS.ADD_LINK,
+		linkId,
+		sourceNodeId,
+		targetNodeId,
+	};
+}
+
+export function REMOVE_LINK(linkId) {
+	return {
+		type: DIAGRAM_ACTIONS.REMOVE_LINK,
+		linkId,
+	};
+}

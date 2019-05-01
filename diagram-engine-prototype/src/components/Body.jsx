@@ -6,7 +6,7 @@ import { DiagramWidget, MoveItemsAction, PointModel } from 'storm-react-diagrams
 import * as Engine from '../core/engine';
 import NodeModels from '../core/nodeModels/index';
 
-import { ADD_NODE, SELECT_NODE, REMOVE_NODE, SET_NODE_SETTINGS } from '../redux/actionCreators/diagram.actionCreators';
+import * as ACTIONS from '../redux/actionCreators/diagram.actionCreators';
 
 import { generateSelectionChangedListener, generateEntityRemovedListener, generateSettingsChangedListener } from '../utils/engine.utils';
 
@@ -15,7 +15,6 @@ import QueryPreview from './QueryPreview';
 import TrayItem from './TrayItem';
 
 class Body extends React.PureComponent {
-
 	constructor(props) {
 		super(props);
 		this.engine = Engine.getInstance();
@@ -49,9 +48,14 @@ class Body extends React.PureComponent {
 		if (!link) {
 			return;
 		}
+		const { addLink, removeLink } = this.props;
+		const entityRemovedListener = generateEntityRemovedListener(removeLink);
 
-		this.engine.tryToConnectLinkOnPoint(link, point);
-
+		if (this.engine.tryToConnectLinkOnPoint(link, point, entityRemovedListener)) {
+			const sourceNode = link.sourcePort.parent;
+			const targetNode = link.targetPort.parent;
+			addLink(link.id, sourceNode.id, targetNode.id);
+		}
 		this.forceUpdate();
 	}
 
@@ -104,15 +108,17 @@ function mapStateToProps(state) {
 	return {
 		hasStart: !!state.diagram.startNodeId,
 		hasEnd: !!state.diagram.endNodeId,
-		nodesLength: Object.keys(state.diagram.nodeSettings)
+		nodesLength: Object.keys(state.diagram.nodes),
 	};
 }
 
 const actions = {
-	addNode: ADD_NODE,
-	removeNode: REMOVE_NODE,
-	selectNode: SELECT_NODE,
-	changeSettings: SET_NODE_SETTINGS,
+	addNode: ACTIONS.ADD_NODE,
+	removeNode: ACTIONS.REMOVE_NODE,
+	selectNode: ACTIONS.SELECT_NODE,
+	changeSettings: ACTIONS.SET_NODE_SETTINGS,
+	addLink: ACTIONS.ADD_LINK,
+	removeLink: ACTIONS.REMOVE_LINK,
 }
 
 export default connect(mapStateToProps, actions)(Body);
