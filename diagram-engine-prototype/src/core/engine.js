@@ -97,17 +97,17 @@ export class Engine {
 		}
 		const inPorts = this.getAllInPorts();
 
-		const hasConnected = inPorts.some(port => {
-			if (!port || port.isLocked()) {
+		const hasConnected = inPorts.some((_port) => {
+			if (!_port || _port.isLocked()) {
 				return false;
 			}
-			const { x: x0, y: y0, width, height } = this.diagramEngine.getPortCoords(port);
+			const { x: x0, y: y0, width, height } = this.diagramEngine.getPortCoords(_port);
 			const x1 = x0 + width;
 			const y1 = y0 + height;
 
 			if (point.x >= x0 && point.x <= x1 && point.y >= y0 && point.y <= y1) {
-				link.setTargetPort(port);
-				port.addLink(link);
+				link.setTargetPort(_port);
+				_port.addLink(link);
 				link.setSourcePort(outPort);
 				outPort.addLink(link);
 
