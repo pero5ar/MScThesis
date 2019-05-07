@@ -44,14 +44,14 @@ export class Engine {
 	 * @returns {PortModel[]}
 	 */
 	getAllInPorts() {
-		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], [])
+		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], []);
 	}
 
 	/**
 	 * @returns {PortModel[]}
 	 */
 	getAllOutPorts() {
-		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getOutPorts()], [])
+		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getOutPorts()], []);
 	}
 
 	/**
@@ -68,17 +68,17 @@ export class Engine {
 		if (selectionChangedListener) {
 			node.addListener({
 				selectionChanged: selectionChangedListener
-			})
+			});
 		}
 		if (entityRemovedListener) {
 			node.addListener({
 				entityRemoved: entityRemovedListener
-			})
+			});
 		}
 		if (settingsChangedListener) {
 			node.addListener({
 				settingsChanged: settingsChangedListener
-			})
+			});
 		}
 		return node;
 	}
@@ -115,7 +115,7 @@ export class Engine {
 					link.isTracked = true;
 					link.addListener({
 						entityRemoved: entityRemovedListener
-					})
+					});
 				}
 				this.activeModel.addLink(link);
 				return true;

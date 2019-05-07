@@ -119,6 +119,6 @@ const actions = {
 	changeSettings: ACTIONS.SET_NODE_SETTINGS,
 	addLink: ACTIONS.ADD_LINK,
 	removeLink: ACTIONS.REMOVE_LINK,
-}
+};
 
 export default connect(mapStateToProps, actions)(Body);

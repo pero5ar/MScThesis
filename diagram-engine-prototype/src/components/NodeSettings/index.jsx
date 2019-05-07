@@ -44,16 +44,16 @@ class NodeSettings extends React.PureComponent {
 			return <NoNodeSettings />;
 		}
 		if (node instanceof NodeModels.StartNodeModel) {
-			return <StartNodeSettings node={node} removeNode={this.removeNode} />
+			return <StartNodeSettings node={node} removeNode={this.removeNode} />;
 		}
 		if (node instanceof NodeModels.EndNodeModel) {
-			return <EndNodeSettings node={node} removeNode={this.removeNode} />
+			return <EndNodeSettings node={node} removeNode={this.removeNode} />;
 		}
 		if (node instanceof NodeModels.SelectNodeModel) {
-			return <SelectNodeSettings node={node} removeNode={this.removeNode} />
+			return <SelectNodeSettings node={node} removeNode={this.removeNode} />;
 		}
 		if (node instanceof NodeModels.WhereNodeModel) {
-			return <WhereNodeSettings node={node} removeNode={this.removeNode} />
+			return <WhereNodeSettings node={node} removeNode={this.removeNode} />;
 		}
 		return null;
 	}

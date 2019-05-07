@@ -21,7 +21,7 @@ const initialState = {
 	endNodeId: null,
 	nodes: {},
 	links: {},
-}
+};
 
 /**
  * @param {DiagramState} state 
@@ -131,6 +131,9 @@ export default function diagramReducer(state = initialState, action) {
 
 		case DIAGRAM_ACTIONS.REMOVE_LINK:
 			const linkData = state.links[action.linkId];
+			if (!linkData) {
+				return state;
+			}
 			const updatedSourceNode = !!state.nodes[linkData.sourceNodeId]
 				? {
 					[linkData.sourceNodeId]: {

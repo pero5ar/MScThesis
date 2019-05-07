@@ -4,7 +4,7 @@ import diagramReducer from './reducers/diagram.reducer';
 
 const rootReducer = combineReducers({
 	diagram: diagramReducer,
-})
+});
 
 export function configureStore() {
 

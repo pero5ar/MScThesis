@@ -60,7 +60,7 @@ export function generateSelectionChangedListener(onSelectionChanged) {
  * @return {(event: BaseEvent<BaseModel>) => void} 
  */
 export function generateEntityRemovedListener(onEntityRemoved) {
-	return (event) => event.entity.isTracked && onEntityRemoved(event.entity.id)
+	return (event) => event.entity.isTracked && onEntityRemoved(event.entity.id);
 }
 
 /**
