@@ -12,4 +12,12 @@ export default class EndNodeModel extends AbstractNodeModel {
 		const inPort = this.addInPort(IN_PORT_LABEL);
 		inPort.setMaximumLinks(1);
 	}
+
+	/**
+	 * @param {NodeData} data 
+	 * @returns {NodeData}
+	 */
+	run(data) {
+		return data;
+	}
 }

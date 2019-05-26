@@ -4,15 +4,13 @@ import { connect } from 'react-redux';
 import { DiagramWidget, MoveItemsAction, PointModel } from 'storm-react-diagrams';
 
 import * as Engine from '../core/engine';
-import NodeModels from '../core/nodeModels/index';
 
 import * as ACTIONS from '../redux/actionCreators/diagram.actionCreators';
 
 import { generateSelectionChangedListener, generateEntityRemovedListener, generateSettingsChangedListener } from '../utils/engine.utils';
 
-import NodeSettings from './NodeSettings';
-import QueryPreview from './QueryPreview';
-import TrayItem from './TrayItem';
+import NodeDetails from './NodeDetails';
+import Tray from './Tray';
 
 class Body extends React.PureComponent {
 	constructor(props) {
@@ -60,34 +58,13 @@ class Body extends React.PureComponent {
 	}
 
 	render() {
-		const { hasStart, hasEnd } = this.props;
-
 		return (
 			<div className="body">
 				<div className="header">
 					<div className="title">Diagram Engine Prototype</div>
 				</div>
 				<div className="content">
-					<div className="tray">
-						<TrayItem
-							model={NodeModels.StartNodeModel}
-							onClick={this.addNode}
-							disabled={hasStart}
-						/>
-						<TrayItem
-							model={NodeModels.SelectNodeModel}
-							onClick={this.addNode}
-						/>
-						<TrayItem
-							model={NodeModels.WhereNodeModel}
-							onClick={this.addNode}
-						/>
-						<TrayItem
-							model={NodeModels.EndNodeModel}
-							onClick={this.addNode}
-							disabled={hasEnd}
-						/>
-					</div>
+					<Tray addNode={this.addNode} />
 					<div className="diagram-layer">
 						<DiagramWidget
 							className="srd-demo-canvas"
@@ -95,10 +72,7 @@ class Body extends React.PureComponent {
 							actionStoppedFiring={this.onActionStoppedFiring} />
 					</div>
 				</div>
-				<div className="footer">
-					<QueryPreview />
-					<NodeSettings />
-				</div>
+				<NodeDetails />
 			</div>
 		);
 	}
@@ -106,9 +80,7 @@ class Body extends React.PureComponent {
 
 function mapStateToProps(state) {
 	return {
-		hasStart: !!state.diagram.startNodeId,
-		hasEnd: !!state.diagram.endNodeId,
-		nodesLength: Object.keys(state.diagram.nodes),
+		nodesLength: Object.keys(state.diagram.nodes).length,
 	};
 }
 

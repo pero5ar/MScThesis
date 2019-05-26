@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const Checkbox = ({ label, value, onChange }) => (
 	<div>
@@ -7,9 +8,7 @@ const Checkbox = ({ label, value, onChange }) => (
 	</div>
 );
 
-const FOO = ['field_A', 'field_B', 'field_C'];
-
-export default class SelectNodeSettings extends React.PureComponent {
+class SelectNodeSettings extends React.PureComponent {
 
 	onCheck = (key, event) => {
 		const { selectedKeys } = this.props.node.settings;
@@ -21,7 +20,7 @@ export default class SelectNodeSettings extends React.PureComponent {
 		if (event.target.checked && !selectedKeys.includes(key)) {
 			newSettings = { selectedKeys: [...selectedKeys, key] };
 		}
-		
+
 		if (!newSettings) {
 			return;
 		}
@@ -30,6 +29,8 @@ export default class SelectNodeSettings extends React.PureComponent {
 	}
 
 	render() {
+		const { message, options } = this.props;
+
 		return (
 			<div className="node-settings">
 				<h3>SELECT node settings for {this.props.node.id}</h3>
@@ -37,15 +38,34 @@ export default class SelectNodeSettings extends React.PureComponent {
 				<button onClick={this.props.removeNode}>Remove Node</button>
 				<br />
 				<br />
-				{FOO.map((_key) => (
-					<Checkbox
-						key={_key}
-						label={_key}
-						value={this.props.node.settings.selectedKeys.includes(_key)}
-						onChange={this.onCheck.bind(this, _key)}
-					/>
-				))}
+				{options
+					? options.map((_key) => (
+						<Checkbox
+							key={_key}
+							label={_key}
+							value={this.props.node.settings.selectedKeys.includes(_key)}
+							onChange={this.onCheck.bind(this, _key)}
+						/>
+					))
+					: message
+				}
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(/**@type {{ diagram: DiagramState }}*/state, ownProps) {
+	const previousNodeId = state.diagram.nodes[ownProps.node.id].previousNodeId;
+	if (!previousNodeId || !state.diagram.dataByNode[previousNodeId]) {
+		return {
+			message: 'Options are not available for select nodes that are not directly or indirectly connected to start.',
+			options: undefined,
+		}
+	}
+	return {
+		message: undefined,
+		options: state.diagram.dataByNode[previousNodeId].keys,
+	};
+}
+
+export default connect(mapStateToProps)(SelectNodeSettings);

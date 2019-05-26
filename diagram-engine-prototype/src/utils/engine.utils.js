@@ -70,3 +70,12 @@ export function generateEntityRemovedListener(onEntityRemoved) {
 export function generateSettingsChangedListener(onSettingsChanged) {
 	return (event) => event.entity.isTracked && onSettingsChanged(event.entity.id, event.entity.settings);
 }
+
+/**
+ * @param {string} nodeId 
+ * @param {NodeData} data 
+ * @returns {NodeData}
+ */
+export function callNodeRun(nodeId, data) {
+	return Engine.getInstance().getActiveDiagram().getNode(nodeId).run(data);
+}

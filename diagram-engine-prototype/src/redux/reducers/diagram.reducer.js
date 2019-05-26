@@ -2,15 +2,8 @@ import NodeModels from '../../core/nodeModels';
 
 import { DIAGRAM_ACTIONS } from '../actionTypes';
 
-/**
- * @typedef {{ settings: object; previousNodeId: string; inLinkId: string; nextNodeId: string; outLinkId: string; }} NodesDictValue
- * @typedef {{ [nodeId: string]: NodesDictValue; }} NodesDict
- * 
- * @typedef {{ sourceNodeId: string; targetNodeId: string; }} LinksDictValue
- * @typedef {{ [linkId: string]: LinksDictValue; }} LinksDict
- * 
- * @typedef {{ selectedNodeId: string; startNodeId: string; endNodeId: string; nodes: NodesDict; links: LinksDict; }} DiagramState
- */
+import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStart } from '../../utils/diagram.utils';
+import { callNodeRun } from '../../utils/engine.utils';
 
 /**
  * @type {DiagramState}
@@ -21,6 +14,7 @@ const initialState = {
 	endNodeId: null,
 	nodes: {},
 	links: {},
+	dataByNode: {},
 };
 
 /**
@@ -59,7 +53,7 @@ export default function diagramReducer(state = initialState, action) {
 				...state,
 				startNodeId: isStartNode ? node.id : state.startNodeId,
 				endNodeId: isEndNode ? node.id : state.endNodeId,
-				nodes: { 
+				nodes: {
 					...state.nodes,
 					[node.id]: {
 						settings: node.settings,
@@ -83,13 +77,22 @@ export default function diagramReducer(state = initialState, action) {
 					}
 					return _obj;
 				}, {}),
+				dataByNode: Object.keys(state.dataByNode).reduce((_obj, _key) => {
+					if (_key !== action.nodeId) {
+						_obj[_key] = state.dataByNode[_key];
+					}
+					return _obj;
+				}, {}),
 				// link remove should trigger on its own
 			};
 
 		case DIAGRAM_ACTIONS.SELECT_NODE:
 			return {
 				...state,
-				selectedNodeId: action.nodeId
+				selectedNodeId: action.nodeId,
+				dataByNode: isNodeConnectedToStart(state, action.nodeId)
+					? updateDataByNodesWithMissingNodes(state, action.nodeId)
+					: state.dataByNode,
 			};
 
 		case DIAGRAM_ACTIONS.SET_NODE_SETTINGS:
@@ -102,10 +105,15 @@ export default function diagramReducer(state = initialState, action) {
 						settings: action.settings,
 					}
 				},
+				dataByNode: !!state.dataByNode[action.nodeId]
+					? {
+						...getDataByNodesWithoutSucceedingNodes(state, action.nodeId),
+						[action.nodeId]: callNodeRun(action.nodeId, state.dataByNode[state.nodes[action.nodeId].previousNodeId]),
+					} : state.dataByNode,
 			};
 
 		case DIAGRAM_ACTIONS.ADD_LINK:
-			return {
+			const newState = {
 				...state,
 				nodes: {
 					...state.nodes,
@@ -126,8 +134,12 @@ export default function diagramReducer(state = initialState, action) {
 						sourceNodeId: action.sourceNodeId,
 						targetNodeId: action.targetNodeId
 					},
-				},
+				}
 			};
+			if (isNodeConnectedToStart(state, action.sourceNodeId)) {	// update data if new link is on path from start
+				newState.dataByNode = updateDataByNodesWithMissingNodes(newState, action.targetNodeId);
+			}
+			return newState;
 
 		case DIAGRAM_ACTIONS.REMOVE_LINK:
 			const linkData = state.links[action.linkId];
@@ -166,6 +178,9 @@ export default function diagramReducer(state = initialState, action) {
 					}
 					return _obj;
 				}, {}),
+				dataByNode: updatedTargetNode
+					? getDataByNodesWithoutSucceedingNodes(state, linkData.targetNodeId, true)
+					: state.dataByNode,
 			};
 
 		default:

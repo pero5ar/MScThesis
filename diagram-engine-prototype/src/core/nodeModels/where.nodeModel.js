@@ -39,7 +39,7 @@ export default class WhereNodeModel extends AbstractNodeModel {
 
 	static DEFAULT_NODE_SETTINGS = {
 		key: null,
-		conditionValue: null,
+		conditionValue: '',
 		conditionType: null,
 	};
 
@@ -55,19 +55,6 @@ export default class WhereNodeModel extends AbstractNodeModel {
 		return WHERE_CONDITION_TYPES[conditionType].GET_TEST(conditionValue, key);
 	}
 
-	/**
-	 * @param {WhereNodeModel} node
-	 * @param {{ [key: string]: any }[]} data
-	 * @returns {{ [key: string]: any }[]}
-	 */
-	static run(node, data) {
-		const test = WhereNodeModel.generateTest(node);
-		if (!test) {
-			return [];
-		}
-		return data.filter((_row) => test(_row));
-	}
-
 	constructor(x, y) {
 		super(WhereNodeModel.NAME, WhereNodeModel.COLOR, WhereNodeModel.DEFAULT_NODE_SETTINGS, x, y);
 
@@ -75,5 +62,16 @@ export default class WhereNodeModel extends AbstractNodeModel {
 		inPort.setMaximumLinks(1);
 		const outPort = this.addOutPort(OUT_PORT_LABEL);
 		outPort.setMaximumLinks(1);
+	}
+
+	/**
+	 * @param {NodeData} data 
+	 * @returns {NodeData}
+	 */
+	run(data) {
+		const test = WhereNodeModel.generateTest(this);
+		const keys = data.keys;
+		const rows = !test ? [] : data.rows.filter((_row) => test(_row));
+		return { keys, rows };
 	}
 }
