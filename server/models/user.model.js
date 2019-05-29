@@ -4,8 +4,12 @@ const bcrypt = require('bcrypt');
 const DEFAULTS = require('../constants/defaults.constants');
 const { EMAIL_REGEX } = require('../constants/regex.constants');
 
-const { USER_TYPE_ENUM, USER_TYPE_VALUES } = require('../enums/userType.enum');
-const { SCHOOL_TYPE_ENUM, SCHOOL_TYPE_VALUES } = require('../enums/schoolType.enum');
+const { USER_TYPE_VALUES } = require('../enums/userType.enum');
+const { SCHOOL_TYPE_VALUES } = require('../enums/schoolType.enum');
+
+const PWD_PEPPER = process.env.PWD_PEPPER || '';
+const PWD_ROUNDS = +process.env.PWD_ROUNDS || 10;
+const TOKEN_ROUNDS = +process.env.TOKEN_ROUNDS || 5;
 
 const studentDataSchema = new mongoose.Schema({
 	classGroup: {
@@ -23,7 +27,22 @@ const studentDataSchema = new mongoose.Schema({
 	school: {
 		type: String,
 	},
-});
+	teacherIds: {
+		type: [mongoose.Schema.Types.ObjectId],
+	},
+}, { _id: false });
+
+const teacherDataSchema = new mongoose.Schema({
+	classGroups: {
+		type: [String],
+	},
+	schools: {
+		type: [String],
+	},
+	studentIds: {
+		type: [mongoose.Schema.Types.ObjectId],
+	},
+}, { _id: false });
 
 const userSchema = new mongoose.Schema({
 	email: {
@@ -37,13 +56,15 @@ const userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		select: false,
+		required: [true, 'Password is required.'],
 		set: function(value) {
-			return bcrypt.hashSync(value, 10);
+			return bcrypt.hashSync(value + PWD_PEPPER, PWD_ROUNDS);
 		},
 	},
 	token: {
 		type: String,
 		unique: true,
+		sparse: true,
 	},
 	type: {
 		type: String,
@@ -59,20 +80,40 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: [true, 'Last name is required.'],
 	},
-	gender: {
-		type: String,
+	personalData: {
+		type: Object,
+		default: {},
 	},
-	studentData: studentDataSchema,
+	studentData: {
+		type: [{
+			schoolYear: String,	// e.g. '2018/2019'
+			start: Date,
+			end: Date,
+			data: studentDataSchema,
+		}],
+		default: null,
+	},
+	teacherData: {
+		type: [{
+			schoolYear: String,	// e.g. '2018/2019'
+			start: Date,
+			end: Date,
+			data: teacherDataSchema,
+		}],
+		default: null,
+	},
 }, { timestamps: true });
 
 userSchema.methods.checkPassword = function (password) {
 	const isPasswordCorrect = bcrypt.compareSync(password, this.password);
 	return isPasswordCorrect;
 };
-
-userSchema.methods.generateToken = function generateToken() {
-	const token = this.email + Date.now();
-	this.token = bcrypt.hashSync(token, 5);
+userSchema.methods.generateToken = function () {
+	const token = this.password.substring(8, 15) + Date.now();
+	this.token = bcrypt.hashSync(token, TOKEN_ROUNDS);
+};
+userSchema.methods.clearToken = function () {
+	this.token = null;
 };
 
 module.exports = mongoose.model('User', userSchema);
