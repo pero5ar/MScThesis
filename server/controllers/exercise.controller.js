@@ -1,6 +1,5 @@
 /* eslint-disable valid-jsdoc */
-const Errors = require('restify-errors');
-const express = require('express');
+const express = require('express');	// eslint-disable-line no-unused-vars
 
 const AttemptService = require('../services/attempt.service');
 const ExerciseService = require('../services/exercise.service');
@@ -22,8 +21,9 @@ const createAttempt = async (req, res) => {
 		exerciseId: exerciseId,
 		state: req.body.state,
 	});
+	const viewModel = new AttemptViewModel(attempt);
 
-	return res.sendStatus(201);
+	return res.sendStatus(201).json(viewModel);
 };
 
 /** @type {Endpoint} */

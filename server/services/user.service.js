@@ -1,5 +1,5 @@
 const Errors = require('restify-errors');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');	// eslint-disable-line no-unused-vars
 
 const User = require('../models/user.model');
 const { USER_TYPE_ENUM } = require('../enums/userType.enum');

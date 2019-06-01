@@ -1,6 +1,6 @@
 /* eslint-disable valid-jsdoc */
 const Errors = require('restify-errors');
-const express = require('express');
+const express = require('express');	// eslint-disable-line no-unused-vars
 
 const UserService = require('../services/user.service');
 

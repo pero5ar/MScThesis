@@ -1,5 +1,5 @@
 const Errors = require('restify-errors');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');	// eslint-disable-line no-unused-vars
 
 const Attempt = require('../models/attempt.model');
 const Exercise = require('../models/exercise.model');
@@ -75,7 +75,7 @@ const findLastForUserAndExercise = async (userId, exerciseId) => {
 /**
  * @param {string} attemptId
  * @param {State} state
- * @param {boolean} isFinished
+ * @param {boolean} hasEnded
  * @param {boolean} isSuccessful
  * @returns {Promise<mongoose.Document>}
  */

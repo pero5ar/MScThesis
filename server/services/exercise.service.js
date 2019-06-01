@@ -1,5 +1,5 @@
 const Errors = require('restify-errors');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');	// eslint-disable-line no-unused-vars
 
 const Exercise = require('../models/exercise.model');
 
