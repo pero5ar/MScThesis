@@ -7,9 +7,10 @@ const { EMAIL_REGEX } = require('../constants/regex.constants');
 const { USER_TYPE_VALUES } = require('../enums/userType.enum');
 const { SCHOOL_TYPE_VALUES } = require('../enums/schoolType.enum');
 
-const PWD_PEPPER = process.env.PWD_PEPPER || '';
-const PWD_ROUNDS = +process.env.PWD_ROUNDS || 10;
-const TOKEN_ROUNDS = +process.env.TOKEN_ROUNDS || 5;
+const GET_PWD_PEPPER = () => process.env.PWD_PEPPER || '';
+const GET_TOKEN_PEPPER = () => process.env.TOKEN_PEPPER || '';
+const GET_PWD_ROUNDS = () => +process.env.PWD_ROUNDS || 10;
+const GET_TOKEN_ROUNDS = () => +process.env.TOKEN_ROUNDS || 5;
 
 const studentDataSchema = new mongoose.Schema({
 	classGroup: {
@@ -58,13 +59,11 @@ const userSchema = new mongoose.Schema({
 		select: false,
 		required: [true, 'Password is required.'],
 		set: function(value) {
-			return bcrypt.hashSync(value + PWD_PEPPER, PWD_ROUNDS);
+			return bcrypt.hashSync(value + GET_PWD_PEPPER(), GET_PWD_ROUNDS());
 		},
 	},
-	token: {
-		type: String,
-		unique: true,
-		sparse: true,
+	tokenTimestamp: {
+		type: Number,
 	},
 	type: {
 		type: String,
@@ -102,18 +101,37 @@ const userSchema = new mongoose.Schema({
 		}],
 		default: null,
 	},
+	exercisesAttemptedIds: {
+		type: [mongoose.Schema.Types.ObjectId],
+	},
+	exercisesCompletedIds: {
+		type: [mongoose.Schema.Types.ObjectId],
+	},
 }, { timestamps: true });
 
-userSchema.methods.checkPassword = function (password) {
-	const isPasswordCorrect = bcrypt.compareSync(password, this.password);
-	return isPasswordCorrect;
+userSchema.methods.isPasswordValid = async function (password) {
+	const isPasswordValid = bcrypt.compare(password, this.password);
+	return isPasswordValid;
 };
-userSchema.methods.generateToken = function () {
-	const token = this.password.substring(8, 15) + Date.now();
-	this.token = bcrypt.hashSync(token, TOKEN_ROUNDS);
+
+userSchema.methods.generateToken = async function () {
+	this.tokenTimestamp = Date.now();
+	const tokenData = this.tokenTimestamp.toString() + this.id; + GET_TOKEN_PEPPER();
+	const token = await bcrypt.hash(tokenData, GET_TOKEN_ROUNDS());
+	await this.save();	// save after token has been successfully generated
+	return token;
 };
-userSchema.methods.clearToken = function () {
-	this.token = null;
+userSchema.methods.isTokenValid = async function(token) {
+	if (!this.tokenTimestamp) {
+		return false;
+	}
+	const tokenData = this.tokenTimestamp.toString() + this.id; + GET_TOKEN_PEPPER();
+	const isTokenValid = await bcrypt.compare(tokenData, token);
+	return isTokenValid;
+};
+userSchema.methods.clearToken = async function () {
+	this.tokenTimestamp = null;
+	await this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);

@@ -4,8 +4,8 @@ const stateSchema = new mongoose.Schema({
 	diagramState: {
 		type: Object,
 	},
-	engineState: {
-		type: Object,
+	serializedGraph: {
+		type: String,
 	},
 	timestamp: {
 		type: Date,
@@ -36,6 +36,11 @@ const attemptSchema = new mongoose.Schema({
 	currentState: {
 		type: stateSchema,
 		required: [true, 'Current State is required'],
+	},
+	states: {
+		type: [stateSchema],
+		required: [true, 'States array is required'],
+		default: [],
 	},
 	previousAttemptId: {
 		type: mongoose.Schema.Types.ObjectId,

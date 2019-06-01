@@ -1,3 +1,4 @@
+const Errors = require('restify-errors');
 const mongoose = require('mongoose');
 
 const User = require('../models/user.model');
@@ -25,6 +26,44 @@ const create = async (userObject) => {
 	return await user.save();
 };
 
-const findUserByEmailAndToken = async (email, token) => {
-	return await User.findOne({ email, token }).exec();
+/**
+ * @param {string} userId
+ * @returns {Promise<mongoose.Document>}
+ */
+const findById = async (userId) => {
+	const user = await User.findById(userId).exec();
+	if (!user) {
+		throw new Errors.NotFoundError('User does not exist');
+	}
+	return user;
+};
+
+/**
+ * @param {string} email
+ * @returns {Promise<mongoose.Document>}
+ */
+const findByEmail = async (email) => {
+	const user = await User.findOne({ email }).exec();
+	if (!user) {
+		throw new Errors.NotFoundError('User does not exist');
+	}
+	return user;
+};
+
+/**
+ * NOTE: Only exposes id, email and type.
+ *
+ * @param {string} email
+ * @param {string} token
+ * @returns {Promise<mongoose.Document>}
+ */
+const findByEmailForAuth = async (email) => {
+	return await User.findOne({ email }, { id: 1, email: 1, type: 1 }).exec();
+};
+
+module.exports = {
+	create,
+	findById,
+	findByEmail,
+	findByEmailForAuth,
 };

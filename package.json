@@ -6,6 +6,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node node/server.js",
+    "pstart": "npm start --prefix diagram-engine-prototype",
     "nstart": "npm run nlint && ./node_modules/.bin/nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint server client --ext .js,.jsx",
@@ -15,7 +16,7 @@
   },
   "devDependencies": {
     "dotenv": "^8.0.0",
-    "eslint": "^5.6.0",
+    "eslint": "5.12.0",
     "eslint-plugin-jest": "^21.24.1",
     "eslint-plugin-react": "^7.11.1",
     "nodemon": "^1.18.4",

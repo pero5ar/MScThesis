@@ -9,6 +9,8 @@ const expressConfig = require('./config/express.config');
 const mongoConfig = require('./config/mongo.config');
 const routesConfig = require('./config/routes.config');
 
+const errorMiddleware = require('./middleware/error.middleware');
+
 const app = express();
 
 expressConfig.initialize(app);
@@ -28,14 +30,6 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res) => {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
+app.use(errorMiddleware);
 
 expressConfig.listen(app);

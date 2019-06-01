@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
+const { EXERCISE_CODE_REGEX } = require('../constants/regex.constants');
+
 const tableSchema = new mongoose.Schema({
 	keys: {
 		type: [String],
 	},
 	rows: {
-		type: Object,
+		type: [Object],
 	},
 }, { _id: false });
 
@@ -14,6 +16,9 @@ const exerciseSchema = new mongoose.Schema({
 		type: String,
 		unique: true,
 		required: [true, 'Code is required'],
+		match: [EXERCISE_CODE_REGEX, 'Code is invalid'],
+		lowercase: true,
+		trim: true,
 	},
 	title: {
 		type: String,
@@ -31,6 +36,10 @@ const exerciseSchema = new mongoose.Schema({
 		type: tableSchema,
 		required: [true, 'Output table is required'],
 	},
+	isOutputRowOrderImportant: {
+		type: Boolean,
+		default: false,
+	},
 	usersAttemptedIds: {
 		type: [mongoose.Schema.Types.ObjectId],
 	},
@@ -39,4 +48,4 @@ const exerciseSchema = new mongoose.Schema({
 	},
 }, { timestamps: true });
 
-module.exports = mongoose.model('Attempt', exerciseSchema);
+module.exports = mongoose.model('Exercise', exerciseSchema);

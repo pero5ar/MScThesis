@@ -2,6 +2,11 @@ const debug = require('debug')('node:server');
 const http = require('http');
 const dotenv = require('dotenv');
 
+const isProduction = () => process.env.NODE_ENV && process.env.NODE_ENV === 'production';
+const isDevelopment = () => !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+
+const getPort = () => process.env.PORT || '3001';
+
 const allowCrossDomain = (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -9,33 +14,27 @@ const allowCrossDomain = (req, res, next) => {
 	next();
 };
 
-const isProduction = () => process.env.NODE_ENV && process.env.NODE_ENV === 'production';
-const isDevelopment = () => !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
-
-const initialize = app => {
+const initialize = (app) => {
 	if (isDevelopment()) {
 		dotenv.config({ path: '.env' });
 		app.use(allowCrossDomain);
 	}
 };
 
-const normalizePort = val => {
+const normalizePort = (val) => {
 	const normalizedPort = parseInt(val, 10);
-
 	if (Number.isNaN(normalizedPort)) {
 		// named pipe
 		return val;
 	}
-
 	if (normalizedPort >= 0) {
 		// port number
 		return normalizedPort;
 	}
-
 	return false;
 };
 
-const onListening = server => {
+const onListening = (server) => {
 	const addr = server.address();
 	const bind = typeof addr === 'string'
 		? `pipe ${addr}`
@@ -43,8 +42,8 @@ const onListening = server => {
 	debug(`Listening on ${bind}`);
 };
 
-const listen = app => {
-	const port = normalizePort(process.env.PORT || '3001');
+const listen = (app) => {
+	const port = normalizePort(getPort());
 	app.set('port', port);
 
 	// let server;
@@ -64,8 +63,9 @@ const listen = app => {
 };
 
 module.exports = {
+	getPort,
 	initialize,
-	listen,
 	isProduction,
 	isDevelopment,
+	listen,
 };
