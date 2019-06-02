@@ -10,10 +10,10 @@ const Exercise = require('../models/exercise.model');
  * @param {object} expectedTable
  * @param {string[]} expectedTable.keys
  * @param {object[]} expectedTable.rows
- * @param {boolean} [isRowOrderExpected]
+ * @param {boolean} [isRowOrderImportant]
  * @returns {boolean}
  */
-const _areTablesEqual = (valueTable, expectedTable, isRowOrderExpected = false) => {
+const _areTablesEqual = (valueTable, expectedTable, isRowOrderImportant = false) => {
 	if (valueTable.keys.length !== expectedTable.keys.length) {
 		return false;
 	}
@@ -28,12 +28,12 @@ const _areTablesEqual = (valueTable, expectedTable, isRowOrderExpected = false) 
 	const expectedTableRowStrings = expectedTable.rows.map(_sortAndStringifyRow);
 	const valueTableRowStrings = valueTable.rows.map(_sortAndStringifyRow);
 
-	if (isRowOrderExpected) {
+	if (isRowOrderImportant) {
 		if (expectedTableRowStrings.some((_rowString, _index) => _rowString !== valueTableRowStrings[_index])) {
 			return false;
 		}
 	}
-	if (!isRowOrderExpected) {
+	if (!isRowOrderImportant) {
 		if (expectedTableRowStrings.some((_rowString) => !valueTableRowStrings.includes(_rowString))) {
 			return false;
 		}
@@ -70,7 +70,7 @@ const isOutputCorrect = async (exerciseId, output) => {
 	if (!exercise) {
 		throw new Errors.BadRequestError('Exercise does not exist');
 	}
-	return _areTablesEqual(output, exercise.output);
+	return _areTablesEqual(output, exercise.output, exercise.isOutputRowOrderImportant);
 };
 
 module.exports = {

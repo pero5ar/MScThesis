@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const isProduction = () => process.env.NODE_ENV && process.env.NODE_ENV === 'production';
 const isDevelopment = () => !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
-const getPort = () => process.env.PORT || '3001';
+const getPort = () => process.env.SERVER_PORT || '3001';
 
 const allowCrossDomain = (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');

@@ -1,141 +1,142 @@
 {
-	"env": {
-		"node": true,
-		"browser": true,
-		"es6": true
-	},
-	"root": true,
-	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"@typescript-eslint"
-	],
-	"extends": [
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended"
-	],
-	"parserOptions": {
-		"ecmaVersion": 2018,
-		"sourceType": "module",
-		"project": true,
-		"ecmaFeatures": {
-			"jsx": true
-		}
-	},
-	"rules": {
-		"@typescript-eslint/class-name-casing": [
-			"warn"
-		],
-		"@typescript-eslint/explicit-function-return-type": "off",
-		"@typescript-eslint/explicit-member-accessibility": "off",
-		"@typescript-eslint/indent": [
-			"error",
-			"tab"
-		],
-		"@typescript-eslint/interface-name-prefix": [
-			"warn",
-			"never"
-		],
-		"@typescript-eslint/member-delimiter-style": [
-			"warn",
-			{
-				"multiline": {
-					"delimiter": "semi",
-					"requireLast": true
-				},
-				"singleline": {
-					"delimiter": "semi",
-					"requireLast": true
-				}
-			}
-		],
-		"@typescript-eslint/member-ordering": "warn",
-		"@typescript-eslint/no-angle-bracket-type-assertion": [
-			"warn"
-		],
-		"@typescript-eslint/no-explicit-any": [
-			"error"
-		],
-		"@typescript-eslint/no-namespace": "off",
-		"@typescript-eslint/no-object-literal-type-assertion": "off",
-		"@typescript-eslint/no-use-before-define": "off",
-		"@typescript-eslint/prefer-interface": "off",
-		"@typescript-eslint/type-annotation-spacing": "error",
-		"arrow-parens": [
-			"warn",
-			"always"
-		],
-		"comma-dangle": [
-			"warn",
-			"never"
-		],
-		"curly": [
-			"error",
-			"multi-line"
-		],
-		"dot-notation": "warn",
-		"eqeqeq": "error",
-		"guard-for-in": "warn",
-		"indent": "off",
-		"multiline-ternary": "off",
-		"no-bitwise": "error",
-		"no-caller": "error",
-		"no-console": [
-			"error",
-			{
-				"allow": [
-					"info",
-					"error"
-				]
-			}
-		],
-		"no-eval": "error",
-		"no-extra-boolean-cast": "off",
-		"no-multiple-empty-lines": [
-			"warn",
-			{
-				"max": 1,
-				"maxBOF": 0
-			}
-		],
-		"no-shadow": "warn",
-		"no-shadow-restricted-names": "error",
-		"no-trailing-spaces": "warn",
-		"no-var": "warn",
-		"quotes": [
-			"error",
-			"single"
-		],
-		"react/display-name": "off",
-		"react/jsx-closing-bracket-location": "error",
-		"react/jsx-indent-props": [
-			4,
-			"tab"
-		],
-		"react/jsx-max-props-per-line": [
-			"warn",
-			{
-				"when": "multiline"
-			}
-		],
-		"react/jsx-no-bind": [
-			"warn",
-			{
-				"allowBind": "true"
-			}
-		],
-		"react/jsx-no-target-blank": "warn",
-		"react/no-danger": "error",
-		"react/no-direct-mutation-state": 1,
-		"react/no-redundant-should-component-update": "error",
-		"react/no-unescaped-entities": "off",
-		"react/react-in-jsx-scope": "error",
-		"semi": "error",
-		"spaced-comment": "warn",
-		"yoda": "warn"
-	},
-	"settings": {
-		"react": {
-			"version": "16.3.2"
-		}
-	}
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "@typescript-eslint/class-name-casing": [
+      "warn"
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/indent": [
+      "error",
+      "tab"
+    ],
+    "@typescript-eslint/interface-name-prefix": [
+      "warn",
+      "never"
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "warn",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": true
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": "warn",
+    "@typescript-eslint/no-angle-bracket-type-assertion": [
+      "warn"
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "error"
+    ],
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-object-literal-type-assertion": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/prefer-interface": "off",
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "arrow-parens": [
+      "warn",
+      "always"
+    ],
+    "comma-dangle": [
+      "warn",
+      "always-multiline"
+    ],
+    "curly": [
+      "error",
+      "multi-line"
+    ],
+    "dot-notation": "warn",
+    "eqeqeq": "error",
+    "eol-last": [
+      "warn",
+      "always"
+    ],
+    "guard-for-in": "warn",
+    "indent": "off",
+    "multiline-ternary": "off",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "info",
+          "error"
+        ]
+      }
+    ],
+    "no-eval": "error",
+    "no-extra-boolean-cast": "off",
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1,
+        "maxBOF": 0
+      }
+    ],
+    "no-shadow": "warn",
+    "no-shadow-restricted-names": "error",
+    "no-trailing-spaces": "warn",
+    "no-var": "warn",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "react/display-name": "off",
+    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-indent-props": [
+      4,
+      "tab"
+    ],
+    "react/jsx-max-props-per-line": [
+      "warn",
+      {
+        "when": "multiline"
+      }
+    ],
+    "react/jsx-no-bind": [
+      "warn"
+    ],
+    "react/jsx-no-target-blank": "warn",
+    "react/no-danger": "error",
+    "react/no-direct-mutation-state": 1,
+    "react/no-redundant-should-component-update": "error",
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "error",
+    "semi": "error",
+    "spaced-comment": "warn",
+    "yoda": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "16.3.2"
+    }
+  }
 }

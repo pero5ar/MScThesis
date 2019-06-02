@@ -27,5 +27,5 @@ declare type DiagramState = {
 	endNodeId: string;
 	nodes: NodesDict;
 	links: LinksDict;
-	dataByNode: NodeDataDict
+	dataByNode: NodeDataDict;
 }
