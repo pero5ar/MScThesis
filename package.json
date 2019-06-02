@@ -6,19 +6,30 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node node/server.js",
-    "pstart": "npm start --prefix diagram-engine-prototype",
-    "nstart": "npm run nlint && ./node_modules/.bin/nodemon server/server.js",
+    "start-client": "npm run lint-client && npm start --prefix client",
+    "start-server": "npm run lint-server && ./node_modules/.bin/nodemon server/server.js",
+    "start-prototype": "npm start --prefix diagram-engine-prototype",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint server client --ext .js,.jsx",
-    "rlint": "./node_modules/.bin/eslint client --ext .js,.jsx",
-    "nlint": "./node_modules/.bin/eslint server",
+    "lint-client": "./node_modules/eslint/bin/eslint.js client/src --ext .js,.ts,.jsx,.tsx --config client/.eslintrc.json",
+    "lint-server": "./node_modules/.bin/eslint server --ext .js --config server/.eslintrc.json",
+    "install-all": "npm install && npm install --prefix diagram-engine-prototype && npm install --prefix client && npm install --prefix server",
+    "reinstall": "bash ./pckg-clean.sh && npm run install-all",
     "heroku-postbuild": "npm run build"
   },
+  "dependencies": {
+    "typescript": "3.5.1"
+  },
   "devDependencies": {
+    "@types/jest": "24.0.13",
+    "@types/node": "12.0.4",
+    "@types/react": "16.8.19",
+    "@types/react-dom": "16.8.4",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
     "dotenv": "^8.0.0",
-    "eslint": "5.12.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-jest": "^21.24.1",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react": "^7.12.4",
     "nodemon": "^1.18.4",
     "redux-devtools": "^3.4.1"
   }
