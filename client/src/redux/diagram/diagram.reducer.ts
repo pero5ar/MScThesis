@@ -4,8 +4,8 @@ import * as DIAGRAM_ACTIONS from './diagram.actionTypes';
 import DiagramAction from './diagram.actionCreators';
 import DiagramState from './diagram.stateModel';
 
-import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStart } from '../../utils/diagram.utils';
-import { callNodeRun } from '../../utils/engine.utils';
+import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStart } from '../../utils/diagram.util';
+import { callNodeRun } from '../../utils/engine.util';
 
 const initialState: DiagramState = {
 	selectedNodeId: null,

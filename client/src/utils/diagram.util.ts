@@ -1,6 +1,6 @@
 import { DiagramState } from '../redux/diagram';
 
-import { callNodeRun } from './engine.utils';
+import { callNodeRun } from './engine.util';
 
 type DataByNode = DiagramState['dataByNode'];
 
