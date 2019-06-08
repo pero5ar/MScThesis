@@ -56,7 +56,6 @@ const userSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		select: false,
 		required: [true, 'Password is required.'],
 		set: function(value) {
 			return bcrypt.hashSync(value + GET_PWD_PEPPER(), GET_PWD_ROUNDS());
@@ -110,7 +109,7 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.methods.isPasswordValid = async function (password) {
-	const isPasswordValid = bcrypt.compare(password, this.password);
+	const isPasswordValid = await bcrypt.compare(password + GET_PWD_PEPPER(), this.password);
 	return isPasswordValid;
 };
 

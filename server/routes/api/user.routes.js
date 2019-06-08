@@ -13,4 +13,6 @@ router.post('/login', asyncWrap(UserController.login));
 
 router.post('/logout', authenticate, asyncWrap(UserController.logout));
 
+router.get('/refresh', authenticate, asyncWrap(UserController.refresh));
+
 module.exports = router;

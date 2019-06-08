@@ -17,7 +17,7 @@ type LinksDict = { [linkId: string]: LinksDictValue; };
 
 type NodeDataDict = { [nodeId: string]: NodeData; };
 
-interface DiagramState {
+export interface DiagramState {
 	selectedNodeId: Nullable<string>;
 	startNodeId: Nullable<string>;
 	endNodeId: Nullable<string>;
@@ -25,5 +25,3 @@ interface DiagramState {
 	links: LinksDict;
 	dataByNode: NodeDataDict;
 }
-
-export default DiagramState;

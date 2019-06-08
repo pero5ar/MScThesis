@@ -22,6 +22,4 @@ export function END_REQUEST(method: HttpRequestMethod): EndRequest {
 	};
 }
 
-type HttpAction = StartRequest | EndRequest;
-
-export default HttpAction;
+export type HttpAction = StartRequest | EndRequest;

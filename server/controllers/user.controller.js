@@ -50,11 +50,22 @@ const logout = async (req, res) => {
 	const user = await UserService.findById(userId);
 	await user.clearToken();
 
-	return res.status(200);
+	return res.sendStatus(200);
+};
+
+/** @type {Endpoint} */
+const refresh = async (req, res) => {
+	const { userId } = res.locals;
+
+	const user = await UserService.findById(userId);
+	const viewModel = new UserViewModel(user);
+
+	return res.status(200).json(viewModel);
 };
 
 module.exports = {
 	create,
 	login,
 	logout,
+	refresh,
 };

@@ -1,0 +1,148 @@
+.diagram {
+
+	& .srd-demo {
+
+		&-workspace {
+			background: black;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			border-radius: 5px;
+			overflow: hidden;
+
+			&__toolbar {
+				padding: 5px;
+				display: flex;
+				flex-shrink: 0;
+
+				& button {
+					background: #3c3c3c;
+					font-size: 14px;
+					padding: 5px 10px;
+					border: none;
+					color: white;
+					outline: none;
+					cursor: pointer;
+					margin: 2px;
+					border-radius: 3px;
+	
+					&:hover {
+						background: #00c0ff;
+					}
+				}
+			}
+			&__content {
+				flex-grow: 1;
+				height: 100%;
+			}
+		}
+
+		&-canvas {
+			height: 100%;
+			min-height: 300px;
+			background-color: #3c3c3c !important;
+			background-image: linear-gradient(
+					0deg,
+					transparent 24%,
+					rgba(255, 255, 255, 0.05) 25%,
+					rgba(255, 255, 255, 0.05) 26%,
+					transparent 27%,
+					transparent 74%,
+					rgba(255, 255, 255, 0.05) 75%,
+					rgba(255, 255, 255, 0.05) 76%,
+					transparent 77%,
+					transparent
+				),
+				linear-gradient(
+					90deg,
+					transparent 24%,
+					rgba(255, 255, 255, 0.05) 25%,
+					rgba(255, 255, 255, 0.05) 26%,
+					transparent 27%,
+					transparent 74%,
+					rgba(255, 255, 255, 0.05) 75%,
+					rgba(255, 255, 255, 0.05) 76%,
+					transparent 77%,
+					transparent
+				);
+			background-size: 50px 50px;
+
+			& .pointui {
+				fill: rgba(255, 255, 255, 0.5);
+			}
+		}
+	}
+
+	& .docs-preview-wrapper {
+		background: #3c3c3c;
+		border-radius: 10px;
+		overflow: hidden;
+		padding: 10px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	& .body {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
+	}
+	
+	& .header {
+		display: flex;
+		background: rgb(30, 30, 30);
+		flex-grow: 0;
+		flex-shrink: 0;
+		color: white;
+		font-family: Helvetica, Arial;
+		padding: 10px;
+
+		& > * {
+			align-self: center;
+		}
+	}
+	
+	& .content {
+		display: flex;
+		flex-grow: 1;
+
+		& .diagram-layer {
+			position: relative;
+			flex-grow: 1;
+			height: 500px;
+		}
+
+		& .tray {
+			min-width: 200px;
+			background: rgb(20, 20, 20);
+			flex-grow: 0;
+			flex-shrink: 0;
+
+			& .tray-item {
+				color: white;
+				font-family: Helvetica, Arial;
+				padding: 5px;
+				margin: 0px 10px;
+				border: solid 1px;
+				border-radius: 5px;
+				margin-bottom: 2px;
+				cursor: pointer;
+			}
+		}
+	}
+	
+	& .footer {
+		display: flex;
+		align-items: stretch;
+		height: 200px;
+
+		& > div {
+			width: 50%;
+		}
+
+		& .node-settings {
+			border: 5px black;
+		}
+	}
+}

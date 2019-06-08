@@ -74,6 +74,4 @@ export function REMOVE_LINK(linkId: string): RemoveLink {
 	};
 }
 
-type DiagramAction = AddNode | RemoveNode | SelectNode | SetNodeSettings | AddLink | RemoveLink;
-
-export default DiagramAction;
+export type DiagramAction = AddNode | RemoveNode | SelectNode | SetNodeSettings | AddLink | RemoveLink;

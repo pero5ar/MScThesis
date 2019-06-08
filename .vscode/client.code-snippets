@@ -1,0 +1,106 @@
+{
+	"react connected component": {
+		"scope": "typescriptreact",
+		"prefix": "reactconnectedcomponent",
+		"body": [
+			"import * as React from 'react';",
+			"import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';",
+			"",
+			"import { RootState } from '';",
+			"",
+			"interface OwnProps {}",
+			"",
+			"interface StateProps {}",
+			"",
+			"interface DispatchProps {}",
+			"",
+			"interface State {}",
+			"",
+			"type Props = OwnProps & StateProps & ReactReduxActionsToDispatchActions<DispatchProps>",
+			"",
+			"class ${1:SampleComponent} extends React.PureComponent<Props, State> {",
+			"",
+			"\trender() {",
+			"\t\treturn null;",
+			"\t}",
+			"}",
+			"",
+			"function mapStateToProps(state: RootState): StateProps {",
+			"\treturn {};",
+			"}",
+			"",
+			"const dispatchProps: DispatchProps = {};",
+			"",
+			"export default connect(mapStateToProps, dispatchProps as MapDispatchToPropsParam<DispatchProps, OwnProps>)(${1:SampleComponent});",
+			""
+		],
+		"description": "Create a connected pure component with dispatch as an object"
+	},
+	"react component": {
+		"scope": "typescriptreact",
+		"prefix": "reactcomponent",
+		"body": [
+			"import * as React from 'react';",
+			"",
+			"interface OwnProps {}",
+			"",
+			"interface State {}",
+			"",
+			"type Props = OwnProps;",
+			"",
+			"class ${1:SampleComponent} extends React.PureComponent<Props, State> {",
+			"",
+			"\trender() {",
+			"\t\treturn null;",
+			"\t}",
+			"}",
+			"",
+			"export default ${1:SampleComponent};",
+			""
+		],
+		"description": "Create a Pure Component"
+	},
+	"function component": {
+		"scope": "typescriptreact",
+		"prefix": "functioncomponent",
+		"body": [
+			"import * as React from 'react';",
+			"",
+			"interface OwnProps { }",
+			"",
+			"type Props = OwnProps;",
+			"",
+			"const ${1:SampleComponent} = (props: Props) => {",
+			"\treturn null;",
+			"};",
+			"",
+			"export default ${1:SampleComponent};",
+			""
+		],
+		"description": "Create a function component"
+	},
+	"redux action type": {
+		"scope": "typescriptreact,typescript",
+		"prefix": "actiontype",
+		"body": [
+			"export const ${1:ACTION_TYPE} = '${1:ACTION_TYPE}';"
+		],
+		"description": "Create a redux action type"
+	},
+	"redux action creator": {
+		"scope": "typescriptreact,typescript",
+		"prefix": "actioncreator",
+		"body": [
+			"interface ${1:ActionCreatorInterface} {",
+			"\ttype: typeof actionTypes.${2:ACTION_CREATOR};",
+			"}",
+			"export function ${2:ACTION_CREATOR}(): ${1:ActionCreatorInterface} {",
+			"\treturn {",
+			"\t\ttype: actionTypes.${2:ACTION_CREATOR}",
+			"\t};",
+			"}",
+			""
+		],
+		"description": "Create a redux action creator"
+	},
+}

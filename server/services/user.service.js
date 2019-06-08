@@ -58,7 +58,7 @@ const findByEmail = async (email) => {
  * @returns {Promise<mongoose.Document>}
  */
 const findByEmailForAuth = async (email) => {
-	return await User.findOne({ email }, { id: 1, email: 1, type: 1 }).exec();
+	return await User.findOne({ email }, { id: 1, email: 1, type: 1, tokenTimestamp: 1 }).exec();
 };
 
 module.exports = {

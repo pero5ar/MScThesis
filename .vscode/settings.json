@@ -12,6 +12,9 @@
         "typescriptreact"
     ],
     "eslint.autoFixOnSave": true,
+    "scssFormatter.useTabs": true,
+    "scssFormatter.tabWidth": 4,
+    "scssFormatter.singleQuote": true,
     "cSpell.words": [
         "mongodb",
         "mscthesis"

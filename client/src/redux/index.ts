@@ -1,20 +1,24 @@
 import { combineReducers, createStore, applyMiddleware, Store, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import DiagramState from './diagram/diagram.stateModel';
-import HttpState from './http/http.stateModel';
+import { DiagramState } from './diagram/diagram.stateModel';
+import { HttpState } from './http/http.stateModel';
+import { UserState } from './user/user.stateModel';
 
 import diagram from './diagram/diagram.reducer';
 import http from './http/http.reducer';
+import user from './user/user.reducer';
 
 export interface RootState {
 	diagram: DiagramState;
 	http: HttpState;
+	user: UserState;
 }
 
 const rootReducer = combineReducers<RootState>({
 	diagram,
 	http,
+	user,
 });
 
 export function configureStore(): Store<RootState> {

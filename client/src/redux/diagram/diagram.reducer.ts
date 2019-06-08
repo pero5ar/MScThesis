@@ -1,8 +1,8 @@
 import { NodeModels } from '../../engine';
 
 import * as DIAGRAM_ACTIONS from './diagram.actionTypes';
-import DiagramAction from './diagram.actionCreators';
-import DiagramState from './diagram.stateModel';
+import { DiagramAction } from './diagram.actionCreators';
+import { DiagramState } from './diagram.stateModel';
 
 import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStart } from '../../utils/diagram.util';
 import { callNodeRun } from '../../utils/engine.util';

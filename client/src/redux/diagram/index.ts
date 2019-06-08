@@ -1,3 +1,3 @@
-import DiagramState from './diagram.stateModel';
+import { DiagramState } from './diagram.stateModel';
 
 export type DiagramState = DiagramState;

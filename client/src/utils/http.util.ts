@@ -17,8 +17,6 @@ interface HttpConfig extends AxiosRequestConfig {
 	hasAuth?: boolean;
 }
 
-const HttpActions = HttpActionsFactory(store.dispatch);
-
 function _getAuthHeaders(): HttpHeaders {
 	const localStorageUserData = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA);
 	if (!localStorageUserData) {
@@ -33,6 +31,7 @@ function _getAuthHeaders(): HttpHeaders {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function _get<TOut = any>(url: string, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+	const HttpActions = HttpActionsFactory(store.dispatch);
 	try {
 		HttpActions.start('GET');
 
@@ -51,7 +50,8 @@ async function _get<TOut = any>(url: string, { hasAuth = true, ...options }: Htt
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function _post<TIn extends object, TOut = any>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+async function _post<TIn extends object, TOut = void>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+	const HttpActions = HttpActionsFactory(store.dispatch);
 	try {
 		HttpActions.start('POST');
 
@@ -70,7 +70,8 @@ async function _post<TIn extends object, TOut = any>(url: string, data: TIn, { h
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function _put<TIn extends object, TOut = any>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+async function _put<TIn extends object, TOut = void>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+	const HttpActions = HttpActionsFactory(store.dispatch);
 	try {
 		HttpActions.start('PUT');
 
@@ -89,7 +90,8 @@ async function _put<TIn extends object, TOut = any>(url: string, data: TIn, { ha
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function _patch<TIn extends object, TOut = any>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+async function _patch<TIn extends object, TOut = void>(url: string, data: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+	const HttpActions = HttpActionsFactory(store.dispatch);
 	try {
 		HttpActions.start('PATCH');
 
@@ -108,7 +110,8 @@ async function _patch<TIn extends object, TOut = any>(url: string, data: TIn, { 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function _delete<TIn extends object, TOut = any>(url: string, data?: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+async function _delete<TIn extends object, TOut = void>(url: string, data?: TIn, { hasAuth = true, ...options }: HttpConfig = {}): Promise<TOut> {
+	const HttpActions = HttpActionsFactory(store.dispatch);
 	try {
 		HttpActions.start('DELETE');
 
@@ -117,7 +120,7 @@ async function _delete<TIn extends object, TOut = any>(url: string, data?: TIn, 
 			config.headers = { ...config.headers, ..._getAuthHeaders() };
 		}
 		if (data) {
-			config.data = { ...config.data, data };
+			config.data = { ...config.data, ...data };
 		}
 		const response = await axios.delete<TOut>(url, config);
 
