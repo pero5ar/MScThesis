@@ -1,4 +1,4 @@
-import NodeData from '../../models/nodeData.model';
+import NodeData from 'models/nodeData.model';
 
 import AbstractNodeModel, { IN_PORT_LABEL } from './abstract.nodeModel';
 

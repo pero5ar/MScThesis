@@ -1,4 +1,4 @@
-import NodeData from '../../models/nodeData.model';
+import NodeData from 'models/nodeData.model';
 
 import { DefaultNodeModel, BaseModelListener, BaseEvent } from 'storm-react-diagrams';
 

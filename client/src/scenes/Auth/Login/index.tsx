@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import * as CLIENT from '../../../constants/routes/client';
+import * as CLIENT from 'constants/routes/client';
 
-import { RootState } from '../../../redux';
-import UserActions from '../../../redux/user';
+import { RootState } from 'state';
+import UserActions from 'state/user';
 
 interface StateProps {
 	isAuthenticated: boolean;

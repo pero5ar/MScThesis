@@ -1,21 +1,21 @@
 import { Dispatch } from 'redux';
 
-import * as API from '../../constants/routes/api';
-import * as CLIENT from '../../constants/routes/client';
-import { LOCAL_STORAGE_KEYS } from '../../constants/storage.constants';
+import * as API from 'constants/routes/api';
+import * as CLIENT from 'constants/routes/client';
+import { LOCAL_STORAGE_KEYS } from 'constants/storage.constants';
 
-import UserType from '../../enums/userType.enum';
+import UserType from 'enums/userType.enum';
 
-import RegisterFormModel from '../../models/formModels/register.formModel';
-import * as UserRequestModels from '../../models/requestModels/user.requestModels';
-import UserViewModel from '../../models/viewModels/user.viewModel';
-import { UserData } from '../../models/localStorage.model';
+import RegisterFormModel from 'models/formModels/register.formModel';
+import * as UserRequestModels from 'models/requestModels/user.requestModels';
+import UserViewModel from 'models/viewModels/user.viewModel';
+import { UserData } from 'models/localStorage.model';
 
 import * as USER_ACTIONS from './user.actionCreators';
 
-import { actionWithErrorHandler } from '../../utils/action.util';
-import http from '../../utils/http.util';
-import { redirect } from '../../utils/router.util';
+import { actionWithErrorHandler } from 'utils/action.util';
+import http from 'utils/http.util';
+import { redirect } from 'utils/router.util';
 
 type UserAction = USER_ACTIONS.UserAction;
 

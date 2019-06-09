@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';
 
-import UserActions from '../../redux/user';
+import UserActions from 'state/user';
 
 interface DispatchProps {
 	logout: typeof UserActions.logout;

@@ -3,11 +3,11 @@ import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } 
 import { History } from 'history';
 import { Route, Switch, Router } from 'react-router-dom';
 
-import * as CLIENT from './constants/routes/client';
+import * as CLIENT from 'constants/routes/client';
 
-import UserActions from './redux/user';
+import UserActions from 'state/user';
 
-import withAuth from './wrappers/withAuth';
+import withAuth from 'wrappers/withAuth';
 
 import Login from './scenes/Auth/Login';
 import Register from './scenes/Auth/Register';

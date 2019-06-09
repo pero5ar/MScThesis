@@ -1,4 +1,4 @@
-import UserType from '../../enums/userType.enum';
+import UserType from 'enums/userType.enum';
 
 interface UserViewModel {
 	email: string;

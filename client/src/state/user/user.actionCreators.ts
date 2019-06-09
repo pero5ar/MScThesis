@@ -1,4 +1,4 @@
-import UserViewModel from '../../models/viewModels/user.viewModel';
+import UserViewModel from 'models/viewModels/user.viewModel';
 
 import * as USER_ACTIONS from './user.actionTypes';
 

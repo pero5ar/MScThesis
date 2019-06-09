@@ -1,4 +1,4 @@
-import { DiagramState } from '../redux/diagram';
+import { DiagramState } from 'state/diagram';
 
 import { callNodeRun } from './engine.util';
 

@@ -1,12 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { store } from '../index';
+import { store } from 'index';
 
-import { LOCAL_STORAGE_KEYS } from '../constants/storage.constants';
+import { LOCAL_STORAGE_KEYS } from 'constants/storage.constants';
 
-import { UserData } from '../models/localStorage.model';
+import { UserData } from 'models/localStorage.model';
 
-import { HttpActionsFactory } from '../redux/http';
+import { HttpActionsFactory } from 'state/http';
 
 interface HttpHeaders {
 	email?: string;

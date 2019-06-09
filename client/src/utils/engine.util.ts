@@ -1,6 +1,6 @@
-import * as Engine from '../engine';
+import * as Engine from 'engine';
 
-import NodeData from '../models/nodeData.model';
+import NodeData from 'models/nodeData.model';
 
 function getOutPort(node: Engine.NodeModel): Engine.PortModel | null {
 	const ports = Object.values(node.getPorts()) as Engine.PortModel[];

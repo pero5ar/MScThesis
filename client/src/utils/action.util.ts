@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import { AxiosError } from 'axios';
 
-import { ERROR, AUTH } from '../constants/routes/client';
+import { ERROR, AUTH } from 'constants/routes/client';
 
-import { SET_IS_AUTHENTICATED } from '../redux/user/user.actionCreators';
+import { SET_IS_AUTHENTICATED } from 'state/user/user.actionCreators';
 
 import { redirect } from './router.util';
 

@@ -1,6 +1,6 @@
 import * as DIAGRAM_ACTIONS from './diagram.actionTypes';
 
-import { NodeModel } from '../../engine';
+import { NodeModel } from 'engine';
 
 interface AddNode {
 	type: typeof DIAGRAM_ACTIONS.ADD_NODE;
