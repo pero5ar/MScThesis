@@ -6,6 +6,8 @@ export const AUTH = {
 
 export const HOME = '/';
 
+export const DIAGRAM = '/diagram';
+
 export const ERROR = {
 	ERR400: '/400',
 	ERR403: '/403',

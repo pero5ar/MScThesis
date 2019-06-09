@@ -7,8 +7,11 @@ import { SET_IS_AUTHENTICATED } from 'state/user/user.actionCreators';
 
 import { redirect } from './router.util';
 
-type AxiosErrorHandler<T> = (error: AxiosError, dispatch: Dispatch) => void | Promise<void> | Promise<T>;
-type NonAxiosErrorHandler<T> = (error: Error, dispatch: Dispatch) => void | Promise<void> | Promise<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AxiosErrorHandler<T> = (error: AxiosError, dispatch: Dispatch<any>) => void | Promise<void> | Promise<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type NonAxiosErrorHandler<T> = (error: Error, dispatch: Dispatch<any>) => void | Promise<void> | Promise<T>;
+
 type ErrorHandler<T> = AxiosErrorHandler<T> | NonAxiosErrorHandler<T>
 
 interface ErrorHandlerDict<T = void> {
@@ -43,9 +46,9 @@ const _defaultErrorHandlerDict: Required<ErrorHandlerDict> = {
 	},
 };
 
-export async function actionWithErrorHandler<T>(
+export async function actionWithErrorHandler<T, Action extends ReduxAction>(
 	action: () => Promise<T>,
-	dispatch: Dispatch,
+	dispatch: Dispatch<Action>,
 	errorHandlerDict: ErrorHandlerDict<T | void> = {}
 ): Promise<T | void> {
 	try {

@@ -14,7 +14,7 @@ export function touchHandler(event) {
 	const touches = event.changedTouches;
 	const first = touches[0];
 
-	if (touches > 1) {
+	if (touches.length > 1) {
 		return;
 	}
 

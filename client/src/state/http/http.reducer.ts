@@ -14,9 +14,9 @@ const initialState: HttpState = {
 export default function httpReducer(state: HttpState = initialState, action: HttpAction): HttpState {
 	switch (action.type) {
 		case HTTP_ACTIONS.START_REQUEST:
-			return addToRequestsInProgress(state, action.method, 1);
+			return addToRequestsInProgress(state, action.payload.method, 1);
 		case HTTP_ACTIONS.END_REQUEST:
-			return addToRequestsInProgress(state, action.method, -1);
+			return addToRequestsInProgress(state, action.payload.method, -1);
 		default:
 			return state;
 	}

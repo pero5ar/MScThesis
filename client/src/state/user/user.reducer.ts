@@ -11,11 +11,11 @@ const initialState: UserState = {
 export default function userReducer(state: UserState = initialState, action: UserAction): UserState {
 	switch (action.type) {
 		case USER_ACTIONS.LOGIN:
-			return { ...state, user: action.user, isAuthenticated: true };
+			return { ...state, user: action.payload.user, isAuthenticated: true };
 		case USER_ACTIONS.LOGOUT:
 			return { ...state, user: initialState.user, isAuthenticated: false };
 		case USER_ACTIONS.SET_IS_AUTHENTICATED: {
-			return { ...state, isAuthenticated: action.isAuthenticated };
+			return { ...state, isAuthenticated: action.payload.isAuthenticated };
 		}
 		default:
 			return state;

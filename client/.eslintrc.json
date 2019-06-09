@@ -84,7 +84,7 @@
     "no-bitwise": "error",
     "no-caller": "error",
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": [
           "info",

@@ -1,24 +1,28 @@
 import * as HTTP_ACTIONS from './http.actionTypes';
 
-interface StartRequest {
+interface StartRequest extends ReduxAction {
 	type: typeof HTTP_ACTIONS.START_REQUEST;
-	method: HttpRequestMethod;
+	payload: {
+		method: HttpRequestMethod;
+	};
 }
 export function START_REQUEST(method: HttpRequestMethod): StartRequest {
 	return {
 		type: HTTP_ACTIONS.START_REQUEST,
-		method,
+		payload: { method },
 	};
 }
 
-interface EndRequest {
+interface EndRequest extends ReduxAction {
 	type: typeof HTTP_ACTIONS.END_REQUEST;
-	method: HttpRequestMethod;
+	payload: {
+		method: HttpRequestMethod;
+	};
 }
 export function END_REQUEST(method: HttpRequestMethod): EndRequest {
 	return {
 		type: HTTP_ACTIONS.END_REQUEST,
-		method,
+		payload: { method },
 	};
 }
 

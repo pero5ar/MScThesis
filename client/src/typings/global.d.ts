@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 declare interface NodeModule {
-	hot?: any;	// eslint-disable-line @typescript-eslint/no-explicit-any
+	hot?: any;
 }
 
 declare interface Window {
@@ -9,3 +11,8 @@ declare interface Window {
 declare type Nullable<T> = T | null;
 
 declare type HttpRequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+declare interface ReduxAction {
+	type: string;
+	payload?: any;
+}

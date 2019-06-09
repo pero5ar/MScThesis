@@ -36,11 +36,11 @@ export function traverseNodesFromStart() {
 	return nodes;
 }
 
-export function generateSelectionChangedListener(onSelectionChanged: Engine.ModelListenerFunctionCallback): Engine.ModelListenerFunction {
+export function generateSelectionChangedListener(onSelectionChanged: Engine.EntitySelectedListenerFunctionCallback): Engine.ModelListenerFunction {
 	return (event) => !event.entity.isSelected() ? onSelectionChanged(null) : event.entity.isTracked && onSelectionChanged(event.entity.id);
 }
 
-export function generateEntityRemovedListener(onEntityRemoved: Engine.ModelListenerFunctionCallback): Engine.ModelListenerFunction {
+export function generateEntityRemovedListener(onEntityRemoved: Engine.EntityRemovedListenerFunctionCallback): Engine.ModelListenerFunction {
 	return (event) => event.entity.isTracked && onEntityRemoved(event.entity.id);
 }
 
@@ -61,4 +61,23 @@ export function callNodeRun(nodeId: string, data?: NodeData): NodeData {
 		}
 	}
 	return node.run(data);
+}
+
+type GetLinkAndPointFromMoveAction = {
+	link: Nullable<Engine.LinkModel>;
+	point: Nullable<Engine.PointModel>;
+}
+export function getLinkAndPointFromMoveAction(action: Engine.BaseAction): GetLinkAndPointFromMoveAction {
+	if (!action || !(action instanceof Engine.MoveItemsAction) || !action.selectionModels || action.selectionModels.length !== 1) {
+		return { link: null, point: null };
+	}
+	const point = action.selectionModels[0].model;
+	if (!point || !(point instanceof Engine.PointModel)) {
+		return { link: null, point: null };
+	}
+	const link = point.getParent();
+	if (!link) {
+		return { link: null, point };;
+	}
+	return { link: link as Engine.LinkModel, point };
 }

@@ -2,18 +2,20 @@ import UserViewModel from 'models/viewModels/user.viewModel';
 
 import * as USER_ACTIONS from './user.actionTypes';
 
-interface Login {
+interface Login extends ReduxAction {
 	type: typeof USER_ACTIONS.LOGIN;
-	user: UserViewModel;
+	payload: {
+		user: UserViewModel;
+	};
 }
 export function LOGIN(user: UserViewModel): Login {
 	return {
 		type: USER_ACTIONS.LOGIN,
-		user,
+		payload: { user },
 	};
 }
 
-interface Logout {
+interface Logout extends ReduxAction {
 	type: typeof USER_ACTIONS.LOGOUT;
 }
 export function LOGOUT(): Logout {
@@ -22,14 +24,16 @@ export function LOGOUT(): Logout {
 	};
 };
 
-interface SetIsAuthenticated {
+interface SetIsAuthenticated extends ReduxAction {
 	type: typeof USER_ACTIONS.SET_IS_AUTHENTICATED;
-	isAuthenticated: boolean;
+	payload: {
+		isAuthenticated: boolean;
+	};
 }
-export function SET_IS_AUTHENTICATED(isAuthenticated: boolean) {
+export function SET_IS_AUTHENTICATED(isAuthenticated: boolean): SetIsAuthenticated {
 	return {
 		type: USER_ACTIONS.SET_IS_AUTHENTICATED,
-		isAuthenticated,
+		payload: { isAuthenticated },
 	};
 }
 
