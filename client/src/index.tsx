@@ -11,6 +11,7 @@ import './styles/index.scss';
 
 export const store = configureStore();
 export const history = createBrowserHistory();
+history.listen(console.info.bind(null, 'history change: '));
 
 const renderApp = () => {
 	const RootComponent = (

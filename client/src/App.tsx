@@ -11,6 +11,7 @@ import withAuth from 'wrappers/withAuth';
 
 import Login from './scenes/Auth/Login';
 import Register from './scenes/Auth/Register';
+import Diagram from './scenes/Diagram';
 import Home from './scenes/Home';
 
 interface OwnProps {
@@ -40,6 +41,11 @@ class App extends React.PureComponent<Props> {
 							exact={true}
 							path={CLIENT.HOME}
 							component={withAuth(Home)}
+						/>
+						<Route
+							exact={true}
+							path={CLIENT.DIAGRAM}
+							component={withAuth(Diagram)}
 						/>
 						<Route
 							exact={true}

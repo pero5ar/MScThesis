@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
 import * as CLIENT from 'constants/routes/client';
 
 import { RootState } from 'state';
 import UserActions from 'state/user';
+
+import { redirect } from 'utils/router.util';
 
 interface StateProps {
 	isAuthenticated: boolean;
@@ -15,7 +17,7 @@ interface DispatchProps {
 	login: typeof UserActions.login;
 }
 
-type Props = StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
+type Props = RouteComponentProps & StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
 
 interface State {
 	email: string;
@@ -47,7 +49,13 @@ class Login extends React.PureComponent<Props, State> {
 		const { isAuthenticated } = this.props;
 
 		if (isAuthenticated) {
-			return <Redirect to={CLIENT.HOME} />;
+			const { location: { state: { origin } } } = this.props;
+			if (!origin) {
+				redirect(CLIENT.HOME);
+			} else {
+				redirect(origin, true);
+			}
+			return null;
 		}
 
 		const { email, password } = this.state;

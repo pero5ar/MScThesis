@@ -31,6 +31,10 @@ export default class Engine {
 		return Object.values(this.activeModel.getNodes()) as NodeModel[];
 	}
 
+	getNode(nodeId: string): Nullable<NodeModel> {
+		return this.activeModel.getNode(nodeId) as Nullable<NodeModel>;
+	}
+
 	getAllInPorts(): DefaultPortModel[] {
 		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], [] as DefaultPortModel[]);
 	}

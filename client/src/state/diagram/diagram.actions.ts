@@ -42,7 +42,7 @@ export function setNodeSettings(nodeId: string, settings: object) {
 	};
 }
 
-export function addLink(link: Engine.LinkModel, point: Engine.PointModel) {
+export function tryAddLink(link: Engine.LinkModel, point: Engine.PointModel) {
 	return function (dispatch: Dispatch<DiagramAction>) {
 		const entityRemovedListener = EngineUtil.generateEntityRemovedListener(_getRemoveLinkAction(dispatch));
 
@@ -50,7 +50,9 @@ export function addLink(link: Engine.LinkModel, point: Engine.PointModel) {
 			const sourceNode = link.getSourcePort().parent;
 			const targetNode = link.getTargetPort().parent;
 			dispatch(DIAGRAM_ACTIONS.ADD_LINK(link.id, sourceNode.id, targetNode.id));
+			return true;
 		}
+		return false;
 	};
 }
 

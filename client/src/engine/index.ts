@@ -9,7 +9,7 @@ import {
 	PointModel as PortModelClass,
 } from 'storm-react-diagrams';
 
-import NodeModelClasses, { AbstractNodeModel, NodeModelConstructor } from './nodeModels';
+import NodeModelClasses, * as NodeModelsNamespace from './nodeModels';
 import Engine from './engine';
 
 // exposed storm-react-diagrams types:
@@ -28,9 +28,13 @@ export type PointModel = PortModelClass;
 
 // exposed node model logic and types:
 
-export type NodeModel = AbstractNodeModel;
-export type NodeModelConstructor = NodeModelConstructor<NodeModel>;
+export type NodeModel = NodeModelsNamespace.AbstractNodeModel;
+export type NodeModelClass = NodeModelsNamespace.NodeModelClass<NodeModel>;
+export type NodeModelConstructor = NodeModelsNamespace.NodeModelConstructor<NodeModel>;
 export const NodeModels = NodeModelClasses;
+
+export const WHERE_CONDITIONS = NodeModelsNamespace.WHERE_CONDITIONS;
+export type WHERE_CONDITIONS = typeof NodeModelsNamespace.WHERE_CONDITIONS;
 
 // custom types:
 
