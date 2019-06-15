@@ -29,10 +29,10 @@ class Diagram extends React.Component<Props> {
 
 	setRef = (ref: HTMLDivElement) => {
 		this.ref = ref;
-		ref.addEventListener('touchstart', touchHandler, true);
-		ref.addEventListener('touchmove', touchHandler, true);
-		ref.addEventListener('touchend', touchHandler, true);
-		ref.addEventListener('touchcancel', touchHandler, true);
+		this.ref.addEventListener('touchstart', touchHandler, true);
+		this.ref.addEventListener('touchmove', touchHandler, true);
+		this.ref.addEventListener('touchend', touchHandler, true);
+		this.ref.addEventListener('touchcancel', touchHandler, true);
 	}
 
 	onClick = () => console.log(Engine.getInstance().getActiveDiagram().serializeDiagram())

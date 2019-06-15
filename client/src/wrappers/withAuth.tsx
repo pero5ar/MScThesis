@@ -22,11 +22,16 @@ function mapStateToProps(state: RootState): StateProps {
 
 export default function <P>(InnerComponent: React.ComponentClass<P>) {
 	class Authentication extends React.PureComponent<AuthenticationProps<P>> {
-		render() {
+		componentDidUpdate() {
 			const { isAuthenticated } = this.props;
 			if (!isAuthenticated) {
 				redirect(AUTH.LOGIN, true, this.props.location.pathname);
-				return null;
+			}
+		}
+		render() {
+			const { isAuthenticated } = this.props;
+			if (!isAuthenticated) {
+				return null;	// redirect handled in componentDidUpdate
 			}
 			return <InnerComponent {...this.props} />;
 		}

@@ -45,19 +45,25 @@ class Login extends React.PureComponent<Props, State> {
 		login(email, password);
 	}
 
-	render() {
+	componentDidUpdate() {
 		const { isAuthenticated } = this.props;
 
 		if (isAuthenticated) {
-			const { location: { state: { origin } } } = this.props;
+			const { location: { state: { origin } = { origin: undefined } } } = this.props;
 			if (!origin) {
 				redirect(CLIENT.HOME);
 			} else {
 				redirect(origin, true);
 			}
-			return null;
 		}
+	}
 
+	render() {
+		const { isAuthenticated } = this.props;
+
+		if (isAuthenticated) {
+			return null;	// redirect handled in componentDidUpdate
+		}
 		const { email, password } = this.state;
 
 		return (
