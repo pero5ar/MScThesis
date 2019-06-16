@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from 'react-bootstrap/Button';
 
 import { NodeModelClass } from 'engine';
 
@@ -25,14 +26,16 @@ export default class TrayItem extends React.PureComponent<Props> {
 
 	render() {
 		return (
-			<button
-				style={{ borderColor: this.props.model.COLOR }}
-				onMouseDown={this.onMouseDown}
+			<Button
 				className="tray-item"
+				variant="secondary"
+				style={{ backgroundColor: this.props.model.COLOR }}
+				onMouseDown={this.onMouseDown}
+				block={true}
 				disabled={this.props.disabled}
 			>
 				{this.props.model.NAME}
-			</button>
+			</Button>
 		);
 	}
 }

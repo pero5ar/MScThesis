@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { connect, ReactReduxActionsToDispatchActions } from 'react-redux';
 
+import { store } from 'index';
+
+import NodeData from 'models/nodeData.model';
+
 import * as Engine from 'engine';
 
 import { RootState } from 'state';
-import DiagramActions from 'state/diagram';
+import DiagramActions, { DiagramState } from 'state/diagram';
 
 import { touchHandler } from 'utils/touch.util';
 import { getLinkAndPointFromMoveAction } from 'utils/engine.util';
@@ -14,6 +18,12 @@ import Tray from './Tray';
 
 import 'storm-react-diagrams/dist/style.min.css';
 
+interface OwnProps {
+	input: NodeData;
+	onUpdate: (diagramState: DiagramState, serializedGraph: string, output?: NodeData) => Promise<void>;
+	onEnd: (diagramState: DiagramState, serializedGraph: string, output: NodeData) => Promise<void>;
+}
+
 interface StateProps {
 	nodesLength: number;	// used to force update
 }
@@ -22,7 +32,7 @@ interface DispatchProps {
 	tryAddLink: typeof DiagramActions.tryAddLink;
 };
 
-type Props = StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
+type Props = OwnProps & StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
 
 class Diagram extends React.Component<Props> {
 	ref: Nullable<HTMLDivElement> = null;
@@ -35,8 +45,6 @@ class Diagram extends React.Component<Props> {
 		this.ref.addEventListener('touchcancel', touchHandler, true);
 	}
 
-	onClick = () => console.log(Engine.getInstance().getActiveDiagram().serializeDiagram())
-
 	onActionStoppedFiring = (action: Engine.BaseAction) => {
 		const { link, point } = getLinkAndPointFromMoveAction(action);
 
@@ -47,21 +55,25 @@ class Diagram extends React.Component<Props> {
 		tryAddLink(link, point);
 	}
 
+	async componentDidMount() {
+		const { onUpdate } = this.props;
+		const diagramState = store.getState().diagram;
+		const output = diagramState.endNodeId && diagramState.dataByNode[diagramState.endNodeId] || undefined;
+		const serializedGraph = JSON.stringify(Engine.getInstance().getActiveDiagram().serializeDiagram());
+		await onUpdate(diagramState, serializedGraph, output);
+	}
+
 	render() {
+		const { input } = this.props;
+
 		return (
 			<div className="diagram" ref={this.setRef}>
-				<button
-					type="button"
-					onClick={this.onClick}
-				>
-					Serialize Graph
-				</button>
 				<div className="body">
 					<div className="header">
 						<div className="title">Diagram Engine</div>
 					</div>
 					<div className="content">
-						<Tray />
+						<Tray input={input} />
 						<div className="diagram-layer">
 							<Engine.DiagramWidget
 								className="srd-demo-canvas"

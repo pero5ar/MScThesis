@@ -5,10 +5,47 @@ const AttemptService = require('../services/attempt.service');
 const ExerciseService = require('../services/exercise.service');
 
 const AttemptViewModel = require('../viewModels/attempt.viewModel');
+const ExerciseViewModel = require('../viewModels/exercise.viewModel');
+const ExerciseTableViewModel = require('../viewModels/exerciseTable.viewModel');
 
 /**
  * @typedef {(req: express.Request, res: express.Response, next?: Function) => Promise<express.Response>} Endpoint
  */
+
+/** @type {Endpoint} */
+const create = async (req, res) => {
+	const data = require('../tmp');
+
+	const exercise = await ExerciseService.create(data);
+	const viewModel = new ExerciseViewModel(exercise);
+
+	return res.status(201).json(viewModel);
+};
+
+/** @type {Endpoint} */
+const get = async (req, res) => {
+	const { userId } = res.locals;
+	const { exerciseId } = req.params;
+
+	const exercise = await ExerciseService.findById(exerciseId);
+	let attempt = null;
+	if (exercise.usersAttemptedIds.includes(userId)) {
+		attempt = await AttemptService.findLastForUserAndExercise(userId, exerciseId);
+	}
+	const viewModel = new ExerciseViewModel(exercise, userId, attempt);
+
+	return res.json(viewModel);
+};
+
+/** @type {Endpoint} */
+const getTable = async (req, res) => {
+	const { userId } = res.locals;
+
+	const exercises = await ExerciseService.findAllForTable();
+	const viewModel = new ExerciseTableViewModel(exercises, userId);
+
+	return res.json(viewModel);
+};
 
 /** @type {Endpoint} */
 const createAttempt = async (req, res) => {
@@ -41,6 +78,9 @@ const updateAttempt = async (req, res) => {
 
 
 module.exports = {
+	create,
+	get,
+	getTable,
 	createAttempt,
 	updateAttempt,
 };

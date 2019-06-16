@@ -6,7 +6,7 @@
 			"import * as React from 'react';",
 			"import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';",
 			"",
-			"import { RootState } from '';",
+			"import { RootState } from 'state';",
 			"",
 			"interface OwnProps {}",
 			"",
@@ -92,11 +92,11 @@
 		"prefix": "actioncreator",
 		"body": [
 			"interface ${1:ActionCreatorInterface} {",
-			"\ttype: typeof actionTypes.${2:ACTION_CREATOR};",
+			"\ttype: typeof ${2:RESOURCE}_ACTIONS.${3:ACTION_CREATOR};",
 			"}",
-			"export function ${2:ACTION_CREATOR}(): ${1:ActionCreatorInterface} {",
+			"export function ${3:ACTION_CREATOR}(): ${1:ActionCreatorInterface} {",
 			"\treturn {",
-			"\t\ttype: actionTypes.${2:ACTION_CREATOR}",
+			"\t\ttype: ${2:RESOURCE}_ACTIONS.${3:ACTION_CREATOR},",
 			"\t};",
 			"}",
 			""

@@ -4,6 +4,11 @@ export const AUTH = {
 	REGISTER: '/register',
 };
 
+export const EXERCISE = {
+	TABLE: '/exercises',
+	PLAYGROUND: (exerciseId: string = ':exerciseId') => `/exercises/${exerciseId}/play`,
+};
+
 export const HOME = '/';
 
 export const DIAGRAM = '/diagram';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';
+import { connect, ReactReduxActionsToDispatchActions } from 'react-redux';
 
 import UserActions from 'state/user';
 
@@ -27,4 +27,4 @@ const dispatchProps: DispatchProps = {
 	logout: UserActions.logout,
 };
 
-export default connect(null, dispatchProps as MapDispatchToPropsParam<DispatchProps, {}>)(Home);
+export default connect(null, dispatchProps)(Home);

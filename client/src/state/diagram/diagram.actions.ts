@@ -1,7 +1,10 @@
 import { Dispatch } from 'redux';
 
+import NodeData from 'models/nodeData.model';
+
 import * as Engine from 'engine';
 
+import { DiagramState } from './diagram.stateModel';
 import * as DIAGRAM_ACTIONS from './diagram.actionCreators';
 
 import * as EngineUtil from 'utils/engine.util';
@@ -13,7 +16,13 @@ const _getSelectNodeAction = (dispatch: Dispatch<DiagramAction>) => (nodeId: Nul
 const _getSetNodeSettingsAction = (dispatch: Dispatch<DiagramAction>) => (nodeId: string, settings: object) => setNodeSettings(nodeId, settings)(dispatch);
 const _getRemoveLinkAction = (dispatch: Dispatch<DiagramAction>) => (linkId: string) => removeLink(linkId)(dispatch);
 
-export function addNode(model: Engine.NodeModelConstructor, x: number, y: number) {
+export function setState(state: Nullable<DiagramState>) {
+	return function (dispatch: Dispatch<DiagramAction>) {
+		dispatch(DIAGRAM_ACTIONS.SET_STATE(state));
+	};
+}
+
+export function addNode(model: Engine.NodeModelConstructor, x: number, y: number, input?: NodeData) {
 	return function (dispatch: Dispatch<DiagramAction>) {
 		const entityRemovedListener = EngineUtil.generateEntityRemovedListener(_getRemoveNodeAction(dispatch));
 		const selectionChangedListener = EngineUtil.generateSelectionChangedListener(_getSelectNodeAction(dispatch));
@@ -21,6 +30,9 @@ export function addNode(model: Engine.NodeModelConstructor, x: number, y: number
 
 		const node = Engine.getInstance().addNode(model, x, y, selectionChangedListener, entityRemovedListener, settingsChangedListener);
 		dispatch(DIAGRAM_ACTIONS.ADD_NODE(node));
+		if (input && node instanceof Engine.NodeModels.StartNodeModel) {
+			node.input = input;
+		}
 	};
 }
 

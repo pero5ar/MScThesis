@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, MapDispatchToPropsParam, ReactReduxActionsToDispatchActions } from 'react-redux';
+import { connect, ReactReduxActionsToDispatchActions } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import * as CLIENT from 'constants/routes/client';
@@ -89,5 +89,5 @@ const dispatchProps: DispatchProps = {
 	login: UserActions.login,
 };
 
-export default connect(mapStateToProps, dispatchProps as MapDispatchToPropsParam<DispatchProps, {}>)(Login);
+export default connect(mapStateToProps, dispatchProps)(Login);
 

@@ -51,11 +51,31 @@ const _areTablesEqual = (valueTable, expectedTable, isRowOrderImportant = false)
  * @param {string[]} exerciseObject.output.keys
  * @param {object[]} exerciseObject.output.rows
  * @param {boolean} exerciseObject.isOutputRowOrderImportant
+ * @param {string} [exerciseObject.createdById]
  * @returns {Promise<mongoose.Document>}
  */
 const create = async (exerciseObject) => {
 	const exercise = new Exercise(exerciseObject);
 	return await exercise.save();
+};
+
+/**
+ * @returns {Promise<mongoose.Document[]>}
+ */
+const findAllForTable = async () => {
+	return await Exercise.find({}, { id: 1, code: 1, title: 1, usersAttemptedIds: 1, usersCompletedIds: 1 }).exec();
+};
+
+/**
+ * @param {string} id
+ * @returns {Promise<mongoose.Document>}
+ */
+const findById = async (id) => {
+	const exercise = await Exercise.findById(id).exec();
+	if (!exercise) {
+		throw new Errors.NotFoundError('Exercise does not exist');
+	}
+	return exercise;
 };
 
 /**
@@ -75,5 +95,7 @@ const isOutputCorrect = async (exerciseId, output) => {
 
 module.exports = {
 	create,
+	findAllForTable,
+	findById,
 	isOutputCorrect,
 };

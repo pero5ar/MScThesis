@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { connect, ReactReduxActionsToDispatchActions } from 'react-redux';
 
+import NodeData from 'models/nodeData.model';
+
 import * as Engine from 'engine';
 
 import { RootState } from 'state';
 import DiagramActions from 'state/diagram';
 
 import TrayItem from './TrayItem';
+
+interface OwnProps {
+	input: NodeData;
+}
 
 interface StateProps {
 	hasStart: boolean;
@@ -17,18 +23,18 @@ interface DispatchProps {
 	addNode: typeof DiagramActions.addNode;
 }
 
-type Props = StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
+type Props = OwnProps & StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
 
 class Tray extends React.PureComponent<Props> {
 
 	addNode = (event: React.MouseEvent, model: Engine.NodeModelClass) => {
-		const { addNode } = this.props;
+		const { addNode, input } = this.props;
 
 		const points = Engine.getInstance().getDiagramEngine().getRelativeMousePoint(event);
 		const x = points.x + 200;
 		const y = points.y + 200;
 
-		addNode(model, x, y);
+		addNode(model, x, y, input);
 	}
 
 	render() {

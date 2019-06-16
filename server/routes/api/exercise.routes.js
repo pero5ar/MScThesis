@@ -7,6 +7,12 @@ const ExerciseController = require('../../controllers/exercise.controller');
 
 const router = express.Router();
 
+router.post('/', asyncWrap(ExerciseController.create));
+
+router.get('/table', authenticate, asyncWrap(ExerciseController.getTable));
+
+router.get('/:exerciseId', authenticate, asyncWrap(ExerciseController.get));
+
 router.post('/:exerciseId/attempts', authenticate, asyncWrap(ExerciseController.createAttempt));
 
 router.put('/:exerciseId/attempts/:attemptId', authenticate, asyncWrap(ExerciseController.updateAttempt));

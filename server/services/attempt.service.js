@@ -28,6 +28,9 @@ const create = async (attemptObject) => {
 		throw new Errors.BadRequestError('User or exercise does not exist');
 	}
 
+	// state timestamp should be in server time
+	state.timestamp = new Date();
+
 	const objectToCreate = {
 		userId,
 		exerciseId,
@@ -57,7 +60,7 @@ const create = async (attemptObject) => {
 /**
  * @param {string} userId
  * @param {string} exerciseId
- * @returns {Promise<mongoose.Document>}
+ * @returns {Promise<mongoose.Document[]>}
  */
 const findAllForUserAndExercise = async (userId, exerciseId) => {
 	return await Attempt.find({ userId, exerciseId }).exec();

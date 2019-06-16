@@ -1,6 +1,21 @@
 import * as DIAGRAM_ACTIONS from './diagram.actionTypes';
 
+import { DiagramState } from './diagram.stateModel';
+
 import { NodeModel } from 'engine';
+
+interface SetState {
+	type: typeof DIAGRAM_ACTIONS.SET_STATE;
+	payload: {
+		state: Nullable<DiagramState>;
+	};
+}
+export function SET_STATE(state: Nullable<DiagramState>): SetState {
+	return {
+		type: DIAGRAM_ACTIONS.SET_STATE,
+		payload: { state },
+	};
+}
 
 interface AddNode extends ReduxAction {
 	type: typeof DIAGRAM_ACTIONS.ADD_NODE;
@@ -83,4 +98,4 @@ export function REMOVE_LINK(linkId: string): RemoveLink {
 	};
 }
 
-export type DiagramAction = AddNode | RemoveNode | SelectNode | SetNodeSettings | AddLink | RemoveLink;
+export type DiagramAction = SetState | AddNode | RemoveNode | SelectNode | SetNodeSettings | AddLink | RemoveLink;

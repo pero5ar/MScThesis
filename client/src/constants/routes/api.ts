@@ -11,8 +11,10 @@ export const USERS = {
 };
 
 export const EXERCISES = {
+	TABLE: `${EXERCISES_PATH}/table`,
+	SINGLE: (exerciseId: string) => `${EXERCISES_PATH}/${exerciseId}`,
 	ATTEMPTS: {
 		CREATE: (exerciseId: string) => `${EXERCISES_PATH}/${exerciseId}/attempts`,
-		UPDATE: (exerciseId: string, attemptId: string) => `${EXERCISES_PATH}/${exerciseId}/attempts/${attemptId}`,
+		SINGLE: (exerciseId: string, attemptId: string) => `${EXERCISES_PATH}/${exerciseId}/attempts/${attemptId}`,
 	},
 };

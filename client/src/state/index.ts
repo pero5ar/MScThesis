@@ -2,21 +2,25 @@ import { combineReducers, createStore, applyMiddleware, Store, compose } from 'r
 import reduxThunk from 'redux-thunk';
 
 import { DiagramState } from './diagram/diagram.stateModel';
+import { ExerciseState } from './exercise/exercise.stateModel';
 import { HttpState } from './http/http.stateModel';
 import { UserState } from './user/user.stateModel';
 
 import diagram from './diagram/diagram.reducer';
+import exercise from './exercise/exercise.reducer';
 import http from './http/http.reducer';
 import user from './user/user.reducer';
 
 export interface RootState {
 	diagram: DiagramState;
+	exercise: ExerciseState;
 	http: HttpState;
 	user: UserState;
 }
 
 const rootReducer = combineReducers<RootState>({
 	diagram,
+	exercise,
 	http,
 	user,
 });

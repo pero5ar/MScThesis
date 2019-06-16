@@ -46,6 +46,9 @@ const exerciseSchema = new mongoose.Schema({
 	usersCompletedIds: {
 		type: [mongoose.Schema.Types.ObjectId],
 	},
+	createdById: {
+		type: mongoose.Schema.Types.ObjectId,
+	},
 }, { timestamps: true });
 
 module.exports = mongoose.model('Exercise', exerciseSchema);

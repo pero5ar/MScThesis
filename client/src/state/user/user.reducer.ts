@@ -1,5 +1,4 @@
 import * as USER_ACTIONS from './user.actionTypes';
-
 import { UserAction } from './user.actionCreators';
 import { UserState } from './user.stateModel';
 
@@ -14,9 +13,8 @@ export default function userReducer(state: UserState = initialState, action: Use
 			return { ...state, user: action.payload.user, isAuthenticated: true };
 		case USER_ACTIONS.LOGOUT:
 			return { ...state, user: initialState.user, isAuthenticated: false };
-		case USER_ACTIONS.SET_IS_AUTHENTICATED: {
+		case USER_ACTIONS.SET_IS_AUTHENTICATED:
 			return { ...state, isAuthenticated: action.payload.isAuthenticated };
-		}
 		default:
 			return state;
 	}
