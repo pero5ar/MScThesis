@@ -70,7 +70,7 @@ export function updateAttempt(
 		const action = async () => {
 			const data: AttemptRequestModels.Update = { state, output, hasEnded };
 			const url = API.EXERCISES.ATTEMPTS.SINGLE(exerciseId, attemptId);
-			const attempt = await http.post<AttemptRequestModels.Update, AttemptViewModel>(url, data);
+			const attempt = await http.put<AttemptRequestModels.Update, AttemptViewModel>(url, data);
 			dispatch(EXERCISE_ACTIONS.SET_ACTIVE_ATTEMPT(attempt));
 		};
 		return await actionWithErrorHandler(action, dispatch, errorHandlers);

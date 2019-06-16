@@ -1,6 +1,7 @@
 import { DiagramEngine, DiagramModel, DefaultPortModel, PointModel } from 'storm-react-diagrams';
 
 import { NodeModelConstructor } from './nodeModels';
+import CustomDiagramModel from './diagramModel';
 import { ModelListenerFunction, NodeModel, LinkModel } from './index';
 
 export default class Engine {
@@ -15,7 +16,7 @@ export default class Engine {
 	}
 
 	newModel() {
-		this.activeModel = new DiagramModel();
+		this.activeModel = new CustomDiagramModel();
 		this.diagramEngine.setDiagramModel(this.activeModel);
 	}
 
@@ -35,6 +36,10 @@ export default class Engine {
 		return this.activeModel.getNode(nodeId) as Nullable<NodeModel>;
 	}
 
+	getAllLinks(): LinkModel[] {
+		return Object.values(this.activeModel.getLinks()) as LinkModel[];
+	}
+
 	getAllInPorts(): DefaultPortModel[] {
 		return this.getAllNodes().reduce((_acc, _node) => [..._acc, ..._node.getInPorts()], [] as DefaultPortModel[]);
 	}
@@ -47,12 +52,22 @@ export default class Engine {
 		Model: NodeModelConstructor<T>,
 		x: number,
 		y: number,
-		selectionChangedListener: ModelListenerFunction<NodeModel>,
-		entityRemovedListener: ModelListenerFunction<NodeModel>,
-		settingsChangedListener: ModelListenerFunction<NodeModel>
+		selectionChangedListener?: ModelListenerFunction<NodeModel>,
+		entityRemovedListener?: ModelListenerFunction<NodeModel>,
+		settingsChangedListener?: ModelListenerFunction<NodeModel>
 	) {
 		const node = new Model(x, y);
 		this.activeModel.addNode(node);
+		this.addListenersToNode(node, selectionChangedListener, entityRemovedListener, settingsChangedListener);
+		return node;
+	}
+
+	addListenersToNode<T extends NodeModel>(
+		node: T,
+		selectionChangedListener?: ModelListenerFunction<NodeModel>,
+		entityRemovedListener?: ModelListenerFunction<NodeModel>,
+		settingsChangedListener?: ModelListenerFunction<NodeModel>
+	) {
 		if (selectionChangedListener) {
 			node.addListener({
 				selectionChanged: selectionChangedListener,
@@ -68,10 +83,9 @@ export default class Engine {
 				settingsChanged: settingsChangedListener,
 			});
 		}
-		return node;
 	}
 
-	tryToConnectLinkOnPoint(link: LinkModel, point: PointModel, entityRemovedListener: ModelListenerFunction<LinkModel>): boolean {
+	tryToConnectLinkOnPoint(link: LinkModel, point: PointModel, entityRemovedListener?: ModelListenerFunction<LinkModel>): boolean {
 		const sourceId = link.getSourcePort().id;
 		const outPort = this.getAllOutPorts().find((_port) => _port.id === sourceId);
 		if (!outPort) {
@@ -94,13 +108,8 @@ export default class Engine {
 				link.setSourcePort(outPort);
 				outPort.addLink(link);
 
-				if (entityRemovedListener) {
-					link.isTracked = true;
-					link.addListener({
-						entityRemoved: entityRemovedListener,
-					});
-				}
 				this.activeModel.addLink(link);
+				this.addListenersToLink(link, entityRemovedListener);
 				return true;
 			}
 			return false;
@@ -110,5 +119,13 @@ export default class Engine {
 			link.remove();
 		}
 		return hasConnected;
+	}
+
+	addListenersToLink(link: LinkModel, entityRemovedListener?: ModelListenerFunction<LinkModel>) {
+		if (entityRemovedListener) {
+			link.addListener({
+				entityRemoved: entityRemovedListener,
+			});
+		}
 	}
 }

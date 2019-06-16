@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { NodeModels, WHERE_CONDITIONS } from 'engine';
+import { NodeModels, GetNodeModelSettingsType, WHERE_CONDITIONS } from 'engine';
 
 import { RootState } from 'state';
 
@@ -38,14 +38,18 @@ function Select<T>({ value, options, onChange }: SelectProps<T>) {
 
 const CONDITION_TYPE_OPTIONS = Object.values(WHERE_CONDITIONS).map((_conditionType) => ({ value: _conditionType.TYPE, label: _conditionType.LABEL }));
 
+type WhereNodeType = InstanceType<typeof NodeModels.WhereNodeModel>;
+type WhereNodeSettingsType = GetNodeModelSettingsType<WhereNodeType>;
+
 interface OwnProps {
-	node: InstanceType<typeof NodeModels.WhereNodeModel>;
+	node: WhereNodeType;
 	removeNode: () => void;
 }
 
 interface StateProps {
 	message: string | undefined;
 	options: string[] | undefined;
+	settings: WhereNodeSettingsType;	// used to force updates, use the node prop to read data
 }
 
 type Props = OwnProps & StateProps;
@@ -91,16 +95,21 @@ class WhereNodeSettings extends React.PureComponent<Props> {
 }
 
 function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
+	const nodeId = ownProps.node.id;
 	const previousNodeId = state.diagram.nodes[ownProps.node.id].previousNodeId;
+	const settings = state.diagram.nodes[nodeId].settings as WhereNodeSettingsType;
+
 	if (!previousNodeId || !state.diagram.dataByNode[previousNodeId]) {
 		return {
 			message: 'Options are not available for where nodes that are not directly or indirectly connected to start.',
 			options: undefined,
+			settings,
 		};
 	}
 	return {
 		message: undefined,
 		options: state.diagram.dataByNode[previousNodeId].keys,
+		settings,
 	};
 }
 

@@ -33,6 +33,8 @@ export type NodeModelClass = NodeModelsNamespace.NodeModelClass<NodeModel>;
 export type NodeModelConstructor = NodeModelsNamespace.NodeModelConstructor<NodeModel>;
 export const NodeModels = NodeModelClasses;
 
+export type GetNodeModelSettingsType<T extends NodeModel> = NodeModelsNamespace.GetNodeModelSettingsType<T>;
+
 export const WHERE_CONDITIONS = NodeModelsNamespace.WHERE_CONDITIONS;
 export type WHERE_CONDITIONS = typeof NodeModelsNamespace.WHERE_CONDITIONS;
 

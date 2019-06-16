@@ -16,20 +16,58 @@ const _getSelectNodeAction = (dispatch: Dispatch<DiagramAction>) => (nodeId: Nul
 const _getSetNodeSettingsAction = (dispatch: Dispatch<DiagramAction>) => (nodeId: string, settings: object) => setNodeSettings(nodeId, settings)(dispatch);
 const _getRemoveLinkAction = (dispatch: Dispatch<DiagramAction>) => (linkId: string) => removeLink(linkId)(dispatch);
 
-export function setState(state: Nullable<DiagramState>) {
+function _getNodeListeners(dispatch: Dispatch<DiagramAction>) {
+	const entityRemovedListener = EngineUtil.generateEntityRemovedListener(_getRemoveNodeAction(dispatch));
+	const selectionChangedListener = EngineUtil.generateSelectionChangedListener(_getSelectNodeAction(dispatch));
+	const settingsChangedListener = EngineUtil.generateSettingsChangedListener(_getSetNodeSettingsAction(dispatch));
+
+	return {
+		entityRemovedListener,
+		selectionChangedListener,
+		settingsChangedListener,
+	};
+}
+
+function _getLinkListeners(dispatch: Dispatch<DiagramAction>) {
+	const entityRemovedListener = EngineUtil.generateEntityRemovedListener(_getRemoveLinkAction(dispatch));
+
+	return { entityRemovedListener };
+}
+
+function _rebuildListeners(dispatch: Dispatch<DiagramAction>) {
+	const engine = Engine.getInstance();
+	const nodeListeners = _getNodeListeners(dispatch);
+	const linkListeners = _getLinkListeners(dispatch);
+
+	engine.getAllNodes().forEach((_node) => {
+		engine.addListenersToNode(_node, nodeListeners.selectionChangedListener, nodeListeners.entityRemovedListener, nodeListeners.settingsChangedListener);
+		_node.isTracked = true;
+	});
+	engine.getAllLinks().forEach((_link) => {
+		engine.addListenersToLink(_link, linkListeners.entityRemovedListener);
+		_link.isTracked = true;
+	});
+}
+
+export function setState(diagramState: Nullable<DiagramState>, serializedGraph?: string) {
 	return function (dispatch: Dispatch<DiagramAction>) {
-		dispatch(DIAGRAM_ACTIONS.SET_STATE(state));
+		dispatch(DIAGRAM_ACTIONS.SET_STATE(diagramState));
+		if (diagramState && serializedGraph) {
+			const engine = Engine.getInstance();
+			engine.getActiveDiagram().deSerializeDiagram(JSON.parse(serializedGraph), engine.getDiagramEngine());
+			_rebuildListeners(dispatch);
+		}
 	};
 }
 
 export function addNode(model: Engine.NodeModelConstructor, x: number, y: number, input?: NodeData) {
 	return function (dispatch: Dispatch<DiagramAction>) {
-		const entityRemovedListener = EngineUtil.generateEntityRemovedListener(_getRemoveNodeAction(dispatch));
-		const selectionChangedListener = EngineUtil.generateSelectionChangedListener(_getSelectNodeAction(dispatch));
-		const settingsChangedListener = EngineUtil.generateSettingsChangedListener(_getSetNodeSettingsAction(dispatch));
+		const { selectionChangedListener, entityRemovedListener, settingsChangedListener } = _getNodeListeners(dispatch);
 
 		const node = Engine.getInstance().addNode(model, x, y, selectionChangedListener, entityRemovedListener, settingsChangedListener);
 		dispatch(DIAGRAM_ACTIONS.ADD_NODE(node));
+		node.isTracked = true;
+
 		if (input && node instanceof Engine.NodeModels.StartNodeModel) {
 			node.input = input;
 		}
@@ -62,6 +100,7 @@ export function tryAddLink(link: Engine.LinkModel, point: Engine.PointModel) {
 			const sourceNode = link.getSourcePort().parent;
 			const targetNode = link.getTargetPort().parent;
 			dispatch(DIAGRAM_ACTIONS.ADD_LINK(link.id, sourceNode.id, targetNode.id));
+			link.isTracked = true;
 			return true;
 		}
 		return false;

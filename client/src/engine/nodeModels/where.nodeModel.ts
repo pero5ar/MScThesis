@@ -28,13 +28,15 @@ export default class WhereNodeModel extends AbstractNodeModel<WhereNodeSettings>
 		conditionType: null,
 	};
 
-	constructor(x: number, y: number) {
+	constructor(x: number, y: number, noPorts = false) {
 		super(WhereNodeModel.NAME, WhereNodeModel.COLOR, WhereNodeModel.DEFAULT_NODE_SETTINGS, x, y);
 
-		const inPort = this.addInPort(IN_PORT_LABEL);
-		inPort.setMaximumLinks(1);
-		const outPort = this.addOutPort(OUT_PORT_LABEL);
-		outPort.setMaximumLinks(1);
+		if (!noPorts) {
+			const inPort = this.addInPort(IN_PORT_LABEL);
+			inPort.setMaximumLinks(1);
+			const outPort = this.addOutPort(OUT_PORT_LABEL);
+			outPort.setMaximumLinks(1);
+		}
 	}
 
 	static generateTest(node: WhereNodeModel) {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { NodeModels } from 'engine';
+import { NodeModels, GetNodeModelSettingsType } from 'engine';
 
 import { RootState } from 'state';
 
@@ -18,14 +18,18 @@ const Checkbox = ({ label, value, onChange }: CheckboxProps) => (
 	</div>
 );
 
+type SelectNodeType = InstanceType<typeof NodeModels.SelectNodeModel>;
+type SelectNodeSettingsType = GetNodeModelSettingsType<SelectNodeType>;
+
 interface OwnProps {
-	node: InstanceType<typeof NodeModels.SelectNodeModel>;
+	node: SelectNodeType;
 	removeNode: () => void;
 }
 
 interface StateProps {
 	message: string | undefined;
 	options: string[] | undefined;
+	settings: SelectNodeSettingsType;	// used to force updates, use the node prop to read data
 }
 
 type Props = OwnProps & StateProps;
@@ -33,7 +37,8 @@ type Props = OwnProps & StateProps;
 class SelectNodeSettings extends React.PureComponent<Props> {
 
 	onCheck = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
-		const { selectedKeys } = this.props.node.settings;
+		const { node } = this.props;
+		const { selectedKeys } = node.settings;
 
 		let newSettings = null;
 		if (!event.target.checked && selectedKeys.includes(key)) {
@@ -46,7 +51,7 @@ class SelectNodeSettings extends React.PureComponent<Props> {
 		if (!newSettings) {
 			return;
 		}
-		this.props.node.settings = newSettings;
+		node.settings = newSettings;
 	}
 
 	renderOption = (option: string) => {
@@ -79,16 +84,21 @@ class SelectNodeSettings extends React.PureComponent<Props> {
 }
 
 function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
-	const previousNodeId = state.diagram.nodes[ownProps.node.id].previousNodeId;
+	const nodeId = ownProps.node.id;
+	const previousNodeId = state.diagram.nodes[nodeId].previousNodeId;
+	const settings = state.diagram.nodes[nodeId].settings as SelectNodeSettingsType;
+
 	if (!previousNodeId || !state.diagram.dataByNode[previousNodeId]) {
 		return {
 			message: 'Options are not available for select nodes that are not directly or indirectly connected to start.',
 			options: undefined,
+			settings,
 		};
 	}
 	return {
 		message: undefined,
 		options: state.diagram.dataByNode[previousNodeId].keys,
+		settings,
 	};
 }
 

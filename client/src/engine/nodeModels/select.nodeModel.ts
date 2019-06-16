@@ -14,13 +14,15 @@ export default class SelectNodeModel extends AbstractNodeModel<SelectNodeSetting
 		selectedKeys: [],
 	};
 
-	constructor(x: number, y: number) {
+	constructor(x: number, y: number, noPorts = false) {
 		super(SelectNodeModel.NAME, SelectNodeModel.COLOR, SelectNodeModel.DEFAULT_NODE_SETTINGS, x, y);
 
-		const inPort = this.addInPort(IN_PORT_LABEL);
-		inPort.setMaximumLinks(1);
-		const outPort = this.addOutPort(OUT_PORT_LABEL);
-		outPort.setMaximumLinks(1);
+		if (!noPorts) {
+			const inPort = this.addInPort(IN_PORT_LABEL);
+			inPort.setMaximumLinks(1);
+			const outPort = this.addOutPort(OUT_PORT_LABEL);
+			outPort.setMaximumLinks(1);
+		}
 	}
 
 	run(data: NodeData): NodeData {

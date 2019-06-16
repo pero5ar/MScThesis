@@ -19,7 +19,8 @@ const initialState: DiagramState = {
 export default function diagramReducer(state: DiagramState = initialState, action: DiagramAction): DiagramState {
 	switch (action.type) {
 		case DIAGRAM_ACTIONS.SET_STATE:
-			return action.payload.state || initialState;
+			const payloadState = action.payload.state || undefined;
+			return { ...initialState, ...payloadState };
 
 		case DIAGRAM_ACTIONS.ADD_NODE:
 			const node = action.payload.node;
@@ -44,7 +45,6 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 				node.remove();
 				return state;
 			}
-			node.isTracked = true;
 			return {
 				...state,
 				startNodeId: isStartNode ? node.id : state.startNodeId,

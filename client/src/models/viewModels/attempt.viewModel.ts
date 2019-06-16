@@ -1,6 +1,6 @@
 import { AttemptState } from 'models/requestModels/attempt.requestModels';
 
-interface AttemptStateViewModel extends AttemptState {
+export interface AttemptStateViewModel extends AttemptState {
 	timestamp: Date;
 }
 

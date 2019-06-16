@@ -44,16 +44,20 @@ const create = async (attemptObject) => {
 	}
 	/** @type {mongoose.Document} */
 	const attempt = new Attempt(objectToCreate);
-	await attempt.save();
 
-	if (!previousAttempt) {
+	if (!user.exercisesAttemptedIds.includes(exerciseId)) {
 		user.exercisesAttemptedIds.push(exerciseId);
-		exercise.usersAttemptedIds.push(userId);
-		await Promise.all([
-			user.save(),
-			exercise.save(),
-		]);
 	}
+	if (!exercise.usersAttemptedIds.includes(userId)) {
+		exercise.usersAttemptedIds.push(userId);
+	}
+
+	await Promise.all([
+		attempt.save(),
+		user.save(),
+		exercise.save(),
+	]);
+
 	return attempt;
 };
 

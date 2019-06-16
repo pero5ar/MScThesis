@@ -60,7 +60,7 @@ const createAttempt = async (req, res) => {
 	});
 	const viewModel = new AttemptViewModel(attempt);
 
-	return res.sendStatus(201).json(viewModel);
+	return res.status(201).json(viewModel);
 };
 
 /** @type {Endpoint} */
