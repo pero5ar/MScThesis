@@ -96,7 +96,7 @@ class WhereNodeSettings extends React.PureComponent<Props> {
 
 function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
 	const nodeId = ownProps.node.id;
-	const previousNodeId = state.diagram.nodes[ownProps.node.id].previousNodeId;
+	const previousNodeId = state.diagram.nodes[ownProps.node.id].previousNodeIds[0];
 	const settings = state.diagram.nodes[nodeId].settings as WhereNodeSettingsType;
 
 	if (!previousNodeId || !state.diagram.dataByNode[previousNodeId]) {

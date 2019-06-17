@@ -54,7 +54,7 @@ export default abstract class AbstractNodeModel<TSettings = any> extends Default
 		this.extras = {};
 	}
 
-	abstract run(data: NodeData): NodeData;
+	abstract run(...dataArgs: NodeData[]): NodeData;
 
 	get settings() {
 		return this._settings;

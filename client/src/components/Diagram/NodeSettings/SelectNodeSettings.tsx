@@ -85,7 +85,7 @@ class SelectNodeSettings extends React.PureComponent<Props> {
 
 function mapStateToProps(state: RootState, ownProps: OwnProps): StateProps {
 	const nodeId = ownProps.node.id;
-	const previousNodeId = state.diagram.nodes[nodeId].previousNodeId;
+	const previousNodeId = state.diagram.nodes[nodeId].previousNodeIds[0];
 	const settings = state.diagram.nodes[nodeId].settings as SelectNodeSettingsType;
 
 	if (!previousNodeId || !state.diagram.dataByNode[previousNodeId]) {

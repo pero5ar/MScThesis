@@ -4,39 +4,47 @@ import { callNodeRun } from './engine.util';
 
 type DataByNode = DiagramState['dataByNode'];
 
-export function isNodeConnectedToStart(state: DiagramState, nodeId: Nullable<string>): boolean {
+export function isNodeConnectedToStartOnAllEnds(state: Readonly<DiagramState>, nodeId: Nullable<string>, visitedNodeIds: string[] = []): boolean {
 	if (nodeId === null) {
-		return false;
+		return false;	// this should not happen unless called form the outside
 	}
-	if (nodeId === state.startNodeId) {
+	if (visitedNodeIds.includes(nodeId)) {
+		return false;	// in case of an circle
+	}
+	if (state.startNodeIds.includes(nodeId)) {
 		return true;
 	}
-	return isNodeConnectedToStart(state, state.nodes[nodeId].previousNodeId);
-}
-
-/** Will return a list starting from the furthermost ancestor and ending with the direct parent */
-export function getPrecedingNodesIds(state: DiagramState, nodeId: string): string[] {
-	const precedingNodesIds = [];
-	let currentNodeId = state.nodes[nodeId].previousNodeId;
-	while (currentNodeId) {
-		precedingNodesIds.unshift(currentNodeId);
-		currentNodeId = state.nodes[currentNodeId].previousNodeId;
+	if (state.nodes[nodeId].previousNodeIds.length === 0) {
+		return false;
 	}
-	return precedingNodesIds;
+	const updatedVisitedNodeIds = [ ...visitedNodeIds, nodeId ];
+	return state.nodes[nodeId].previousNodeIds.every((_nodeId) => isNodeConnectedToStartOnAllEnds(state, _nodeId, updatedVisitedNodeIds));
 }
 
-/** Will return a list starting from the direct child and ending with the furthermost descendant */
+type NodeWithParents = { nodeId: string; parents: NodeWithParents[]; };
+export function getPrecedingNodeIdsTree(state: DiagramState, nodeId: string): NodeWithParents {
+	const parents = state.nodes[nodeId].previousNodeIds.map((_nodeId) => getPrecedingNodeIdsTree(state, _nodeId));
+	return {
+		nodeId,
+		parents,
+	};
+}
+
 export function getSucceedingNodesIds(state: DiagramState, nodeId: string): string[] {
-	const succeedingNodesIds = [];
-	let currentNodeId = state.nodes[nodeId].nextNodeId;
-	while (currentNodeId) {
-		succeedingNodesIds.push(currentNodeId);
-		currentNodeId = state.nodes[currentNodeId].nextNodeId;
+	const succeedingNodesIds: string[] = [];
+	let currentNodeIds = state.nodes[nodeId].nextNodeIds;
+	while (currentNodeIds.length) {
+		succeedingNodesIds.push(...currentNodeIds);
+		const newCurrentNodeIds: string[] = [];
+		for (let _nodeId of currentNodeIds) {
+			newCurrentNodeIds.push(...state.nodes[_nodeId].nextNodeIds);
+		}
+		currentNodeIds = newCurrentNodeIds;
 	}
 	return succeedingNodesIds;
 }
 
-export function getDataByNodesWithoutSucceedingNodes(state: DiagramState, sourceNodeId: string, includeSource: boolean = false): DataByNode {
+export function getDataByNodesWithoutSucceedingNodes(state: Readonly<DiagramState>, sourceNodeId: string, includeSource: boolean = false): DataByNode {
 	const linkedNodesIds = getSucceedingNodesIds(state, sourceNodeId);
 	if (includeSource) {
 		linkedNodesIds.unshift(sourceNodeId);
@@ -49,29 +57,35 @@ export function getDataByNodesWithoutSucceedingNodes(state: DiagramState, source
 	}, {} as DataByNode);
 }
 
-export function updateDataByNodesWithMissingNodes(state: DiagramState, endNodeId: string, includeEnd: boolean = true): DataByNode {
-	if (!isNodeConnectedToStart(state, endNodeId)) {
-		throw new Error('Node needs to be connected to start for data to be calculated');
+// tail recursion, result is in updatedDataByNode
+function _buildUpdatedDataByNodesForTree(state: Readonly<DiagramState>, node: NodeWithParents, updatedDataByNode: DataByNode = {}) {
+	const { nodeId, parents } = node;
+
+	if (!parents.length && !state.startNodeIds.includes(nodeId)) {
+		throw new Error(`Cannot update non start node without parent data. Node id: ${nodeId}`);
 	}
-	const linkedNodesIds = getPrecedingNodesIds(state, endNodeId);
-	if (includeEnd) {
-		linkedNodesIds.push(endNodeId);
-	}
-	const addedData = {} as DataByNode;
-	for (let nodeId of linkedNodesIds) {
-		if (!!state.dataByNode[nodeId]) {
-			continue;
+
+	parents.forEach((_parent) => _buildUpdatedDataByNodesForTree(state, _parent, updatedDataByNode));
+
+	const getParentData = ({ nodeId: _parentNodeId }: NodeWithParents) => {
+		if (!updatedDataByNode[_parentNodeId]) {
+			throw new Error(`Missing data for node ${_parentNodeId} to build data for node ${nodeId}`);
 		}
-		const previousNodeId = state.nodes[nodeId].previousNodeId;
-		if (!previousNodeId) {
-			// This can only happen for start node
-			addedData[nodeId] = callNodeRun(nodeId);
-			continue;
-		}
-		addedData[nodeId] = callNodeRun(nodeId, addedData[previousNodeId] || state.dataByNode[previousNodeId]);
+		return updatedDataByNode[_parentNodeId];
+	};
+	updatedDataByNode[nodeId] = updatedDataByNode[nodeId] || state.dataByNode[nodeId] || callNodeRun(nodeId, ...parents.map(getParentData));
+	return updatedDataByNode;
+}
+
+export function updateDataByNodesWithMissingNodes(state: Readonly<DiagramState>, endNodeId: string): DataByNode {
+	if (!isNodeConnectedToStartOnAllEnds(state, endNodeId)) {
+		throw new Error('Node needs to be connected to start on all ends for data to be calculated');
 	}
+	const node = getPrecedingNodeIdsTree(state, endNodeId);
+	const updatedDataByNode = _buildUpdatedDataByNodesForTree(state, node);
+
 	return {
 		...state.dataByNode,
-		...addedData,
+		...updatedDataByNode,
 	};
 }

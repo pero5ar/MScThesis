@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { traverseNodesFromStart } from 'utils/engine.util';
-
 type Props = {};
 
 interface State {
@@ -14,15 +12,7 @@ export default class TrayItem extends React.PureComponent<Props, State> {
 	};
 
 	buildQuery = () => {
-		const nodes = traverseNodesFromStart();
-		const query = nodes.reduce((_query, _node, _index) => {
-			_query += _node.name;
-			if (_index < nodes.length - 1) {
-				_query += ' -> ';
-			}
-			return _query;
-		}, '');
-		this.setState(() => ({ query }));
+		this.setState(() => ({ query: 'Not implemented!' }));
 	}
 
 	render() {

@@ -4,12 +4,12 @@ import * as DIAGRAM_ACTIONS from './diagram.actionTypes';
 import { DiagramAction } from './diagram.actionCreators';
 import { DiagramState } from './diagram.stateModel';
 
-import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStart } from 'utils/diagram.util';
+import { getDataByNodesWithoutSucceedingNodes, updateDataByNodesWithMissingNodes, isNodeConnectedToStartOnAllEnds } from 'utils/diagram.util';
 import { callNodeRun } from 'utils/engine.util';
 
 const initialState: DiagramState = {
 	selectedNodeId: null,
-	startNodeId: null,
+	startNodeIds: [],
 	endNodeId: null,
 	nodes: {},
 	links: {},
@@ -30,11 +30,6 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 			const isStartNode = node instanceof NodeModels.StartNodeModel;
 			const isEndNode = node instanceof NodeModels.EndNodeModel;
 
-			if (state.startNodeId && isStartNode) {
-				console.error('Diagram already has start node, deleting invalid node: ', node);
-				node.remove();
-				return state;
-			}
 			if (state.endNodeId && isEndNode) {
 				console.error('Diagram already has end node, deleting invalid node: ', node);
 				node.remove();
@@ -47,16 +42,16 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 			}
 			return {
 				...state,
-				startNodeId: isStartNode ? node.id : state.startNodeId,
+				startNodeIds: isStartNode ? [ ...state.startNodeIds, node.id ] : state.startNodeIds,
 				endNodeId: isEndNode ? node.id : state.endNodeId,
 				nodes: {
 					...state.nodes,
 					[node.id]: {
 						settings: node.settings,
-						previousNodeId: null,
-						inLinkId: null,
-						nextNodeId: null,
-						outLinkId: null,
+						previousNodeIds: [],
+						inLinkIds: [],
+						nextNodeIds: [],
+						outLinkIds: [],
 					},
 				},
 			};
@@ -64,12 +59,15 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 		case DIAGRAM_ACTIONS.REMOVE_NODE:
 			return {
 				...state,
-				startNodeId: action.payload.nodeId === state.startNodeId ? null : state.startNodeId,
+				startNodeIds: state.startNodeIds.includes(action.payload.nodeId)
+					? state.startNodeIds.filter((_nodeId) => _nodeId !== action.payload.nodeId)
+					: state.startNodeIds,
 				endNodeId: action.payload.nodeId === state.endNodeId ? null : state.endNodeId,
 				selectedNodeId: action.payload.nodeId === state.selectedNodeId ? null : state.selectedNodeId,
 				nodes: Object.keys(state.nodes).reduce((_obj, _key) => {
 					if (_key !== action.payload.nodeId) {
 						_obj[_key] = state.nodes[_key];
+						// link removal will update nextNodeIds and previousNodeIds
 					}
 					return _obj;
 				}, {} as DiagramState['nodes']),
@@ -86,14 +84,19 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 			return {
 				...state,
 				selectedNodeId: action.payload.nodeId,
-				dataByNode: isNodeConnectedToStart(state, action.payload.nodeId)
+				dataByNode: isNodeConnectedToStartOnAllEnds(state, action.payload.nodeId)
 					? updateDataByNodesWithMissingNodes(state, action.payload.nodeId as string)
 					: state.dataByNode,
 			};
 
 		case DIAGRAM_ACTIONS.SET_NODE_SETTINGS:
-			const previousNodeId = state.nodes[action.payload.nodeId].previousNodeId;
+			const shouldUpdateDataByNode = !!state.dataByNode[action.payload.nodeId];
+			const previousNodeIds = state.nodes[action.payload.nodeId].previousNodeIds;
 
+			const dataByNode = !shouldUpdateDataByNode ? state.dataByNode : {
+				...getDataByNodesWithoutSucceedingNodes(state, action.payload.nodeId),
+				[action.payload.nodeId]: callNodeRun(action.payload.nodeId, ...previousNodeIds.map((_nodeId) => state.dataByNode[_nodeId])),
+			};
 			return {
 				...state,
 				nodes: {
@@ -103,27 +106,23 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 						settings: action.payload.settings,
 					},
 				},
-				dataByNode: !!state.dataByNode[action.payload.nodeId]
-					? {
-						...getDataByNodesWithoutSucceedingNodes(state, action.payload.nodeId),
-						[action.payload.nodeId]: callNodeRun(action.payload.nodeId, previousNodeId ? state.dataByNode[previousNodeId] : undefined),
-					} : state.dataByNode,
+				dataByNode,
 			};
 
 		case DIAGRAM_ACTIONS.ADD_LINK:
-			const newState = {
+			const newState: DiagramState = {
 				...state,
 				nodes: {
 					...state.nodes,
 					[action.payload.sourceNodeId]: {
 						...state.nodes[action.payload.sourceNodeId],
-						nextNodeId: action.payload.targetNodeId,
-						outLinkId: action.payload.linkId,
+						nextNodeIds: [ ...state.nodes[action.payload.sourceNodeId].nextNodeIds, action.payload.targetNodeId ],
+						outLinkIds: [ ...state.nodes[action.payload.sourceNodeId].outLinkIds, action.payload.linkId ],
 					},
 					[action.payload.targetNodeId]: {
 						...state.nodes[action.payload.targetNodeId],
-						previousNodeId: action.payload.sourceNodeId,
-						inLinkId: action.payload.linkId,
+						previousNodeIds: [ ...state.nodes[action.payload.targetNodeId].previousNodeIds, action.payload.sourceNodeId ],
+						inLinkIds: [ ...state.nodes[action.payload.targetNodeId].inLinkIds, action.payload.linkId ],
 					},
 				},
 				links: {
@@ -134,7 +133,7 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 					},
 				},
 			};
-			if (isNodeConnectedToStart(state, action.payload.sourceNodeId)) {	// update data if new link is on path from start
+			if (isNodeConnectedToStartOnAllEnds(state, action.payload.sourceNodeId)) {
 				newState.dataByNode = updateDataByNodesWithMissingNodes(newState, action.payload.targetNodeId);
 			}
 			return newState;
@@ -148,8 +147,8 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 				? {
 					[linkData.sourceNodeId]: {
 						...state.nodes[linkData.sourceNodeId],
-						nextNodeId: null,
-						outLinkId: null,
+						nextNodeIds: state.nodes[linkData.sourceNodeId].nextNodeIds.filter((_nodeId) => _nodeId !== linkData.targetNodeId),
+						outLinkId: state.nodes[linkData.sourceNodeId].outLinkIds.filter((_linkId) => _linkId !== action.payload.linkId),
 					},
 				}
 				: undefined;
@@ -157,8 +156,8 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 				? {
 					[linkData.targetNodeId]: {
 						...state.nodes[linkData.targetNodeId],
-						previousNodeId: null,
-						inLinkId: null,
+						previousNodeIds: state.nodes[linkData.targetNodeId].previousNodeIds.filter((_nodeId) => _nodeId !== linkData.sourceNodeId),
+						inLinkId: state.nodes[linkData.targetNodeId].inLinkIds.filter((_linkId) => _linkId !== action.payload.linkId),
 					},
 				}
 				: undefined;

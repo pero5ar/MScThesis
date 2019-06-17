@@ -15,7 +15,6 @@ interface OwnProps {
 }
 
 interface StateProps {
-	hasStart: boolean;
 	hasEnd: boolean;
 }
 
@@ -38,14 +37,13 @@ class Tray extends React.PureComponent<Props> {
 	}
 
 	render() {
-		const { hasStart, hasEnd } = this.props;
+		const { hasEnd } = this.props;
 
 		return (
 			<div className="tray">
 				<TrayItem
 					model={Engine.NodeModels.StartNodeModel}
 					onClick={this.addNode}
-					disabled={hasStart}
 				/>
 				<TrayItem
 					model={Engine.NodeModels.SelectNodeModel}
@@ -67,7 +65,6 @@ class Tray extends React.PureComponent<Props> {
 
 function mapStateToProps(state: RootState): StateProps {
 	return {
-		hasStart: !!state.diagram.startNodeId,
 		hasEnd: !!state.diagram.endNodeId,
 	};
 }

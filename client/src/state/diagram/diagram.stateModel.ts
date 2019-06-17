@@ -2,10 +2,10 @@ import NodeData from 'models/nodeData.model';
 
 interface NodesDictValue {
 	settings: object;
-	previousNodeId: Nullable<string>;
-	inLinkId: Nullable<string>;
-	nextNodeId: Nullable<string>;
-	outLinkId: Nullable<string>;
+	previousNodeIds: string[];
+	inLinkIds: string[];
+	nextNodeIds: string[];
+	outLinkIds: string[];
 }
 type NodesDict = { [nodeId: string]: NodesDictValue; };
 
@@ -19,7 +19,7 @@ type NodeDataDict = { [nodeId: string]: NodeData; };
 
 export interface DiagramState {
 	selectedNodeId: Nullable<string>;
-	startNodeId: Nullable<string>;
+	startNodeIds: string[];
 	endNodeId: Nullable<string>;
 	nodes: NodesDict;
 	links: LinksDict;
