@@ -16,3 +16,13 @@ yarn-debug.log*
 yarn-error.log*
 
 yarn.lock
+
+# generated LaTex files
+docs/*.aux
+docs/*.bbl
+docs/*.blg
+docs/*.log
+docs/*.toc
+docs/*.synctex.gz
+# temporary:
+docs/*.pdf
