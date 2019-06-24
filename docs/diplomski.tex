@@ -341,7 +341,7 @@ Sav napisani XML kod je ustvari JavaScript, uključivo s elementima koji se zovu
 % NPM
 \subsection{NPM}
 
-Upravitelj i registar paketa NPM je originalno zamišljen kao upravitelj paketa za izvršno okruženje Node.js, no postupno je postao glavni repozitorij za sve JavaScript i TypeScript pakete i najveći repozitorij po broju paketa općenito\citep{med_npm_stats}.
+Upravitelj i registar paketa NPM je originalno zamišljen kao upravitelj paketa za izvršno okruženje \emph{Node.js}, no postupno je postao glavni repozitorij za sve JavaScript i TypeScript pakete i najveći repozitorij po broju paketa općenito\citep{med_npm_stats}.
 Registar paketa i programsku podršku održava tvrtka Npm, Inc.
 U trenutku pisanja ovog rada zadnja stabilna verzija programske podrške za NPM je verzija 6.9\citep{wiki_npm}.
 
@@ -382,7 +382,8 @@ Tada se drugi broj tretira kao da je \emph{Major}, jer on označava da su se des
 % Poslužiteljska strana
 \section{Poslužiteljska strana}
 
-TODO
+Poslužitelj se pokreće i izvodi u \emph{Node.js} izvršnom okruženju \engl{runtime}, a izgrađen je pomoću radnog okvira \engl{framework} Express.
+Podaci se spremaju u MongoDB dokument bazu podataka \engl{document-based database} kojoj se pristupa koristeći biblioteku Mongoose (koja se ujedno koristi i za modeliranje podataka).
 
 
 % Node.js
@@ -392,7 +393,7 @@ TODO
 Node je primarno namijenjen izgradnji skripti za web poslužitelje i alate naredbene linije \engl{command line tools}.
 Ključna prednost koju nudi u izgradnji web poslužitelja je što omogućava da se koristi isti jezik (JavaScript ili jezik koji se prevodi u JavaScript) koristi za izgradnju poslužiteljske i klijentske strane, što olakšava razvoj u slučaju kada isti razvojni tim programira i poslužiteljsku i klijentsku aplikaciju\citep{wiki_node}.
 
-Druga prednost je u konkurentnom model jezika JavaScript \footnote{Vidi poglavlje \ref{sec:async}} koji omogućava i potiče neblokirajuće, odnosno asinkrone ulazno-izlazne operacije \engl{asynchronous I/O}, što pomaže u izgradnji skalabilnih i brzih web poslužitelja.
+Druga prednost je u konkurentnom model jezika JavaScript \footnote{vidi poglavlje \ref{sec:async}} koji omogućava i potiče neblokirajuće, odnosno asinkrone ulazno-izlazne operacije \engl{asynchronous I/O}, što pomaže u izgradnji skalabilnih i brzih web poslužitelja.
 Naravno taj isti model onemogućava stvaranje zasebnih dretvi u jednom Node procesu. Node proces pri pokretanju stvara fiksan broj dretvi koje su potrebne za njegov rad i ne nudi programeru stabilno sučelje za stvaranje novih dretvi.
 Od verzije 10.5 uveden je eksperimentalan modul \emph{worker-threads}\footnote{
     korištenje modula mora se eksplicitno navesti pri pokretanju Node procesa sa zastavicom \emph{-{}-experimental-worker}
@@ -406,26 +407,61 @@ U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podršk
 % Express
 \subsection{Express}
 
-TODO
+Express (poznat još i kao \emph{Express.js}) je minimalistički radni okvir \engl{framework} koji nadograđuje Node sučelje i module za gradnju web poslužitelja s naprednim mogućnostima usmjeravanja \engl{routing} i opcionalnim korištenjem mehanizama predložaka \engl{template engines} za izgradnju web stranica.
+Napredne mogućnosti usmjeravanja olakšavaju razdvajanje koda s obzirom na korijenske API rute (korijenske resurse REST arhitekturnog stila), dodavanje međusloja sloja \engl{middleware} u cjevovod \engl{pipeline} specifičnih ruta, serviranje statičkih datoteka i konfiguriranje privremene memorije \engl{cache}.
+
+U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi u svim verzijama Node okruženja iznad verzije 0.10\citep{gh_express}.
 
 
 % MongoDB
 \subsection{MongoDB}
 
-TODO
+\emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, specifično riječ je o dokument sustavu baza podataka gdje su dokumenti predstavljeni u JSON\footnote{
+    \emph{JavaScript Object Notation} – način reprezentacije podataka kao JavaScript objekata - \url{https://www.json.org}
+} formatu.
+Dokumenti nisu zapravo spremljeni u JSON, već u BSON (\emph{binary JSON}) formatu, što je binarna serijalizacija proširenih JSON objekata koje Mongo koristi za spremanje podataka i upita.
+Prošireni JSON znači da Mongo podržava neke tipove koji ne postoje u standardnom JSON-u i JavaScript-u kao što su cjelobrojni brojevi (\emph{int} i \emph{long}), precizni 128 bitni brojevi (\emph{decimal}), binarni podaci i poseban tip za primarne ključeve dokumenata.
+
+Mongo dokumenti su posloženi u kolekcije \engl{collections}.
+Kolekcije u praksi predstavljaju dokumente sličnog tipa i namijenjene su tome da se nad njima vrše upiti.
+Upiti u Mongo interaktivnom okruženju ostvaruju se u JavaScript jeziku pozivom prikladne funkcije nad kolekcijom (npr. \emph{find}) i predavanjem JavaScript/JSON objekata kao argumente funkcije za izgradnju upita. Upiti su atomarni \engl{atomic} nad pojedinim dokumentom, no od Mongo verzije 4 postoji transakcijski API pomoću kojeg je moguće ostvariti atomarnost na razini sjednice \engl{session}\footnote{
+    funkcionalnost transakcija relativno je nova i još uvijek u beta fazi razvoja za distribuirane Mongo sustave
+}\citep{mongo}.
+
+Budući da je riječ o NoSQL bazi podataka, ne postoje relacije, odnosno automatski održavane poveznice između dokumenta.
+Za većinu aplikacija ovo nije problem jer princip kojim se modeliraju dokumenti u kolekciji nije isti kao modeliranje zapisa u relacijskoj bazi.
+Mongo dokumenti modeliraju se kao agregati podataka, odnosno dokumenti koji su u izravnoj ovisnosti o drugom dokumentu nalaze se unutar tog dokumenta.
+Tipičan primjer toga je račun nakon kupovine i stavke na tom računu.
+Gdje bi u relacijskom sustavu to bile dvije tablice, u Mongo sustavu se ta situacija modelira na način da su stavke računa lista objekata koja se nalazi unutar dokumenta račun.
+Na ovaj način jednostavno se može izgraditi distribuiran sustav baze podataka jer je svaki dokument ustvari agregat neovisan o drugim dokumentima.
+Naravno u praksi poveznice između dokumenata su nekad nužne i tada se za njihovo održavanje treba brinuti unutar aplikacijske logike.
 
 
 % Mongoose ODM
 \subsection{Mongoose ODM}
 
-TODO
+Mongoose je JavaScript ODM (krat. \emph{Object Data Model}) biblioteka koja olakšava korištenje Mongo baze podataka.
+ODM biblioteke služe za modeliranje podataka NoSQL baza podataka slično kako ORM (krat. \emph{Object Relational Model}\footnote{
+    Pojam je različit od \emph{object-relational mapping} koji označava mapiranje relacijskih podataka u objekte i obratno. Za oba pojma često se koristi ista kratica i većina \emph{object relational model} biblioteka implementira i \emph{object-relational mapping}
+}) biblioteke služe za modeliranje relacija u klase, odnosno objekte. U Mongoose biblioteci podaci se modeliraju pomoću sučelja koji se zove \emph{Schema}.
+To sučelje se onda koristi za definiranje \emph{Model} objekta.
+\emph{Model} objekt predstavlja Mongo kolekciju, čiji dokumenti nužno odgovaraju obliku kakav je definiran pomoću \emph{Schema} objekta, i služi za pozivanje upita nad kolekcijom i kreiranje instanci modela.
+Instanca modela predstavlja jedan specifičan dokument koji odgovara \emph{Schema} definiciji objekta tog istog modela.
+Na ovaj način se Mongo dokumenti u aplikaciji mogu proširiti s validacijskim slojem i metodama, odnosno dokumenti postaju objekti koji u sebi sadržavaju dio domenske logike za taj agregat\citep{mongoose}.
+
+Mongoose je implementiran tako da ovisi o i koristi službeni Mongo driver za Node, kojem se može pristupiti iz globalnog Mongoose objekta u slučaju da postoji potreba za nekim naprednim Mongo driver mogućnostima koje Mongoose sučelje ne nudi izravno\footnote{\url{https://docs.mongodb.com/ecosystem/drivers/node}}.
+U trenutku pisanja ovog rada najnovija verzija Mongoose paketa je 5.6, a paketi iznad verzije 5.2 (uključivo) zahtijevaju MongoDB Server verzije 4.0 ili iznad.
+
 
 
 \newpage
 % Aplikacijska (klijentska) strana
 \section{Aplikacijska (klijentska) strana}
 
-TODO
+Aplikacija je izrađena koristeći biblioteku React po predlošku i konfiguraciji paketa Create React App.
+Izgled aplikacije je stiliziran primarno koristeći radni okvir \engl{framework} Bootstrap, a elementi radnog okvira korišteni su kao React komponente pomoću React Bootstrap implementacije.
+Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
+STORM React Diagrams biblioteka koristi se za izgradnju dinamičnih dijagrama koji su ključan dio aplikacije, a Axios biblioteka se koristi za komunikaciju s poslužiteljem.
 
 
 % React
@@ -698,7 +734,82 @@ Objektu \emph{history} može se pristupiti u komponentama koje su „stvorene s 
 % Redux
 \subsection{Redux}
 
-TODO
+Redux je JavaScript biblioteka za predvidljivo centralizirano upravljanje stanjem aplikacije.
+On uvodi u aplikaciju jedno\footnote{
+    postoje implementacije koje koriste više Redux stanja, ali standardan i preporučen obrazac korištenja biblioteke Redux je da se ima jedno stanje koje može biti strukturirano od više nezavisnih podgrana tog stanja
+} globalno stanje koje je predstavljeno kao stablo JavaScript objekata, odnosno jedan veliki objekt koji u sebi sadrži hijerarhijski posložene podobjekte kao vrijednost.
+
+Stanje je globalno dostupno bilo kojem dijelu aplikacije putem Redux API-ja, odnosno pozivanjem emph{getState} metode nad singleton objektom \emph{store} koji se inicijalizira pri pokretanju aplikacije i u sebi sadrži objekt stanja. 
+Objekt dobiven na taj način je nepromjenjiv, što znači da pridruživanjem nove vrijednosti ili reference bilo kojem od njegovih atributa ne može se utjecati nad stanjem aplikacije, odnosno izmijeniti objekt koji se nalazi u \emph{store} singletonu.
+Jedini način za izmijeniti objekt je poslati \engl{dispatch} akciju tom istom \emph{store}.
+Akcija \engl{action} je objekt koji opisuje promjenu stanja koja se želi postići i šalje se kao argument \emph{dispatch} metode \emph{store} singletona.
+Kada \emph{store} primi akciju poziva funkciju sažimanja \engl{reduce} koja je definira logiku koja se izvršava za traženu akciju.
+Akcije sadrže tekstualni atribut tip \engl{type} koji se koristi u funkciji sažimanja kako bi se znalo koju logiku izvršiti\footnote{
+    najčešće implementirano kao obično \emph{switch-case} grananje ovisno o vrijednosti atributa tip
+}.
+Osim toga, akcije mogu imati dodatne podatke\footnote{
+    u terminologiji Redux biblioteke nazivaju se korisnim teretom \engl{payload}
+} pomoću kojih, uz pristup prethodnom stanju, funkcija sažimanja određuje novo stanje aplikacije.
+Pri izgradnji novog stanja u funkciji sažimanja, ključno je da se grane stabla stanja ne mijenjaju izravno \engl{mutate}, nego da se za svaki dio stanja koji ima promjene gradi novi objekt.
+Ovakav princip ponašanja inspiriran je funkcijskom paradigmom programiranja\citep{redux}.
+
+Za osluškivanje promjena na stanjem koristi se metoda \emph{subscribe} (također metoda \emph{store} objekta), a budući da je deklarativno mijenjanje izgleda React komponente s obzirom na promjenu nekog dijela stanja aplikacije ključan dio gradnje React aplikacija, postoji paket \emph{react-redux} (službeni paket tima koji razvija Redux) koji definira sučelje kojim se pojedina React komponenta može povezati \engl{connect} na Redux stanje te osluškivati i slati promjene nad specifičnim dijelom Redux stanja.
+Sama biblioteka Redux (tj. paket \emph{redux}) ne ovisi o biblioteci React, dok \emph{react-redux} ovisi o obije biblioteke\footnote{
+    u trenutku pisanja ovog rada, aktualna verzija \emph{redux} paketa je 4, a za korištenja njega i React 16, potrebna je \emph{react-redux} verzija 7
+}.
+U isječku koda TODO prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa s React-om.
+
+\razmakp % Primjer korištenja Redux biblioteke u React aplikaciji
+\begin{lstlisting}[language=JavaScript, caption={Primjer korištenja Redux biblioteke u React aplikaciji}, label={lst:redux}]
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, connect } from "redux";
+import { Provider } from "react-redux";
+
+// redux logic (should be in a seperate reducer folder):
+function reducer(state = 0, action) {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+// component logic (should be in Counter.jsx):
+const Counter = (props) => {
+  return (
+    <div>
+      Vrijednost: {props.value}
+      <button onClick={props.increment}> + </button>
+      <button onClick={props.decrement}> - </button>
+    </div>
+  );
+};
+function mapStateToProps(state) {
+  return {
+    value: state,
+  };
+}
+const actions = {
+  increment: () => ({ type: 'INCREMENT' }),
+  decrement: () => ({ type: 'DECREMENT' }),
+};
+const ConnectedCounter = connect(mapStateToProps, actions)(Counter);
+
+// should be in root index.js:
+const store = createStore(reducer);
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedCounter />
+  </Provider>,
+  rootElement
+);
+\end{lstlisting}
+\razmaks
 
 
 % STORM React Diagrams
@@ -732,7 +843,9 @@ Ranije verzije („<1.0“) su kompatibilne s Bootstrap 3 stilovima\citep{bs_rea
 % Axios
 \subsection{Axios}
 
-TODO
+Axios je HTTP klijent baziran na JavaScript \emph{Promise} objektu.
+Paket apstrahira dio logike za slanje XHR (krat. \emph{XMLHttpRequest}\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest}}) mrežnog zahtijeva, nudi sučelje za slanje zahtijeva koje vraća \emph{Promise} objekt i automatski parsira JSON odgovore.
+U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija „0.19“), ali zbog svoje jednostavnosti korištenja i podržanosti na svim modernim web preglednicima je među najpopularnijim paketima na NPM-u, sa skoro pet milijuna tjednih preuzimanja\citep{axios}.
 
 
 
