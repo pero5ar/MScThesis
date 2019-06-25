@@ -18,5 +18,16 @@
     "cSpell.words": [
         "mongodb",
         "mscthesis"
+    ],
+    "cSpell.ignorePaths": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/.gitignore",
+        ".vscode",
+        "typings",
+        "**/.eslintrc.json",
+        "**/package.json",
+        "**/package-lock.json",
+        "docs"
     ]
 }
