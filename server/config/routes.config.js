@@ -5,10 +5,10 @@ const { API_PATH } = require('../constants/value.constants');
 const userRouter = require('../routes/api/user.routes');
 const exerciseRouter = require('../routes/api/exercise.routes');
 
-const GET_MAX_AGE = process.env.STATIC_MAX_AGE || 31557600000;
+const GET_MAX_AGE = () => process.env.STATIC_MAX_AGE || 31557600000;
 
 const useProductionRoutes = (app) => {
-	const distClientPath = path.join(__dirname, '..', '..', 'dist-client');
+	const distClientPath = path.join(__dirname, '..', '..', 'client', 'build');
 	app.use('/images', express.static(path.join(distClientPath, 'images'), { maxAge: GET_MAX_AGE()}));
 	app.use('/libs', express.static(path.join(distClientPath, 'libs'), { maxAge: GET_MAX_AGE() }));
 	app.use('/static', express.static(path.join(distClientPath, 'static'), { maxAge: GET_MAX_AGE() }));

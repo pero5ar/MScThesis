@@ -5,7 +5,8 @@
   "description": "Masters Thesis Project @FER, University of Zagreb",
   "main": "server/server.js",
   "scripts": {
-    "start": "node node/server.js",
+    "build": "npm run build --prefix client",
+    "start": "node server/server.js",
     "start-client": "npm run lint-client && npm start --prefix client",
     "start-server": "npm run lint-server && ./node_modules/.bin/nodemon server/server.js",
     "start-prototype": "npm start --prefix diagram-engine-prototype",
