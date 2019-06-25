@@ -8,7 +8,7 @@ class Tablica extends React.Component {
     };
   }
 
-  delete = (rowId) => {
+  deleteRow = (rowId) => {
     this.setState((state) => ({
       rows: state.rows.filter((row) => row.id !== rowId)
     }));
@@ -21,7 +21,7 @@ class Tablica extends React.Component {
           <Redak
             key={row.id}
             data={row.data}
-            delete={this.delete.bind(row.id)}
+            deleteRow={this.deleteRow.bind(row.id)}
           />
         ))}
       </table>
@@ -33,7 +33,7 @@ function Readak(props) {
   return (
     <tr key={props.key}>
       <div>{props.data}</div>
-      <Button onClick={props.delete} text="Obriši" />
+      <Button onClick={props.deleteRow} text="Obriši" />
     </tr>
   );
 }

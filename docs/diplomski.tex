@@ -45,10 +45,31 @@
  
 %define JavaScript language
 \lstdefinelanguage{JavaScript}{
-    keywords={typeof, new, true, false, function, null, var, in, of, let, const, class, extends, implements, constructor, super, this, async, interface, type, declare, module},
-    keywordstyle=\color{blue}\bfseries,  % blue % black
-    ndkeywords={import, from, as, export, default, return, if, for, switch, while, do, else, case, break, continue, await, try, catch},
-    ndkeywordstyle=\color{purple}\bfseries,  % purple % black
+    keywords=[1]{typeof, new, true, false, function, null, undefined, var, in, of, let, const, class, extends, implements, constructor, super, this, async},
+    keywordstyle=[1]\color{blue}\bfseries,  % blue % black
+    keywords=[2]{import, from, as, export, default, return, if, for, switch, while, do, else, case, break, continue, await, try, catch, throw},
+    keywordstyle=[2]\color{purple}\bfseries,  % purple % black
+    keywords=[3]{console, date, number, string, boolean, never, object, error, module},
+    keywordstyle=[3]\color{mymauve},
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{mygreen}\ttfamily,  % green % mygray
+    stringstyle=\color{red}\ttfamily,  % red % darkgray
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+}
+
+%define TypeScript language
+\lstdefinelanguage{TypeScript}{
+    keywords=[1]{typeof, new, true, false, function, null, undefined, var, in, of, let, const, class, extends, implements, constructor, super, this, async, interface, type, declare, module},
+    keywordstyle=[1]\color{blue}\bfseries,  % blue % black
+    keywords=[2]{import, from, as, export, default, return, if, for, switch, while, do, else, case, break, continue, await, try, catch, throw},
+    keywordstyle=[2]\color{purple}\bfseries,  % purple % black
+    keywords=[3]{console, date, number, string, boolean, never, object, error},
+    keywordstyle=[3]\color{mymauve},
     identifierstyle=\color{black},
     sensitive=false,
     comment=[l]{//},
@@ -121,6 +142,8 @@ TODO
 Programski jezici implementacije sustava su JavaScript za poslužiteljsku stranu \engl{sever-side} i TypeScript za aplikacijsku, odnosno klijentsku stranu \engl{client-side}.
 Na klijentskoj strani je u velikoj mjeri prisutna JSX, odnosno TSX sintaksa.
 
+
+\razmaks
 % JavaScript (ECMAScript)
 \subsection{JavaScript (ECMAScript)}
 
@@ -142,7 +165,7 @@ ECMAScript je ustvari specifikacija skriptnog jezika pod kodovima ECMA-262 i ISO
 Taj standard implementira više programskih jezika, ali je daleko najpoznatiji JavaScript za kojeg je primarno standard i napisan.
 U trenutku pisanja ovog rada najnovija verzija standarda je verzija 9, odnosno ECMAScript 2018.\citep{wiki_es}
 
-\razmakp
+\razmaks
 % Asinkronost i Promise objekt
 \subsubsection{Asinkronost i \emph{Promise} objekt} \label{sec:async}
 
@@ -226,6 +249,7 @@ try {
 \razmaks
 
 
+\newpage
 % TypeScript
 \subsection{TypeScript}
 
@@ -246,7 +270,7 @@ U isječku koda \ref{lst:typescript} prikazano je nekoliko primjera definiranja 
 }.
 
 \razmakp % Primjer definiranja i korištenja TypeScript tipova
-\begin{lstlisting}[language=JavaScript, caption={Primjer definiranja i korištenja TypeScript tipova}, label={lst:typescript}]
+\begin{lstlisting}[language=TypeScript, caption={Primjer definiranja i korištenja TypeScript tipova}, label={lst:typescript}]
 type Tuple<T> = [T, T];
 type NumTuple = Tuple<number>;
 
@@ -313,7 +337,7 @@ Budući da su većina paketa koje se koriste u razviju TypeScript projekata napi
 U nastavku slijedi primjer definicije deklaracijske datoteke za neki paket koji nema vlastitu deklaracijsku datoteku.
 
 \razmakp % Primjer deklaracijske datoteke
-\begin{lstlisting}[language=JavaScript, caption={Primjer deklaracijske datoteke}, label={lst:declaration_file}]
+\begin{lstlisting}[language=TypeScript, caption={Primjer deklaracijske datoteke}, label={lst:declaration_file}]
 import 'my-module';
 
 declare module 'my-module' {
@@ -338,6 +362,7 @@ Sav napisani XML kod je ustvari JavaScript, uključivo s elementima koji se zovu
 % Upravljanje paketima
 \section{Upravljanje paketima}
 
+\razmaks
 % NPM
 \subsection{NPM}
 
@@ -358,6 +383,8 @@ Razlog tome je ušteda memorije i brža instalacija paketa u slučaju da velik b
 Problem može nastati u slučaju da dva paketa ovise o istom paketu koji su međusobno nekompatibilni.
 Ako su pravilno verzionirani, odnosno ako se razlikuju u \emph{Major} verziji\footnote{vidi poglavlje \ref{sec:semver}}, ona verzija paketa koja je kasnije dodana će se instalirati unutar mape paketa koji koristi tu verziju kako ne bi utjecala na rad paketa koji koristi drukčiju verziju\citep{npm_npm3}.
 
+
+\newpage
 % Semantičko verzioniranje
 \subsection{Semantičko verzioniranje} \label{sec:semver}
 
@@ -386,6 +413,7 @@ Poslužitelj se pokreće i izvodi u \emph{Node.js} izvršnom okruženju \engl{ru
 Podaci se spremaju u MongoDB dokument bazu podataka \engl{document-based database} kojoj se pristupa koristeći biblioteku Mongoose (koja se ujedno koristi i za modeliranje podataka).
 
 
+\razmaks
 % Node.js
 \subsection{Node.js}
 
@@ -404,6 +432,7 @@ Svaka parna verzija ima podršku za održavanje \engl{long termn support} koja p
 U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podrška za verziju 12\footnote{od 10. listopada 2019.}\citep{wiki_node}.
 
 
+\newpage
 % Express
 \subsection{Express}
 
@@ -413,8 +442,9 @@ Napredne mogućnosti usmjeravanja olakšavaju razdvajanje koda s obzirom na kori
 U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi u svim verzijama Node okruženja iznad verzije 0.10\citep{gh_express}.
 
 
+\razmaks
 % MongoDB
-\subsection{MongoDB}
+\subsection{MongoDB} \label{sec:mongo}
 
 \emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, specifično riječ je o dokument sustavu baza podataka gdje su dokumenti predstavljeni u JSON\footnote{
     \emph{JavaScript Object Notation} – način reprezentacije podataka kao JavaScript objekata - \url{https://www.json.org}
@@ -437,13 +467,14 @@ Na ovaj način jednostavno se može izgraditi distribuiran sustav baze podataka 
 Naravno u praksi poveznice između dokumenata su nekad nužne i tada se za njihovo održavanje treba brinuti unutar aplikacijske logike.
 
 
+\razmaks
 % Mongoose ODM
 \subsection{Mongoose ODM}
 
 Mongoose je JavaScript ODM (krat. \emph{Object Data Model}) biblioteka koja olakšava korištenje Mongo baze podataka.
 ODM biblioteke služe za modeliranje podataka NoSQL baza podataka slično kako ORM (krat. \emph{Object Relational Model}\footnote{
     Pojam je različit od \emph{object-relational mapping} koji označava mapiranje relacijskih podataka u objekte i obratno. Za oba pojma često se koristi ista kratica i većina \emph{object relational model} biblioteka implementira i \emph{object-relational mapping}
-}) biblioteke služe za modeliranje relacija u klase, odnosno objekte. U Mongoose biblioteci podaci se modeliraju pomoću sučelja koji se zove \emph{Schema}.
+}) biblioteke služe za modeliranje relacija u razrede, odnosno objekte. U Mongoose biblioteci podaci se modeliraju pomoću sučelja koji se zove \emph{Schema}.
 To sučelje se onda koristi za definiranje \emph{Model} objekta.
 \emph{Model} objekt predstavlja Mongo kolekciju, čiji dokumenti nužno odgovaraju obliku kakav je definiran pomoću \emph{Schema} objekta, i služi za pozivanje upita nad kolekcijom i kreiranje instanci modela.
 Instanca modela predstavlja jedan specifičan dokument koji odgovara \emph{Schema} definiciji objekta tog istog modela.
@@ -452,18 +483,20 @@ Na ovaj način se Mongo dokumenti u aplikaciji mogu proširiti s validacijskim s
 Mongoose je implementiran tako da ovisi o i koristi službeni Mongo driver za Node, kojem se može pristupiti iz globalnog Mongoose objekta u slučaju da postoji potreba za nekim naprednim Mongo driver mogućnostima koje Mongoose sučelje ne nudi izravno\footnote{\url{https://docs.mongodb.com/ecosystem/drivers/node}}.
 U trenutku pisanja ovog rada najnovija verzija Mongoose paketa je 5.6, a paketi iznad verzije 5.2 (uključivo) zahtijevaju MongoDB Server verzije 4.0 ili iznad.
 
+Primjer korištenja Mongoose biblioteke nalazi se u poglavlju \ref{sec:data} u isječku koda \ref{lst:schema}.
 
 
 \newpage
 % Aplikacijska (klijentska) strana
 \section{Aplikacijska (klijentska) strana}
 
-Aplikacija je izrađena koristeći biblioteku React po predlošku i konfiguraciji paketa Create React App.
+Klijentska aplikacija izrađena je koristeći biblioteku React po predlošku i konfiguraciji paketa Create React App.
 Izgled aplikacije je stiliziran primarno koristeći radni okvir \engl{framework} Bootstrap, a elementi radnog okvira korišteni su kao React komponente pomoću React Bootstrap implementacije.
 Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
 STORM React Diagrams biblioteka koristi se za izgradnju dinamičnih dijagrama koji su ključan dio aplikacije, a Axios biblioteka se koristi za komunikaciju s poslužiteljem.
 
 
+\razmaks
 % React
 \subsection{React}
 
@@ -535,7 +568,7 @@ class Tablica extends React.Component {
     };
   }
 
-  delete = (rowId) => {
+  deleteRow = (rowId) => {
     this.setState((state) => ({
       rows: state.rows.filter((row) => row.id !== rowId)
     }));
@@ -548,7 +581,7 @@ class Tablica extends React.Component {
           <Redak
             key={row.id}
             data={row.data}
-            delete={this.delete.bind(row.id)}
+            deleteRow={this.deleteRow.bind(row.id)}
           />
         ))}
       </table>
@@ -560,7 +593,7 @@ function Readak(props) {
   return (
     <tr key={props.key}>
       <div>{props.data}</div>
-      <Button onClick={props.delete} text="Obrisi" />
+      <Button onClick={props.deleteRow} text="Obrisi" />
     </tr>
   );
 }
@@ -583,7 +616,7 @@ Svaka komponenta ima tri faze životnog ciklusa:
 Poznavanje fazi životnog ciklusa komponente je ključno ne samo za razumijevanje ponašanja React komponenti, već zato što se kompleksna logika unutar komponente ostvaruje proširivanjem metoda razreda \emph{React.Component} koje su direktno vezane uz faze životnog ciklusa.
 Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\citep{react_docs}:
 
-\begin{itemize}
+\begin{enumerate}[label=(\alph*)]
 
     \item konstruktor
     
@@ -636,14 +669,15 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
     Ovo su metode koje se koriste u svrhu upravljanja greškama \engl{error handling} i dio su skupa novih metoda koje su dodane u React 16\footnote{
         Uz njih su dodane i metode \emph{getSnapshotBeforeUpdate} i \emph{getDerivedStateFromProps}. Ključno je napomenuti da nisu sve metode dodane odmah u verziji 16.0, već postupno u verzijama 16.0, 16.3 i 16.6\citep{gh_react_changelog}.
     }\citep{react_error}.
-\end{itemize}
+\end{enumerate}
 \razmaks
 
 Na slici TODO prikazan je pojednostavljen dijagram u kojim fazama se pozivaju metode komponente.
 
 
+\razmaks
 % Create React App
-\subsection{Create React App}
+\subsection{Create React App} \label{sec:cra}
 
 Paket Create React App je službeni predložak koji apstrahira od programera većinu konfiguracije i paketa koji su nužni za razvoj React aplikacija.
 Instalacijom i pokretanjem paketa korisnik dobiva konfiguriran prevoditelj Babel\footnote{\url{https://babeljs.io}} s opcionalnom TypeScript podrškom\footnote{
@@ -658,6 +692,7 @@ Za izgradnju aplikacijske strane u ovom radu koristio se predložak koji se dobi
 Početna struktura projekta nakon pokretanja naredbe može se vidjeti na TODO
 
 
+\razmaks
 % React Router
 \subsection{React Router}
 
@@ -731,6 +766,7 @@ Isto ponašanje postiže se pozivom metode \emph{replace} nad objektom \emph{his
 Objektu \emph{history} može se pristupiti u komponentama koje su „stvorene s \emph{routerom}“, odnosno u komponentama koje su predane kao vrijednosti \emph{component} atributa \emph{Route} komponenti ili instancirane s metodom \emph{withRouter}.
 
 
+\razmaks
 % Redux
 \subsection{Redux}
 
@@ -812,12 +848,14 @@ ReactDOM.render(
 \razmaks
 
 
+\razmaks
 % STORM React Diagrams
 \subsection{STORM React Diagrams}
 
 TODO
 
 
+\razmaks
 % Bootrtarp i React Bootrtarp
 \subsection{Bootrtarp i React Bootrtarp}
 
@@ -840,6 +878,7 @@ U trenutku pisanja ovog rada najnovija verzija React Bootstrap paketa je „1.0.
 Ranije verzije („<1.0“) su kompatibilne s Bootstrap 3 stilovima\citep{bs_react}.
 
 
+\razmaks
 % Axios
 \subsection{Axios}
 
@@ -883,25 +922,218 @@ TODO
 
 
 % Model podataka
-\section{Model podataka}
+\section{Model podataka} \label{sec:data}
+
+Podaci u aplikaciji opisani su pomoću relativno jednostavnog modela koji se sastoji od tri agregata: korisnik \engl{user}, zadatak \engl{exercise} i pokušaj \engl{attempt}.
+Korisnik je korisnik aplikacije, zadatak je opis zadatka koji se može rješavati sa svim podacima nužnim za njegov početak i provjeru ispravnosti, dok je pokušaj njihova poveznica.
+Pokušaj predstavlja jedno korisnikovo rješavanje zadatka i sadrži u sebi sva stanja, odnosno sve korake koje je korisnik napravio u okviru tog pokušaja.
+Za bolje razumijevanje modela, u isječku koda \ref{lst:schema} nalazi se pojednostavljena verzija (bez validacije, metoda i definicija nekih poddokumenata) Mongoose \emph{Schema} objekata za svaki od modela.
+
+\razmakp % Pojednostavljena verzija podatkovnih modela, odnosno shema dokumenata spremljenih u Mongo bazi
+\begin{lstlisting}[language=JavaScript, caption={Pojednostavljena verzija podatkovnih modela, odnosno Mongoose shema dokumenata spremljenih u Mongo bazi}, label={lst:schema}]
+const mongoose = require('mongoose');
+
+// SHEMA KORISNIK:
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+  tokenTimestamp: Number,
+  type: String,
+  firstName: String,
+  lastName: String,
+  personalData: Object,
+  studentData: Object, // has a defined Schema
+  teacherData: Object, // has a defined Schema
+  exercisesAttemptedIds: [mongoose.Schema.Types.ObjectId],
+  exercisesCompletedIds: [mongoose.Schema.Types.ObjectId],
+}, { timestamps: true });
+// MODEL KORISNIK:
+const userModel = mongoose.model('User', userSchema);
+
+// SHEMA TABLICA:
+const tableSchema = new mongoose.Schema({
+  keys: [String],
+  rows: [Object],
+}, { _id: false });
+// SHEMA ZADATAK:
+const exerciseSchema = new mongoose.Schema({
+  code: String,
+  title: String,
+  description: String,
+  input: tableSchema,
+  output: tableSchema,
+  isOutputRowOrderImportant: Boolean,
+  usersAttemptedIds: [mongoose.Schema.Types.ObjectId],
+  usersCompletedIds: [mongoose.Schema.Types.ObjectId],
+  createdById: mongoose.Schema.Types.ObjectId,
+}, { timestamps: true });
+// MODEL ZADATAK:
+const exerciseModel = mongoose.model('Exercise', exerciseSchema);
+
+// SHEMA STANJE:
+const stateSchema = new mongoose.Schema({
+  diagramState: Object,
+  serializedGraph: String,
+  timestamp: Date,
+}, { _id: false });
+// SHEMA POKUSAJ:
+const attemptSchema = new mongoose.Schema({
+  userId: mongoose.Schema.Types.ObjectId,
+  exerciseId: mongoose.Schema.Types.ObjectId,
+  isSuccessful: Boolean,
+  beginState: stateSchema,
+  endState: stateSchema,
+  currentState: stateSchema,
+  states: [stateSchema],
+  previousAttemptId: mongoose.Schema.Types.ObjectId,
+  nextAttemptId: mongoose.Schema.Types.ObjectId,
+}, { timestamps: true });
+// MODEL POKUSAJ:
+const attemptModel = mongoose.model('Attempt', attemptSchema);
+\end{lstlisting}
+\razmaks
+
+% Opis modela
+\subsection{Opis modela}
+
+Pogledom na modele, odnosno sheme korisnik i zadatak u isječku koda \ref{lst:schema} može se primijetiti da se oni međusobno referenciraju, odnosno shema korisnik sadrži listu zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema zadatak listu korisnija koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
+
+Kako je već spomenuto\footnote{vidi poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li ključevi koji su navedeni u listama.
+Ovi atributi stoga nisu izvor istine \engl{source of truth} za to je li korisnik pokušao ili riješio zadatak.
+Zaključak da je korisnik sigurno pokušao riješiti zadatak može se dovesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio taj zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
+
+Prethodno spomenute liste u shemama korisnik i zadatak postoje više za potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
+U slučaju da se želi izvesti precizna analiza statistike, ona bi se izvršavala isključivo nad kolekcijom pokušaja.
+
+\razmakp
+
+Još dvije reference na druge dokumente su atributi \emph{previousAttemptId} i \emph{nextAttemptId} koji sadrže ključ prijašnjeg, odnosno idućeg pokušaja.
+Oba atributa su namijenjeni kasnijoj analizi podataka o pokušajima u slučaju da se želi rekurzivno pretraživati pokušaje za specifičan par ključeva korisnika i zadatka redoslijedom kojim su ti pokušaji nastali.
+
+Korisnik za neki zadatak u bilo kojem trenutku može imati samo jedan aktivan pokušaj, a pokušaj je aktivan ako i samo ako atribut \emph{nextAttemptId} nema vrijednost (tj. ako je vrijednost jednaka \emph{null}) i ne postoji završno stanje, odnosno atribut \emph{endState} nema vrijednosti.
+U slučaju da atribut \emph{nextAttemptId} nema vrijednost, ali postoji završno stanje, riječ je o posljednjem pokušaju korisnika za taj zadatak koji je završio.
+U tom slučaju nastavljanje rješavanja zadatka je jedino moguće stvaranjem novog pokušaja.
+Stvaranjem novog pokušaja atributu \emph{nextAttemptId} od prijašnjeg zadnjeg pokušaja pridružuje se vrijednost primarnog ključa novonastalog pokušaja, a novonastalom pokušaju atributu \emph{previousAttemptId} vrijednost primarnog ključa tog prijašnjeg zadnjeg pokušaja.
+
+Drugim riječima, za neki zadatak kojeg je specifičan korisnik barem jednom pokušao rješavati, nužno postoji jedan dokument koji nema vrijednost \emph{previousAttemptId} i predstavlja prvi pokušaj, i jedan dokument koji nema vrijednost \emph{nextAttemptId} i predstavlja posljednji pokušaj (dokumenti nisu međusobno isključivi).
+
+\razmaks
+% Rasprava o modelu
+\subsection{Rasprava o modelu}
+
+Do sada opisane karakteristike modela podataka moglo se jednostavno riješiti i u relacijskom modelu podataka.
+U kontekstu relacijskog modeliranja kolekcija pokušaja nije ništa drugo nego N:M poveznica između korisnika i zadataka, stoga do sada opisani model ne zahtijeva ništa kompleksnije rješenje u relacijskoj bazi, no razlog za izbor dokument baze podataka je u jednostavnoj proširivosti opisanih modela.
+
+\razmakp
+
+Ponovnim pregledom shema u isječku koda \ref{lst:schema} može se primijetiti da svaka shema ima barem jedan kompleksniji objekt, odnosno poddokument ugniježđen u sebe.
+Model korisnika mora biti nadogradiv s obzirom na osobne informacije korisnika (\emph{personalData}) i podatke koje se tiču specifičnog tipa korisnika (\emph{studentData} i \emph{teacherData}).
+U tradicionalnom relacijskom modelu\footnote{
+    neki moderni relacijski sustavi baza podataka mogu sadržavati kao atribute zapisa slobodne tipove kao što je JSON, takav tip se kosi s atomarnosti stupaca koje zahtijeva prva normalna forma, stoga se modeliranje relacija s takvim tipovima u kontekstu ove rečenice ne smatra „tradicionalnim relacijskim modelom“
+} trebalo bi precizno definirati svaki od atributa tih podataka i potencijalno model razbiti na više tablica s obzirom na tip korisnika.
+
+Budući da u trenutnoj fazi razvoja većina atributa, odnosno potrebnih podataka nije poznata, korištenje dokument baze omogućuje da se trenutni model korisnika može jednostavno proširiti u budućnosti, bez pisanja ikakve migracije podataka.
+Dovoljno je samo proširiti Mongoose shemu, a čak i to je opcionalno ako ne treba implementirati nikakvu validacijsku logiku za atribute tih objekata.
+
+\razmakp
+
+Nadalje, model zadatka u sebi sadrži shemu tablice početnih podataka i očekivanih konačnih podataka ispravno riješenog zadatka.
+Shema tablice u sebi sadrži polje ključeva tablice te polje objekata koji predstavljaju retke tablice.
+Ovakva jednostavna shema bi za implementaciju u relacijskoj bazi zahtijevala izgradnju metamodela za tablice koji bi sadržavao relaciju za tablicu, relaciju za ključeve tablice i relaciju za pridruživanje vrijednosti ključu tablice za dani redak.
+Redak je u ovom slučaju samo atribut te treće relacije, ali moguće je i njegovo modeliranje kao zasebne relacije koja je poveznica između tablice i povezivanja vrijednosti i ključa.
+
+Ukratko, nešto što bi u relacijskom modelu zahtijevalo spajanje tri tablice nad vrijednosti jednog stranog ključa relacije zadataka, ovdje je objekt unutar agregata zadatak.
+
+\razmakp
+
+Model pokušaj sadrži najbolji primjer argumenta za odabir dokument baze, a to je shema stanja (\emph{stateSchema}) koju koristi u nekoliko atributa.
+Stanje je objekt koji sadrži stanje mehanizma dijagrama (spremljeno u \emph{serializedGraph}) i stanja dijagrama sačuvanog u klijentskoj aplikaciji (spremljeno u \emph{diagramState}), odnosno dva tipa podatka čiji format ovisi isključivo o implementaciji klijenta i u niti jednom trenutku se ne koristi u logici poslužiteljske aplikacije.
+
+Korištenjem dokument baze da se stanje aplikacije spremi onakvo kakvo je, oslobađa poslužiteljsku stranu od ovisnosti logike koja se koristi u klijentskoj aplikaciji, odnosno moguće je u budućnosti implementirati u potpunosti drugačiji mehanizam izgradnje dijagrama bez da se mora intervenirati i prilagođavati kod poslužitelja toj promjeni.
+
+
+\razmakp
+\razmakp
+% Struktura i pokretanje projekta
+\section{Struktura i pokretanje projekta}
+
+Sustav se sastoji od dva projekta odvojena u razvoju, jedan za poslužiteljsku aplikaciju (direktorij \emph{server}) i jedan za klijentsku aplikaciju (direktorij \emph{client}).
+Svaki od projekata ima vlastitu \emph{package.json} datoteku i \emph{node\_modules} direktorij, no također postoji korijenski \engl{root} \emph{node\_modules} direktorij, koji u sebi sadrži pakete koji su potrebni za oba projekta, i korijenska \emph{package.json} datoteka u kojoj su, uz popis spomenutih paketa, navedene sve skripte potrebne za razvoj i pokretanje projekata.
+
+Projekt \emph{server} pokreće se iz korijenskog direktorija naredbom „\emph{npm run start-server}“ nakon čega je aplikacija pokrenuta na pristupnim vratima \engl{port} koja su navedena u varijabli okruženja \engl{environment variable} \emph{SERVER\_PORT} ili u korijenskoj \emph{.env} datoteci\footnote{
+    datoteku koristi paket \emph{dotenv} da bi pridružio varijable definirane u datoteci varijablama okruženja pokrenutog Node procesa
+} pod istoimenom varijablom.
+Ako varijabla nije definirana, zadana vrijednost je 3003.
+Također, \emph{client} projekt očekuje da će poslužitelj biti pokrenut na tim pristupnim vratima, tako da u slučaju druge vrijednosti je nužno promijeniti vrijednost pristupnih vrata u \emph{proxy} atributu klijentske \emph{package.json} datoteke.
+Atribut \emph{proxy} je konfiguracijski atribut koji otkriva Create React App predložak\footnote{vidi poglavlje \ref{sec:cra}}.
+Predložak čita atribut pri u skripti koja pokreće razvojni poslužitelj \engl{development server} Webpack i postavlja da HTTP zahtjevi iz aplikacije, koja je pokrenuta u tom posredničkom \engl{proxy} razvojnom poslužitelju, idu na zadanu \emph{proxy} putanju.
+Spomenuta skripta za pokretanje \emph{client} projekta pokreće se iz korijenskog direktorija naredbom „\emph{npm run start-client}“.
+Pristupna vrata na kojima se pokreće razvojni poslužitelj klijentske aplikacije u pravilu nije bitan, predložak je konfiguriran tako da su mu zadana vrata 3000, ali će odabrati prva sljedeća slobodna vrata u slučaju da su ta zauzeta te u naredbenoj liniji iz koje je skripta pokrenuta ispisati na kojoj se putanji aplikacija nalazi.
+
+Za dobivanje produkcijske verzije projekta potrebno je prvo izgraditi \engl{build} klijentsku aplikaciju, to se može napraviti iz korijenskog direktorija pokretanjem „\emph{npm run build}“, nakon čega će se stvoriti \emph{build} mapa u \emph{client} projektu s izgrađenom React produkcijskom aplikacijom koja je ustvari samo skup statičkih datoteka koje poslužitelj može izravno servirati klijentu.
+Prije pokretanja poslužitelja nužno je promijeniti varijablu okruženja \emph{NODE\_ENV} u vrijednost „\emph{development}“ da bi poslužitelj posluživao novonastale izgrađene datoteke\footnote{
+    u slučaju da se ruta \emph{client/build} direktorija promjeni, treba ažurirati putanju produkcijskih ruta u \emph{server/config/routes.config.js} datoteci
+}.
+Poslužitelj se sada može pokrenuti naredbom „\emph{npm start}“.
+Ova naredba pokretanja poslužitelja drukčija je od prijašnje naredbe po tome da pokreće Node proces izravno, dok je prethodna koristila \emph{nodemon} paket\footnote{\url{https://www.npmjs.com/package/nodemon}} koji osluškuje promjene u kodu i ponovno pokreće poslužitelja ako se neka datoteka u projektu ažurira (ponovno spremi).
+Ovo ponašanje nije potrebno u produkcijskoj verziji aplikacije jer se pretpostavlja da će ona biti pokrenuta na uređaju gdje se aplikacija isključivo pokreće, odnosno uređaj koji će samo postaviti varijable okruženja i redom pokrenuti \emph{install}, \emph{build} i \emph{start} skripte.
+
+
+\newpage
+% Arhitektura poslužitelja
+\section{Arhitektura poslužitelja}
+
+\razmaks
+\subsection{Fizička i logička arhitektura}
+
+Ulazna datoteka poslužiteljske aplikacije je \emph{sever.js}, što je ujedno jedina JavaScript datoteka koja se nalazi u korijenu direktorija \emph{server}, odnosno korijenu projekta poslužiteljske aplikacije.
+Ostale JavaScript datoteke raspoređene su u sljedeće direktorije:
+
+\begin{itemize}
+    \item \emph{config} -- sadrži konfiguracije za \emph{express}, \emph{mongoose} i rute koje se pozivaju u \emph{server.js} datoteci
+    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji (npr. zadane vrijednosti ili \emph{regex} konstante)
+    \item \emph{controllers} -- sadrži upravljačku logiku koja se izvršava pri obradi zahtijeva
+    \item \emph{enums} -- sadrži sve enumeracije koje se koriste u aplikaciji, budući da JavaScript nema enumeracijski tip, riječ je o \emph{zamrznutim}\footnote{
+        koristi se statička metoda \emph{Object.freeze} za učiniti objekte nepromjenjivima \engl{immutable}
+    } objektima
+    \item \emph{middleware} -- sadrži metode koje se pozivaju u cjevovodu \engl{pipeline} obrade zahtjeva prije ili nakon upravljačke logike (npr. autentifikacijski sloj ili obrada grešaka)
+    \item \emph{models} -- sadrži definirane Mongoose sheme i modele
+    \item \emph{routes} -- sadrži definicije aplikacijskih putanja, odnsno definira API putanje te redoslijed kojim i koje metode se izvršavaju u obradi zahtjeva na tim putanjama
+    \item \emph{services} -- sadrži metode koje se pozivaju za upite nad podacima, apstrakcija nad podatkovnim slojem aplikacije koji je inače sadržan u Mongoose modelima, jedini direktorij koji pristupa metodama Mongoose modela
+    \item \emph{validators} -- validacijski sloj, poziva ga upravljački sloj na početku za validirati podatke koje je klijent poslao u zahtjevu, implementira logiku koju je ili nužno validirati prije nego podaci dođu do \emph{service} sloja ili sadrži pravila prekompleksna za provjeriti Mongoose shemama
+    \item \emph{viewModels} -- sadrži razrede koji modeliraju podatke koji se šalju klijentu
+\end{itemize}
+\razmaks
+
+Jedine datoteke koji se mogu uvesti u bilo koji sloj aplikacije, odnosno datoteku bilo kojeg direktorija, su \emph{constants} i \emph{enums} jer je njihova namjena da budu jedinstven izvor istine \engl{single source of truth} za sve nepromjenjivo u aplikaciji.
+Jedina iznimka tome su API putanje koje su definirane u datoteci \emph{config/routes.config.js} na razini korijenskih resursa i datotekama direktorija \emph{routes/api} na razini pojedinih API putanja (svaki korijenski resurs odgovara jednoj datoteci tog direktorija)
+
+API poslužitelja sadrži dva korijenska resursa, jedan za korisnika i drugi za zadatak.
+Za svaki od korijenskih resursa postoji prikladna \emph{routes} i \emph{controllers} datoteka.
+Podaci o pokušaju dostupni su putem resursa zadatak, budući da je za sve funkcionalnosti koje se tiču pokušaja uvijek nužno znati o kojem je zadatku riječ.
+Za pokušaj nužno znati i o kojem je korisniku riječ, no taj podatak klijentska šalje kao dio zahtjeva kojeg \engl{response} autentifikacijski sloj (metoda koju izvozi datoteka \emph{middleware/authentication.middleware.js}) validira i stavlja u lokalne podatke odgovora (\emph{res.locals}) prije nego krene obrada zahtijeva u upravljačkom sloju.
+Podaci o pokušaju dostupni su isključivo korisniku koji je stvorio taj pokušaj, stoga je autentifikacija nužna za svaku putanju koja dohvaća podatke o pokušaju i nema potrebe za implementiranje putanja za dohvaćanje pokušaja nad resurom korisnika. Dodavanjem tih putanja bi se samo u duplicirao u putanji podatak koji se već nalazi u zahtjevu i svejedno bi bilo potrebno poslati podatak o kojem je zadatku riječ\footnote{
+    ponovnim pogledom na model podataka u isječku koda \ref{lst:schema} može se primijetiti da pokušaji imaju vlastiti primarni ključ, no u implementaciji nikad se ne oslanja isključivo na njega da bi se podaci mogli bolje i jednostavnije validirati
+}, a budući da nema slučaja korištenja u kojem bi takav dohvat rezultirao ponašanjem drugačijim od onog putem resursa zadatka, samo bi se duplicirao kod.
+
+Kao što su datoteke s putanjama u odnosu jedan na jedan s datotekama upravljačkog sloja, tako su i datoteke u direktoriju \emph{service} (u daljnjem tekstu servisi) u odnosu jedan na jedan s Mongoose modelima (koji su također svaki u svojoj datoteci).
+Servisi i modeli zajedno čine podatkovni sloj, odnosno servisi unose dodatan sloj apstrakcije za pristup i upravljanje podacima.
+Upravljački sloj, niti ikoji drugi sloj, nema izravan pristup modelima, već komunikaciju s bazom ostvaruje putem servisa.
+
+Kada metode upravljačkog sloja pozivaju metode servisa koji vraćaju objekte iz baze, te metode u većini slučajeva vraćaju instance Mongoose modela (s pokojim atributom više ili manje ovisno o implementaciji servisa), stoga je ključno prije slanja podataka klijentu te podatkovne modele \engl{data models} pretvoriti u modele pogleda \engl{viewModels}
+U tu svrhu koriste se datoteke direktorija \emph{viewModels} gdje svaka datoteka implementira jedan model pogleda kao razred čije instance stvara upravljački sloj i šalje klijentu kao odgovor u JSON formatu.
+
+\razmakp
+
+Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao dijagram na slici TODO
+
+\subsection{Autentifikacija}
 
 TODO
 
-
-% Opis Arhitekture sustava
-\section{Opis Arhitekture sustava}
-
-TODO
-
-
-% Poslužiteljska arhitektura
-\section{Poslužiteljska arhitektura}
-
-TODO
-
-
-% Aplikacijska (klijentska) arhitektura
-\section{Aplikacijska (klijentska) arhitektura}
+\newpage
+% Arhitektura klijenta
+\section{Arhitektura klijenta}
 
 TODO
 
