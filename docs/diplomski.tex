@@ -116,7 +116,7 @@
 \maketitle
 
 % Ispis stranice s napomenom o umetanju izvornika rada. Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
-\izvornik
+\includepdf{zadatak.pdf}
 
 % Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
 \zahvala{}
@@ -251,7 +251,7 @@ try {
 
 \newpage
 % TypeScript
-\subsection{TypeScript}
+\subsection{TypeScript} \label{sec:ts}
 
 TypeScript je programski jezik razvijen od strane tvrtke Microsoft, koji je nadogradnja \engl{superset} nad jezikom JavaScript.
 TypeScript proširuje JavaScript sintaksu \footnote{specifično ECMAScript 2015 i kasnije verzije specifikacije sintakse} s tipovima i sučeljima.
@@ -508,7 +508,7 @@ Tijekom godina nakupilo se mnoštvo biblioteka i radnih okvira za korištenje sa
 
 React se koristi za razvoj jednostraničnih \engl{single page} web aplikacija.
 Produkcijska verzija React stranice često se sastoji od jedne male HTML datoteke (reda veličine dvadesetak linija koda) i JavaScript datoteke od nekoliko desetaka tisuća linija koda.
-Razlog tomu je što je sav sadržaj stranice ugrađen u JavaScript kako bi se mogao dinamički mijenjati.
+Razlog je u tome što je sav sadržaj stranice ugrađen u JavaScript kako bi se mogao dinamički mijenjati.
 
 \razmakp
 
@@ -604,16 +604,15 @@ function Button(props) {
 \end{lstlisting}
 \razmaks
 
-Svaka komponenta ima tri faze životnog ciklusa:
+\noindent Svaka komponenta ima tri faze životnog ciklusa:
 
 \begin{enumerate}
     \item Početna faza postavljanja \engl{mount}, koja se događa nakon instanciranja objekta komponente, pri njegovom dodavanju u Virtualni DOM.
     \item Faza promjena \engl{update}, u kojoj je instanca većinu vremena. U ovoj fazi dešava se svako ponovno prikazivanje \engl{rerender} instance komponente, najčešće zbog promjene stanja ili ulaznih parametara (\emph{props}).
     \item Faza rastavljanja \engl{unmount} je završna faza komponente koja se dešava kada se instanca uklanja iz Virtualnog DOM-a
 \end{enumerate}
-\razmaks
 
-Poznavanje fazi životnog ciklusa komponente je ključno ne samo za razumijevanje ponašanja React komponenti, već zato što se kompleksna logika unutar komponente ostvaruje proširivanjem metoda razreda \emph{React.Component} koje su direktno vezane uz faze životnog ciklusa.
+\noindent Poznavanje fazi životnog ciklusa komponente je ključno ne samo za razumijevanje ponašanja React komponenti, već zato što se kompleksna logika unutar komponente ostvaruje proširivanjem metoda razreda \emph{React.Component} koje su direktno vezane uz faze životnog ciklusa.
 Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\citep{react_docs}:
 
 \begin{enumerate}[label=(\alph*)]
@@ -642,7 +641,7 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
     Metoda \emph{forceUpdate}, kako joj i ime govori, forsira komponentu da se ažurira, odnosno ponovno izvodi ciklus faze promjene u kojoj poziva metodu \emph{render}.
     Metoda \emph{setState} je asinkrona metoda koja služi za postavljanje stanja.
     Ona ne vraća \emph{Promise} objekt\footnote{vidi poglavlje \ref{sec:async}}, već prima funkciju povratnog poziva kao svoj drugi argument.
-    Razlog ovome je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se desili u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
+    Razlog ovakve implementacije je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se desili u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
     Ova optimizacija je bitna jer ažuriranje stanja u većini situacija znači ažuriranje cijele komponente (s ponovnim pozivom \emph{render} metode) što je potencijalno skupa operacija.
 
     \item metode životnog ciklusa: \emph{componentDidMount}, \emph{shouldComponentUpdate},
@@ -850,9 +849,22 @@ ReactDOM.render(
 
 \razmaks
 % STORM React Diagrams
-\subsection{STORM React Diagrams}
+\subsection{STORM React Diagrams} \label{sec:storm}
 
-TODO
+STORM React Diagrams je React biblioteka namijenjena gradnji dijagrama razvijena u TypeScript-u dostupna pod MIT licencom.
+Specifično riječ je o dijagramima koji se mogu modelirati na principu grafova, odnosno čvorova i bridova.
+Podatkovna i upravljačka logika čvorova, bridova i svih drugih elementa bibliteke sadržana je u objektima koji se zovu entiteti \engl{entity}, svaki od kojih nasljeđuje bazni razred \emph{BaseEntity}, dok je njihova vizualna reprezentacija, odnosno logika pogleda \engl{view logic} ostvarena pomoću React komponeti koji se nazivaju \emph{widgeti} i svi nasljeđuju baznu komponetu \emph{BaseWidget}.
+Glavni \emph{widget} u kojem se iscrtavaju svi elementi je komponenta \emph{DiagramWidget} koja u svom \emph{props} objektu prima instancu entiteta \emph{DiagramEngine}.
+\emph{DiagramEngine} je glavni upravljački entitet koji za atribut ima instancu razreda \emph{DiagramModel} u kojoj je sadržano stanje dijagrama.
+\emph{DiagramModel} implementira logiku dodavanja i brisanja entiteta u dijagramu, dok \emph{DiagramEngine} sadrži tvornice \engl{factory} za stvaranje tih entiteta i implementira potpornu logiku koja je potrebna za crtanje elementa kao što je primjerice traženje najkraćeg puta između dva čvora.
+Bitno je naglasiti da je, po prethodno opisanoj arhitekturi, komponenta \emph{DiagramWidget} ustvari implementacija vizualne reprezentacije entiteta \emph{DiagramModel}.
+
+Entiteti ne ovise o svojim ili bilo kojem drugom \emph{widgetu}, dok \emph{widgeti} ovise o entitetima koje predstavljaju, stoga je uvijek moguće izmijeniti koje \emph{widgete} biblioteka koristi izmjenom tvornica koje sadrži instanca razreda \emph{DiagramEngine}.
+Tvornice su instance razreda koje implementiraju metode stvaranja React komponente, tj \emph{widgeta}, i instance entiteta za odabrani element.
+\emph{DiagramEngine} mora nužno sadržavati metode tvornice za čvorove (\emph{node}), bridove (\emph{link}), točke čvorova na koje se bridovi mogu povezati (\emph{port}) i točke u bridovima u kojima se brid lomi ili je krajnja točka brida (\emph{point}).
+
+Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove \emph{default} verzije koje implementiraju neku osnovnu logiku koja bi bila potrebna za izradu osnovnog dijagrama, a također nudi i opcionalnu implementaciju CSS klasa za te elemente kako bi se moglo što prije krenuti s razvojem\citep{storm_rd}.
+U okviru ovog rada korištene su nadograđene verzije modela tih \emph{default} elemenata.
 
 
 \razmaks
@@ -888,32 +900,32 @@ U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija 
 
 
 
-% Specifikacija
-\chapter{Specifikacija}
+% % Specifikacija
+% \chapter{Specifikacija}
 
 
-% Opis zadatka
-\section{Opis zadatka}
+% % Opis zadatka
+% \section{Opis zadatka}
 
-TODO
-
-
-% Korisnički zahtjevi
-\section{Korisnički zahtjevi}
-
-TODO
+% TODO
 
 
-% Funkcionalni zahtjevi
-\section{Funkcionalni zahtjevi}
+% % Korisnički zahtjevi
+% \section{Korisnički zahtjevi}
 
-TODO
+% TODO
 
 
-% Nefunkcionalni zahtjevi
-\section{Nefunkcionalni zahtjevi}
+% % Funkcionalni zahtjevi
+% \section{Funkcionalni zahtjevi}
 
-TODO
+% TODO
+
+
+% % Nefunkcionalni zahtjevi
+% \section{Nefunkcionalni zahtjevi}
+
+% TODO
 
 
 
@@ -996,13 +1008,13 @@ const attemptModel = mongoose.model('Attempt', attemptSchema);
 % Opis modela
 \subsection{Opis modela}
 
-Pogledom na modele, odnosno sheme korisnik i zadatak u isječku koda \ref{lst:schema} može se primijetiti da se oni međusobno referenciraju, odnosno shema korisnik sadrži listu zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema zadatak listu korisnija koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
+Pogledom na modele, odnosno sheme Korisnik i Zadatak u isječku koda \ref{lst:schema} može se primijetiti da se oni međusobno referenciraju, odnosno shema Korisnik sadrži listu zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema Zadatak listu korisnija koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
 
 Kako je već spomenuto\footnote{vidi poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li ključevi koji su navedeni u listama.
 Ovi atributi stoga nisu izvor istine \engl{source of truth} za to je li korisnik pokušao ili riješio zadatak.
 Zaključak da je korisnik sigurno pokušao riješiti zadatak može se dovesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio taj zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
 
-Prethodno spomenute liste u shemama korisnik i zadatak postoje više za potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
+Prethodno spomenute liste u shemama Korisnik i Zadatak postoje više za potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
 U slučaju da se želi izvesti precizna analiza statistike, ona bi se izvršavala isključivo nad kolekcijom pokušaja.
 
 \razmakp
@@ -1084,6 +1096,7 @@ Ovo ponašanje nije potrebno u produkcijskoj verziji aplikacije jer se pretposta
 \section{Arhitektura poslužitelja}
 
 \razmaks
+% Fizička i logička arhitektura
 \subsection{Fizička i logička arhitektura}
 
 Ulazna datoteka poslužiteljske aplikacije je \emph{sever.js}, što je ujedno jedina JavaScript datoteka koja se nalazi u korijenu direktorija \emph{server}, odnosno korijenu projekta poslužiteljske aplikacije.
@@ -1111,8 +1124,8 @@ Jedina iznimka tome su API putanje koje su definirane u datoteci \emph{config/ro
 API poslužitelja sadrži dva korijenska resursa, jedan za korisnika i drugi za zadatak.
 Za svaki od korijenskih resursa postoji prikladna \emph{routes} i \emph{controllers} datoteka.
 Podaci o pokušaju dostupni su putem resursa zadatak, budući da je za sve funkcionalnosti koje se tiču pokušaja uvijek nužno znati o kojem je zadatku riječ.
-Za pokušaj nužno znati i o kojem je korisniku riječ, no taj podatak klijentska šalje kao dio zahtjeva kojeg \engl{response} autentifikacijski sloj (metoda koju izvozi datoteka \emph{middleware/authentication.middleware.js}) validira i stavlja u lokalne podatke odgovora (\emph{res.locals}) prije nego krene obrada zahtijeva u upravljačkom sloju.
-Podaci o pokušaju dostupni su isključivo korisniku koji je stvorio taj pokušaj, stoga je autentifikacija nužna za svaku putanju koja dohvaća podatke o pokušaju i nema potrebe za implementiranje putanja za dohvaćanje pokušaja nad resurom korisnika. Dodavanjem tih putanja bi se samo u duplicirao u putanji podatak koji se već nalazi u zahtjevu i svejedno bi bilo potrebno poslati podatak o kojem je zadatku riječ\footnote{
+Za pokušaj nužno znati i o kojem je korisniku riječ, no taj podatak klijentska šalje kao dio zahtjeva kojeg \engl{response} autentifikacijski sloj (metoda koju izvozi datoteka \emph{middleware/authentication.middleware.js}) validira i stavlja u lokalne podatke odgovora (\emph{res.locals}) prije nego krene obrada zahtijeva u upravljačkom sloju\footnote{vidi isječak koda \ref{lst:auth}}.
+Podaci o pokušaju dostupni su isključivo korisniku koji je stvorio taj pokušaj, stoga je autentifikacija nužna za svaku putanju koja dohvaća podatke o pokušaju i nema potrebe za implementiranje putanja za dohvaćanje pokušaja nad resursom  korisnik. Dodavanjem tih putanja bi se samo u duplicirao u putanji podatak koji se već nalazi u zahtjevu i svejedno bi bilo potrebno poslati podatak o kojem je zadatku riječ\footnote{
     ponovnim pogledom na model podataka u isječku koda \ref{lst:schema} može se primijetiti da pokušaji imaju vlastiti primarni ključ, no u implementaciji nikad se ne oslanja isključivo na njega da bi se podaci mogli bolje i jednostavnije validirati
 }, a budući da nema slučaja korištenja u kojem bi takav dohvat rezultirao ponašanjem drugačijim od onog putem resursa zadatka, samo bi se duplicirao kod.
 
@@ -1127,16 +1140,233 @@ U tu svrhu koriste se datoteke direktorija \emph{viewModels} gdje svaka datoteka
 
 Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao dijagram na slici TODO
 
+
+\razmaks
+% Autentifikacija
 \subsection{Autentifikacija}
 
-TODO
+Autentifikacijska logika sadržana je unutar korisničke sheme i autentifikacijskog posredničkog sloja \engl{middleware}.
+
+Korisnička shema nema jednostavan atribut \emph{password} kako je to prikazano u isječku koda \ref{lst:schema}, već u sebi sadrži metodu postavljanja \engl{setter} koja osigurava da se u bazi ne sprema izravno korisnikova zaporka, već da se generira njen sažetak \engl{hash}.
+Implementacija te metode postavljanja vidljiva je u isječku koda \ref{lst:pwd}.
+
+\razmakp % Attribut \emph{password} sheme Korisnik
+\begin{lstlisting}[language=JavaScript, caption={Attribut \emph{password} od sheme Korisnik}, label={lst:pwd}]
+password: {
+  type: String,
+  required: [true, 'Password is required.'],
+  set: function(value) {
+    return bcrypt.hashSync(value + PWD_PEPPER, PWD_ROUNDS);
+  },
+}
+\end{lstlisting}
+\razmaks
+
+Sažetak se generira pomoću paketa \emph{bcrypt} koji implementira istoimeni algoritam.
+Algoritam zahtijeva \emph{salt} u obliku broja rundi za generiranje sažetka.
+Broj rundi predaje se aplikaciji pomoću varijable okruženja \emph{PWD\_ROUNDS} i eksponencijalno produljuje vrijeme potrebno za generiranje sažetka, stoga se, budući da je za metodu postavljanja potrebno koristiti sinkronu implementaciju, preporučuje koristiti jednoznamenkasti broj za vrijednost \emph{PWD\_ROUNDS}\citep{bcrypt}.
+Također bitno je za naglasiti da se \emph{salt} sažetka sprema uz sam sažetak, tako da je dobra praksa dodati \emph{pepper} što je nasumično generirani tajni ključ koji se nadodaje na zaporku korisnika prije generiranja sažetka.
+Vrijednost \emph{pepper} čuva se isključivo u varijablama okruženja aplikacije, tako da u slučaju da neautorizirana osoba dobije podatke o sažecima zaporaka korisnika iz baze podataka, bez \emph{pepper} vrijednosti napadač teško može zaključiti koje su bile originalne zaporke korisnika.
+
+Ovo ne osigurava aplikaciju od napada ako koristi tu istu bazu zaporaka, ali barem osigurava korisnika od toga da se njegova zaporka upotrebi negdje drugdje u slučaju da koristi istu zaporku na više mjesta (što velik broj korisnika radi).
+
+\razmakp
+
+Opisana metoda koristi se samo pri stvaranju stvaranju korisnika, dok se za provjeru zaporke korisnika koristi metoda \emph{isPasswordValid} koja je definirana nad shemom Korisnik i poziva se nad instancom modela sheme.
+Implementacija se oslanja na već opisanoj metodi sažimanja i usporedbi rezultata s onim koji piše u bazi, samo što se u ovoj situaciji može koristiti asinkron poziv metode sažimanja tako da proces provjere zaporke ne blokira obradu drugih zahtijeva. 
+Kod metode prikazan je u isječku koda \ref{lst:isPwd}.
+
+\razmakp % Metoda \emph{isPasswordValid} sheme Korisnik
+\begin{lstlisting}[language=JavaScript, caption={Metoda \emph{isPasswordValid} sheme Korisnik}, label={lst:isPwd}]
+userSchema.methods.isPasswordValid = async function (password) {
+  const isPasswordValid = await bcrypt.compare(
+    password + PWD_PEPPER,
+    this.password
+  );
+  return isPasswordValid;
+};
+\end{lstlisting}
+\razmaks
+
+Nakon što je zaporka korisnika uspješno provjerena, korisnik, odnosno klijentska aplikacija, dobiva \emph{token} koji koristi u svim daljnjih zahtjevima za potrebu autentifikacije korisnika.
+Proces stvaranja \emph{tokena} sličan je procesu stvaranja zaporke, ali se umjesto zaporke sažimaju primarni ključ korisnika i poslužiteljska vremenska oznaka \engl{timestamp} u milisekundama kada je metoda stvaranja tokena pokrenuta.
+Spomenuta vremenska oznaka se na kraju procesa stvaranja \emph{tokena} sprema u bazi na mjestu atributa \emph{tokenTimestamp}, dok se samo \emph{token} ne sprema na poslužitelju nigdje, već samo šalje klijentskoj aplikaciji.
+Implementacije metoda stvaranja, provjere i brisanja tokena mogu se pronaći u isječku koda \ref{lst:token}.
+
+\razmakp % Metode stvaranja, provjere i brisanja tokena sheme Korisnik
+\begin{lstlisting}[language=JavaScript, caption={Metode stvaranja, provjere i brisanja tokena sheme Korisnik}, label={lst:token}]
+// STVARANJE TOKENA:
+userSchema.methods.generateToken = async function () {
+  this.tokenTimestamp = Date.now();
+  const tokenData = this.tokenTimestamp.toString() + this.id; + TOKEN_PEPPER;
+  const token = await bcrypt.hash(tokenData, TOKEN_ROUNDS);
+  await this.save();
+  return token;
+};
+// PROVJERA TOKENA:
+userSchema.methods.isTokenValid = async function(token) {
+  if (!this.tokenTimestamp) {
+    return false;
+  }
+  const tokenData = this.tokenTimestamp.toString() + this.id; + TOKEN_PEPPER;
+  const isTokenValid = await bcrypt.compare(tokenData, token);
+  return isTokenValid;
+};
+// BRISANJE TOKENA:
+userSchema.methods.clearToken = async function () {
+  this.tokenTimestamp = null;
+  await this.save();
+};
+\end{lstlisting}
+\razmaks
+
+Na svakoj putanji koja zahtijeva autentifikaciju, odnosno gdje u obradi cjevovoda prije metode upravljačkog sloja stoji metoda \emph{authenticate}, klijentska aplikacija mora u zaglavlju zahtijeva imati adresu elektroničku pošte korisnika i \emph{token} tog korisnika.
+Adresa elektroničke pošte je jedinstvena za svakog korisnika i koristi se kao identifikator pomoću kojeg se korisnik dohvaća.
+Za svrhu očuvanja jedinstvenosti i brz dohvat korisnika pomoću tog atributa koristi se \emph{unique index} implementacija Mongo sustava\citep{mongo} dostupna u Mongoose API-ju kao svojstvo pri definiciji atributa\citep{mongoose}.
+U slučaju da zahtjev ne sadrži spomenute podatke ili je neki od njih neispravan, klijentskoj aplikaciji se šalje HTTP status kod 401 (\emph{Unauthorized}).
+Implementacija metode \emph{authenticate} prikazana je u isječku koda \ref{lst:auth}.
+
+\razmakp % Implementacija \emph{authenticate} metode u \emph{authentication.middleware.js}
+\begin{lstlisting}[language=JavaScript, caption={Implementacija \emph{authenticate} metode u \emph{authentication.middleware.js}}, label={lst:auth}]
+const Errors = require('restify-errors');
+const UserService = require('../services/user.service');
+
+const authenticate = async (req, res, next) => {
+  const { email, token } = req.headers;
+  if (!email || !token) {
+    throw new Errors.UnauthorizedError('Missing authentication details');
+  }
+
+  const user = await UserService.findByEmailForAuth(email);
+  if (!user) {
+    throw new Errors.UnauthorizedError('User does not exist');
+  }
+  const isTokenValid = await user.isTokenValid(token);
+  if (!isTokenValid) {
+    throw new Errors.UnauthorizedError('Invalid token');
+  }
+
+  res.locals.userId = user.id;
+  res.locals.userEmail = user.email;
+  res.locals.userType = user.type;
+
+  next();
+};
+\end{lstlisting}
+\razmaks
+
 
 \newpage
 % Arhitektura klijenta
 \section{Arhitektura klijenta}
 
-TODO
+\razmaks
+% Fizička arhitektura
+\subsection{Fizička arhitektura}
 
+Ulazna datoteka klijentske aplikacije je \emph{index.tsx} u direktoriju \emph{src}.
+U korijenu direktorija \emph{src} nalaze se još dvije TypeScript datoteke, \emph{App.tsx} i \emph{serviceWorker.ts}.
+
+Datoteka \emph{serviceWorker.ts} ostala je nepromijenjena od inicijalizacije Create React App predloška \footnote{vidi poglavljle \ref{sec:cra}} i nudi gotovu \emph{Service Worker API} konfiguraciju.
+Riječ je o API-ju koju implementiraju moderni web preglednici prvenstveno za potrebe čuvanja privremene memorije \engl{cache} u slučaju sporog interneta ili za ostvarivanje offline web aplikacije\footnote{
+    aplikacija koja se mora samo učitati pri prvom korištenju, a dalje funkcionira offline
+}.
+
+U datoteci \emph{App.tsx} definirana je korijenska React komponenta koja predstavlja cijelu aplikaciju\footnote{
+    korijenska React komponenta je ustvari React Redux \emph{Provider} (vidi isječak koda \ref{lst:redux}) koji dodaje \emph{store} na kontekst aplikacije i kao svoje izravno i jedino dijete ima \emph{App} komponentu.
+} i koju uvozi \engl{import} spomenuta \emph{index.jsx} datoteka i prikazuje \engl{render} na mjestu korijenskog \emph{div} elementa koji je izravno dijete HTML \emph{body} elementa.
+
+\razmakp
+
+Osim direktorija \emph{src}, postoji \emph{public} direktorij u kojem su definirane sve statičke datoteke, odnosno resursi koji ne prolaze kroz proces izgradnje \engl{build}, već ostaju onakvi kakvi jesu.
+To su korijenska \emph{index.html} datoteka, prva datoteka koju preglednik učitava; \emph{manifest.json}, manifest web aplikacije koji je potreban za PWA\footnote{
+    \emph{Progressive Web App} -- web aplikacija koja se, na operacijskim sustavima koji ih podržavaju, može ponašati poput nativne, naizgled samostalne aplikacije (u pozadini web preglednik pokreće aplikaciju, ali se ne prikazuje sučelje tog preglednika), \url{https://developers.google.com/web/progressive-web-apps}
+}; \emph{favicon} ikona; slike, fontovi i ikone korištene u aplikaciji; te statičke JavaScript i CSS datoteke koje nema potrebe uvoziti u razvojnom dijelu aplikacije, u slučaju ovog rada to je \emph{bootstrap.min.css} koji sadrži Bootstrap temu koja se koristi u ovoj aplikaciji.
+Datoteka \emph{index.html} je jedina HTML datoteka u projektu, odakle i naziv jednostranična aplikacija \engl{single page application}.
+Datoteka definira vanjske ovisnosti (dostupne na vanjskom poslužitelju), ovisnosti koje se nalaze u \emph{public} direktoriju i minimalno ili gotovo ništa sadržaja, odnosno \emph{body} element sadrži samo \emph{noscript} i prazan \emph{div} element s vrijednosti \emph{id} atributa jednakom „root“.
+To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u procesu gradnje doda u ovisnosti \emph{index.html} datoteke, odnosno \emph{index.html} je jedina datoteka \emph{public} direktorija koja se modificira dodavanjem JavaScript i CSS datoteka izgrađenih iz datoteka u \emph{src} direktoriju.
+
+\razmakp
+
+\noindent Direktorij \emph{src} podijeljen je na sljedeće direktorije:
+
+\begin{itemize}
+    \item \emph{components} -- sadrži sve ponovno iskoristive React komponente, odnosno sve komponente koje se koriste na više različitih putanja, tj. u više \emph{scenes} poddirektorija
+    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji i direktorij \emph{routes} koji sadrži poslužiteljske API putanje (\emph{constants/routes/api.ts}) i putanje web aplikacije (\emph{constants/routes/client.ts})
+    \item \emph{engine} -- apstrakcija mehanizma izgradnje dijagrama, datoteka \emph{engine/index.ts} izvozi samo one objekte, metode i tipove koji su potrebni ostatku aplikacije da koriste mehanizam dijagrama, dok je sva ostala potrebna logika i ovisnost na STORM React Diagrams paket sadržana u okviru ovog direktorija
+    \item \emph{enums} -- sadrži sve enumeracije koje se koriste u aplikaciji, TypeScript za razliku od JavaScript-a ima podršku za enumeracije koje se stvaraju pomoću ključne riječi \emph{enum}, ali je u konfiguraciji ovog rada bitno paziti da se ne koristi \emph{const enum} tip jer ga prevoditelj Babel ne podržava
+    \item \emph{models} -- sadrži definicije, odnosno klase i sučelja podatkvnih modela koji se koriste za forme (\emph{formModels} direktorij), šalju poslužitelju (\emph{requestModels} direktorij), primaju s poslužitelja (\emph{viewModels} direktorij), drže u \emph{localStorage} globalnom objektu (\emph{localStorage.model.ts} datoteka), ili općenito koriste u više slojeva aplikacije, a da nisu modeli stanja aplikacije (oni se nalaze u \emph{state} direktoriju)
+    \item \emph{scenes} -- sadrži sve komponente i potkomponente koje su vezane uz specifičnu putanju aplikacije, odnosno nisu ponovno iskoristive na drugim putanjama
+    \item \emph{state} -- sadrži sve datoteke s Redux logikom, podijeljene s obzirom na dijelove stanja na koje se odnose, detaljnije razjašnjeno u poglavlju TODO
+    \item \emph{styles} -- sadrži SCSS\footnote{
+        SCSS je jedna od dvije moguće sintakse za Sass jezik (druga se zove baš \emph{Sass}) koja je sličnija CSS-u, odnosno SCSS je nadogradnja \engl{superset} je nad standardnom CSS-om slično kako je TypeScript nadogradnja nad JavaScript-om
+    } datoteke koje definiraju dizajn aplikacije, u procesu izgradnje prevode se u zajedničku CSS datoteku
+    \item \emph{typings} -- sadrži TypeScript deklaracijske datoteke\footnote{vidi poglavlje \ref{sec:ts}}
+    \item \emph{utils} -- sadrži pomoćne metode koje se koriste u više slojeva aplikacije ili ne pripadaju prirodno nekom od slojeva, abecednim redom to su:
+    \begin{itemize}
+        \item \emph{action.util.ts} -- sadrži logiku obrade HTTP grešaka unutar Redux akcija, izvozi metodu s kojom se omotava svaka Redux akcija koja radi poziv na poslužitelj
+        \item \emph{diagram.util.ts} -- sadrži pomoćne metode za upravljanjem stanja dijagrama, koristi je primarno funkcija sažimanja \engl{reducer} za stanje dijagrama
+        \item \emph{http.util.ts} -- apstrakcija nad HTTP zahtjevima, odnosno Axios bibliotekom; obavlja logiku dodavanja zaglavlja HTTP zahtjevima i slanja \engl{dispatch} akcija Redux stanju da je neki HTTP poziv započeo, odnosno završio
+        \item \emph{router.util.ts} -- sadrži pomoćne metode za usmjeravanje unutar aplikacije
+        \item \emph{state.util.ts} -- sadrži metode koje mogu pročitati dijelove trenutnog stanja (\emph{selector} metode); koristi se kada je čitanje nekog dijela stanja nužno za ostvarenje neke logike, ali se ne želi React komponentu koja implementira ili poziva tu logiku vezati \engl{connect} na promjene tog dijela stanja
+        \item \emph{touch.util.ts} -- implementacija simuliranja događaja miša \engl{mouse events} na događaje dodira \engl{touch events}, nužno kako bi mehanizam dijagrama mogao raditi na uređajima na dodir
+    \end{itemize}
+\end{itemize}
+\razmaks
+
+\razmaks
+% Mehanizam dijagrama
+\subsection{Mehanizam dijagrama}
+
+Mehanizam dijagrama uvelike se oslanja na zadane \engl{default} elemente biblioteke STORM React Diagrams\footnote{vidi poglavlje \ref{sec:storm}}.
+Ti modeli su prošireni kako bi se ostvarila logika nužna za ispravno funkcioniranje dijagrama.
+Specifično proširen je entitet čvora.
+
+Apstraktni razred \emph{AbstractNodeModel} predstavlja bazni razred svih drugih čvorova i on nasljeđuje razred \emph{DefaultNodeModel} kojeg nudi biblioteka.
+\emph{AbstractNodeModel} proširuje metode serijaizacije i deserijalizacije čvorova kako bi tip konkretnih razreda ostao sačuvan pri inicijalizaciji zadnjeg spremljenog stanja dobivenog s poslužitelja, i definira atribute koje mora sadržavati svaki razred koji ga nasljeđuje, odnosno svaki čvor koji se koristi u aplikaciji.
+Ključan atribut tu je objekt postavki čvora \emph{\_settings} za koje \emph{AbstractNodeModel} implementira metode dohvata \engl{getter} i postavljanja \engl{setter}.
+Razlog zašto taj atribut zahtijeva te metode je što aplikacija osluškuje promjenu tog atributa kako bi ispravno ažurirala svoje stanje.
+
+Konkretni razredi koji nasljeđuju razred \emph{AbstractNodeModel} nužno implementiraju tip svog objekta postavki i metodu \emph{run}, a u svom konstruktoru definiraju svoje ime i boju (njih zahtijeva konstruktor od \emph{DefaultNodeModel} razreda) te \emph{Port} entitete koje sarže\footnote{
+    \emph{Port} elementi su, kako je navedeno u poglavlju \ref{sec:storm}, točke čvorova na koje se mogu spojiti poveznice, odnosno bridovi.
+    Čvor pri pridruživanju \emph{Port} dodavanju elementa ga pridružuje ili svom skupu ulaznih \emph{Port} elemenata ili svom skupu izlaznih \emph{Port} elemenata.
+}.
+Metoda \emph{run} je metoda koja na za danu ulaznu tablicu vraća izlaznu tablicu koja se očekuje dobiti obavljanjem operacije koju čvor predstavlja s obzirom na svoje unutarnje stanje.
+Na primjeru razreda \emph{SelectNodeModel} objekt postavki u sebi sadrži listu odabranih ključeva, odnosno listu stupaca tablice koje će čvor prikazati i propagirati idućem čvoru u lancu.
+Metoda \emph{run} u tom slučaju pri primanju ulaznog parametra tablice stvara novu tablicu koja sadrži iste retke kao i primljena, samo bez stupaca koji nisu navedeni u objektu postavki čvora nad kojim je metoda pozvana. 
+Ključna stvar za svaku \emph{run} metodu je da je ona čista funkcija \emph{pure function}, odnosno da njeno pozivanje ne mijenja ni ulazne parametre ni unutarnje stanje objekta nad kojim je pozvana.
+
+Ostali \emph{default} entiteti nisu zahtijevali proširivanje svojih razreda, ali zato razred \emph{DiagramModel} je.
+Razred \emph{DiagramModel} proširen je razredom \emph{CustomDiagramModel} koji reimplementira deserijalizaciju dijagrama kako bi ona bila usklađena s implementacijom u \emph{AbstractNodeModel} razredu.
+Specifično u procesu deserijalizacije čvorova nužno je iščitati tip čvora kako bi se mogao instancirati ispravan čvor.
+
+\razmakp
+
+Sljedeće proširenje nije proširenje već samo apstrakcija nad razredom \emph{DiagramEngine}.
+Aplikacija koristi mehanizam dijagrama korištenjem singleton instance objekta razreda \emph{Engine} koji u sebi sadrži i po potrebi otkriva instance razreda \emph{DiagramEngine} i \emph{CustomDiagramModel} kojeg taj \emph{DiagramEngine} koristi.
+Ta dva unutarnja atributa otkrivaju se samo za potrebe stvaranje komponente \emph{DiagramWidget} i implementacije pomoćnih metoda u datoteci \emph{utils/engine.util.ts}, dok se svugdje drugdje koristi isključivo sučelje koje nudi \emph{Engine} razred.
+Sučelje \emph{Engine} razreda nudi nekoliko korisnih metoda za dohvat podataka dijagrama i dvije ključne metode za upravljanje dijagramom - metode za dodavanje čvorova i poveznica između njih.
+
+Metoda za dodavanje čvorova očekuje razred, odnosno konstruktor tipa \emph{AbstractNodeModel} (odnosno jedan od konkretnih razreda koji ga nasljeđuju), x i y koordinate čvora i tri metode za osluškivanje događaja nad čvorom \engl{listeners}.
+Događaji koji se osluškuju su: selekcija čvora (trenutak kad je čvor odabran ili nije više odabran od strane korisnika), brisanje čvora i izmjena objekta postavki čvora.
+
+Metoda za dodavanje poveznice je malo složenija u tome što ona ne mora nužno uspješno završiti, stoga se zove \emph{tryToConnectLinkOnPoint}.
+Informaciju o uspješnosti operacije daje povratna vrijednost metode, ako je poveznica uspješno pridružena čvoru vraća se vrijednost \emph{true}, inače \emph{false}.
+Metoda prima instancu poveznice (entitet \emph{LinkModel}), instancu odredišne točke te poveznice (entitet \emph{PointModel}) i metodu za osluškivanje događaja brisanja poveznice.
+Logika metode funkcionira tako da pretražuje sve \emph{PortModel} entitete koji se nalaze u skupovima ulaznih \emph{Port} elemenata svih čvorova osim čvora odakle poveznica izvire.
+Ako je \emph{Port} element slobodan (nema pridruženih poveznica) i primljena instanca odredišne točke nalazi se unutar tog \emph{Port} elementa, poveznica se pridružuje tom \emph{Port} elementu, odnosno povezuje s čvorom kojem taj element pripada.
+U slučaju da se nije naša niti jedan čvor koji zadovoljava opisan kriterij, metoda završava s neuspijehom i instanca poveznice se briše.
+Ova implementacija dodana je prvenstveno jer, čak i uz simuliranje događaja miša \engl{mouse events}, povezivanje poveznice s čvorem nije radilo ispravno na uređajima na dodir bez ove intervencije.
+
+Obe metode pozivaju Redux akcije za dodavanje čvorova i dijagrama koje također stvaraju i sve spomenute metode za osluškivanje događaja.
+Ta logika je smještena tu zato što se stanje dijagrama izravno prati u stanju aplikacije i svaka akcija u mehanizmu dijagrama koja mijenja stanje dijagram mora biti ili izravno pozvana putem Redux akcije koja onda uz poziv metode mehanizma dijagram ujedno ažurira aplikacijsko stanje aplikacije (što je slučaj za dodavanje čvorova i poveznica), ili imati prikladnu metodu osluškivanja koja poziva prikladnu Redux akciju da ažurira aplikacijsko stanje dijagrama (što je slučaj za događaje brisanja čvorova i poveznica, događaj selekcije čvora i događaj mijenjanja objekta postavki čvora).
+Ovaj pristup, u kojem se ključan dio stanja dijagrama preslikava iz mehanizma dijagram au aplikacijsko stanje, uvelike pomaže pri otkrivanju grešaka i omogućava spremanje stanja dijagrama koje je očišćeno od svog „šuma“ podataka koje se nalazi u standardnoj serijalizaciji dijagrama, kao što su podaci o koordinatama ili bojama elemenata i puno pogodnije za kasniju analizu koraka koje je korisnik napravio unutar jednog pokušaja rješavanja zadatka.
+
+\razmaks
+% Model stanja aplikacije
+\subsection{Model stanja aplikacije}
+
+TODO
 
 
 % Zaključak
@@ -1153,17 +1383,24 @@ TODO
 
 % Sažetak
 \begin{sazetak}
-Sažetak na hrvatskom jeziku.
+Postoji velik broj interaktivnih okruženja i alata vizualnog programiranja za učenje proceduralne programske paradigme.
+U ovom radu razvijeno je interaktivno okruženje za podršku učenju deklarativne paradigme.
+Interaktivno okruženje ostvareno je kao web aplikacija i bazirano je na izgradnji dijagrama toka podataka gdje su čvorovi dijagrama operacije deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru.
+Informaciji sustav razvijen u ovom radu u kojem se nalazi interaktivno okruženje namijenjen je za korištenje na mobilnim i desktop uređajima, prvenstveno od strane mlađih uzrasta u ranoj fazi formalnog obrazovanja.
 
-\kljucnerijeci{Ključne riječi, odvojene zarezima.}
+
+\kljucnerijeci{učenje, interaktivno, deklarativna paradigma}
 \end{sazetak}
 
 % TODO: Navedite naslov na engleskom jeziku.
-\engtitle{Title}
+\engtitle{System for Supporting Learning of Declarative Programming Paradigm}
 \begin{abstract}
-Abstract.
+There exists a substantial amount of interactive environments and visual programming tools for learning procedural programming.
+In this thesis an interactive environment that supports learning of the declarative programming paradigm has been developed.
+The interactive environment is built as a web application and is based on a data-flow diagram in which the nodes of the diagram represent operations of a declarative programming language based on relational algebra.
+The information system that has been developed in this thesis and which contains the interactive environment is suitable for use on both mobile and desktop devices, and is primarily targeted towards children in their early phases of formal education.
 
-\keywords{Keywords.}
+\keywords{learning, interactive, declarative programming}
 \end{abstract}
 
 \end{document}
