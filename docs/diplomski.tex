@@ -498,7 +498,7 @@ STORM React Diagrams biblioteka koristi se za izgradnju dinamičnih dijagrama ko
 
 \razmaks
 % React
-\subsection{React}
+\subsection{React} \label{sec:react}
 
 React je JavaScript biblioteka otvorenog koda namijenjena brzoj i jednostavnoj izgradnji korisničkih sučelja.
 Razvijena je od strane Facebooka 2013. godine i zadnja stabilna verzija u trenutku pisanja ovog rada je 16.8.6.\citep{gh_react_changelog}.
@@ -1143,7 +1143,7 @@ Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao di
 
 \razmaks
 % Autentifikacija
-\subsection{Autentifikacija}
+\subsection{Autentifikacija} \label{sec:auth}
 
 Autentifikacijska logika sadržana je unutar korisničke sheme i autentifikacijskog posredničkog sloja \engl{middleware}.
 
@@ -1311,12 +1311,15 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
         \item \emph{state.util.ts} -- sadrži metode koje mogu pročitati dijelove trenutnog stanja (\emph{selector} metode); koristi se kada je čitanje nekog dijela stanja nužno za ostvarenje neke logike, ali se ne želi React komponentu koja implementira ili poziva tu logiku vezati \engl{connect} na promjene tog dijela stanja
         \item \emph{touch.util.ts} -- implementacija simuliranja događaja miša \engl{mouse events} na događaje dodira \engl{touch events}, nužno kako bi mehanizam dijagrama mogao raditi na uređajima na dodir
     \end{itemize}
+    \item \emph{wrappers} -- sadrži sve komponente višeg reda \engl{high order components}, odnosno funkcije koje primaju jednu komponentu i vraćaju drugu komponentu\footnote{
+        koncept komponenti višeg reda ekvivalentan je konceptu funkcija višeg reda u funkcijskoj programskoj paradigmi
+    }
 \end{itemize}
 \razmaks
 
 \razmaks
 % Mehanizam dijagrama
-\subsection{Mehanizam dijagrama}
+\subsection{Mehanizam dijagrama} \label{sec:diagram}
 
 Mehanizam dijagrama uvelike se oslanja na zadane \engl{default} elemente biblioteke STORM React Diagrams\footnote{vidi poglavlje \ref{sec:storm}}.
 Ti modeli su prošireni kako bi se ostvarila logika nužna za ispravno funkcioniranje dijagrama.
@@ -1363,10 +1366,33 @@ Ta logika je smještena tu zato što se stanje dijagrama izravno prati u stanju 
 Ovaj pristup, u kojem se ključan dio stanja dijagrama preslikava iz mehanizma dijagram au aplikacijsko stanje, uvelike pomaže pri otkrivanju grešaka i omogućava spremanje stanja dijagrama koje je očišćeno od svog „šuma“ podataka koje se nalazi u standardnoj serijalizaciji dijagrama, kao što su podaci o koordinatama ili bojama elemenata i puno pogodnije za kasniju analizu koraka koje je korisnik napravio unutar jednog pokušaja rješavanja zadatka.
 
 \razmaks
-% Model stanja aplikacije
-\subsection{Model stanja aplikacije}
+% Upravljanje stanjem aplikacije
+\subsection{Upravljanje stanjem aplikacije}
 
-TODO
+Stanje aplikacije, odnosno model Redux stanja raspodijeljen je u 4 nezavisna podstanja: \emph{diagram}, \emph{exercise}, \emph{http}, \emph{user}.
+Svaki od podstanja ima direktorij s istim imenom u direktoriju \emph{state} u kojem se nalaze datoteke s definicijama i implementacijama akcija \engl{actions}, stvaratelja akcija \engl{action creators}, konstanti tipova akcija \engl{action types} funkcije sažimanja \engl{reducers} i modela stanja \engl{state model}.
+Akcije koje se izvoze iz \emph{actions} datoteka nisu Redux akcije već kompleksnije akcije koje se izvoze komponentama na korištenje.
+One pozivaju http zahtjeve i stvaraju Redux akcije, pomoću stvaratelja akcija, koje šalju \engl{dispatch} funkcijama sažimanja.
+Korištenje paketa \emph{redux-think} kao Redux međusloja za definiranje i pozivanje akcija omogućava da se unutar jedne akcije može stvoriti i poslati više Redux akcija.
+Svaka Redux akcija ima prikladan tip akcije po kojem funkcija sažimanja zna o kojoj je akciji riječ.
+Sloj stvaratelja akcija prvenstveno služi da bi se pomoću njega definirala TypeScript sučelja koja u sebi sadrže informaciju o podatkovnom tipu korisnog tereta \engl{payload} Redux akcije kako bi on bio poznat za specifičan tip akcije u funkciji sažimanja u trenutku prevođenja koda i tako potencijalno otkrio greške u implementaciji.
+
+Jedini dio podstanja koji nema definiranu datoteku s akcijama, već samo sa stvarateljima akcija je \emph{http}.
+Razlog je u tome što akcije na taj dio stanja se ne šalju iz komponenti već iz datoteke \emph{utils/http.util.ts} pri početku i završetku neku od metodi poziva HTTP zahtijeva, a te metode nemaju pristup \emph{dispatch} metodi i automatskom povezivanju \emph{dispatch} na akcije kako je to ostvareno u komponentama pomoću \emph{react-redux} paketa. To znači da datoteka mora uvesti globalni \emph{store} objekt za slati Redux akcije koje stvara pomoću stvaratelja akcija, odnosno akcije se moraju definirati unutar te datoteke.
+
+\razmakp
+
+Podstanje \emph{user} sadrži korisničke podatke i akcije tog podstanja povezane su uz autorizaciju, odnosno registraciju i prijavu korisnika.
+Budući da osvježavanje stranice u web pregledniku osvježi i Redux stanje ako neki oblik perzistencije nije implementiran, \emph{user} akcije uz ažuriranje Redux stanja ažuriraju i brinu se o autorizacijskim podacima unutar \emph{localStorage} globalnog objekta, specifično riječ je o adresi elektroničke pošte i tokenu koji su nužni dijelovi zaglavlja većine HTTP zahtijeva\footnote{vidi poglavlje \ref{sec:auth}}.
+Nikoji drugi podaci nisu perzistirani već će se dohvatiti pri osvježavanju stranice budući da komponente za dohvat svih tih podataka pozivaju prikladne akcije unutar svojih \emph{componentDidMount} metoda\footnote{vidi poglavlje \ref{sec:react}}.
+Neperzistencija Redux stanja je namjerna jer osigurava mogućnost osvježavanja aplikacije s ispravnim stanjem s poslužitelja umjesto učitavanja starog stanja koje je potencijalno neispravno zbog neke nepredviđene greške.
+Također, konstantno održavanje cijelog Redux stanja bi potencijalno narušilo performanse jer su akcije pisanja u \emph{localStorge} objekt sinkrone, a u slučaju da ih se ubaci unutar asinkronih metoda bi otvorilo mogućnost greške u redoslijedu pisanja stanja u \emph{localStorge} objekt.
+
+Za upravljanje podacima o ostala dva agregata -- zadatak i pokušaj -- služi podstanje \emph{exercise}.
+u njemu su definirane akcije za dohvaćanje zadatka i ažuriranje najnovije verzije trenutno aktivnog pokušaja za odabrani zadatak, odnosno onaj zadatak kojeg korisnik trenutno rješava, ako se nalazi na sučelju za rješavanje.
+Podstanje \emph{diagram} upravlja sa stanjem dijagram koje se nalazi u tom istom sučelju.
+Ono definira akcije koje su usko vezane uz mehanizam dijagrama i održava pročišćenu aplikacijsku verziju stanja mehanizma dijagrama na način kako je objašnjeno u poglavlju \ref{sec:diagram}.
+
 
 
 % Zaključak
