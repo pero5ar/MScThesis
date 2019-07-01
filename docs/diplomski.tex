@@ -42,7 +42,7 @@
     title=\lstname % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 %END of listing package%
- 
+
 %define JavaScript language
 \lstdefinelanguage{JavaScript}{
     keywords=[1]{typeof, new, true, false, function, null, undefined, var, in, of, let, const, class, extends, implements, constructor, super, this, async},
@@ -80,7 +80,7 @@
     morestring=[b]",
     morestring=[b]`,
 }
- 
+
 \lstset{
     language=JavaScript,
     extendedchars=true,
@@ -128,7 +128,26 @@
 % Uvod
 \chapter{Uvod}
 
-TODO
+Učenje programiranja, odnosno koncepata koji se koriste u programiranju i računalnog načina razmišljanja, u što ranijoj dobi je među ključnim točkama prijedloga reformi obrazovanja u raznim zemljama.
+Cilj je da se time što ranije osposobi djecu za naprednije korištenje računalnih alata na kojima se moderan svijet sve oslanja te razvije kreativnost i sposobnost rješavanja novih i nepoznatih problema u tim alatima.
+Budući da je, zbog ograničenog znanja jezika i matematike djece u ranoj fazi obrazovanja, teško učiti pisanje programskog koda djecu koja su u dobi nižih razreda osnovne škole, osmišljeni su razni interaktivni alati i vizualni programski jezici pomoću kojih učenici mogu određene koncepte početi istraživati čak i s predškolskom razinom znanja.
+Najpoznatiji takav alat je Scratch gdje slijednim slaganjem konfigurabilnih blokova, koji po potrebi predstavljaju osnovne ili kompleksne operacije, osoba može razviti program za riješiti opisan problem\citep{scratch}.
+
+Scratch i alati slični njemu nude moćno okruženje za rješavanje problema na razne načine, ali imaju jedno bitno ograničenje.
+Slijedna priroda slaganja blokova ne samo potiče, već isključivo omogućuje rješenja koja su u skladu s proceduralnom programskom paradigmom.
+Budući da je proceduralna paradigma često prva paradigma u kojoj se programira, ovo ne stvara problem za učenje programiranja, ali ograničava razvijanje drugačijih pristupa u rješavanju problema koji mogu biti korisni u nekim drugim računalnim alatima.
+
+Računalni alati pomoću kojih analiziramo podatke, kao što su programi za tablično računanje koje mnogi ljudi koriste na svakodnevnoj bazi za poslovne i privatne potrebe, prvenstveno se oslanjaju na deklarativnom pristupu. 
+Operacije koje ti alati nude -- filtracija, projekcija, sortiranje, grupiranje i slično -- svoj uzor i osnovnu imaju na operacijama relacijske algebre.
+Osnovu na relacijskoj algebri ima i najpoznatiji programski jezik specijaliziran za dohvat i manipulaciju podataka SQL, koji je deklarativan programski jezik.
+
+\newpage
+
+Cilj ovog rada bio je razviti interaktivno okruženje za učenje deklarativne programske paradigme, specifično na primjeru manipulacije tabličnih podataka.
+Razvijen je alat koji se oslanja na tome da korisnik gradi dijagram toka podataka u kojem svaki čvor predstavlja jednu operaciju vizualnog deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru i SQL.
+Taj alat je ključan dio cijelog sustava u kojem korisnici mogu samostalno rješavati različite zadatke i pratiti svoj napredak.
+U radu su objašnjene tehnologije koje su se koristile u izradi alata i sustava u kojem se nalazi.
+Također je objašnjena i argumentirana implementacija tog alata s ciljem da se u budućnosti sustav i alat mogu jednostavno proširiti.
 
 
 
@@ -658,7 +677,7 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
 
     \item zastarjele metode životnog ciklusa: \emph{UNSAFE\_componentWillMount},
     \break \emph{UNSAFE\_componentWillReceiveProps} i \emph{UNSAFE\_componentWillUpdate}
-    
+
     Ove metode ne moraju nužno biti prefiksirane s \emph{UNSAFE\_} i u prethodnim verzijama React-a (prije verzije 16.3) nemaju taj prefiks.
     Prefiks je dodan kako bi se naglasilo da će metode biti uklonjene u verziji 17 i da ih se preporuča ne koristiti.
     Razlog zašto nisu odmah uklonjene je da bi ljudi lakše migrirali s React verzije 15 na verziju 16\citep{react_16_3}.
@@ -688,7 +707,15 @@ Ova akcija je nepovratna, nakon nje više se ne može jednostavno ažurirati pre
 \razmakp
 
 Za izgradnju aplikacijske strane u ovom radu koristio se predložak koji se dobije naredbom „\emph{create-react-app <ime\_aplikacije> -{}-typescript}“ s Create React App verzijom 3.0.
-Početna struktura projekta nakon pokretanja naredbe može se vidjeti na TODO
+Početna struktura projekta nakon pokretanja naredbe može se vidjeti na slici \ref{fig:cra}.
+
+\razmaks
+\begin{figure}[!htb] % Struktura aplikacije stvorene naredbom „\emph{create-react-app moja-aplikacija -{}-typescript}“
+    \centering
+    \includegraphics[width=12cm]{images/cra.png}
+    \caption{Struktura aplikacije stvorene naredbom „\emph{create-react-app moja-aplikacija -{}-typescript}“. Desna slika je nastavak na lijevu.}
+    \label{fig:cra}
+\end{figure}
 
 
 \razmaks
@@ -709,7 +736,9 @@ Jedini uvjet za korištenje tih mogućnosti je da su komponente koje ih koriste 
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja React Router biblioteke}, label={lst:react_router}]
 import * as React from 'react';
 import {
-  BrowserRouter as Router, Route, Link
+  BrowserRouter as Router,
+  Route,
+  Link,
 } from 'react-router-dom';
 
 const Home = () => ( <div> <h2>Home</h2> </div> );
@@ -792,7 +821,7 @@ Za osluškivanje promjena na stanjem koristi se metoda \emph{subscribe} (takođe
 Sama biblioteka Redux (tj. paket \emph{redux}) ne ovisi o biblioteci React, dok \emph{react-redux} ovisi o obije biblioteke\footnote{
     u trenutku pisanja ovog rada, aktualna verzija \emph{redux} paketa je 4, a za korištenja njega i React 16, potrebna je \emph{react-redux} verzija 7
 }.
-U isječku koda TODO prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa s React-om.
+U isječku koda \ref{lst:redux} prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa s React-om.
 
 \razmakp % Primjer korištenja Redux biblioteke u React aplikaciji
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja Redux biblioteke u React aplikaciji}, label={lst:redux}]
@@ -868,8 +897,8 @@ U okviru ovog rada korištene su nadograđene verzije modela tih \emph{default} 
 
 
 \razmaks
-% Bootrtarp i React Bootrtarp
-\subsection{Bootrtarp i React Bootrtarp}
+% Bootstrap i React Bootstrap
+\subsection{Bootstrap i React Bootstrap}
 
 Bootstrap je jednostavan radni okvir za gradnju web stranica prilagodljivih za raznolike uređaje.
 Nudi velik skup predefiniranih HTML komponenti i standardiziranih CSS klasa koje se mogu koristiti za brzu izgradnju čestih elemenata stranice kao što su izbornici, obrasci \engl{forms}, okviri za slike i sl.
@@ -1136,10 +1165,20 @@ Upravljački sloj, niti ikoji drugi sloj, nema izravan pristup modelima, već ko
 Kada metode upravljačkog sloja pozivaju metode servisa koji vraćaju objekte iz baze, te metode u većini slučajeva vraćaju instance Mongoose modela (s pokojim atributom više ili manje ovisno o implementaciji servisa), stoga je ključno prije slanja podataka klijentu te podatkovne modele \engl{data models} pretvoriti u modele pogleda \engl{viewModels}
 U tu svrhu koriste se datoteke direktorija \emph{viewModels} gdje svaka datoteka implementira jedan model pogleda kao razred čije instance stvara upravljački sloj i šalje klijentu kao odgovor u JSON formatu.
 
-\razmakp
+Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao dijagram na slici \ref{fig:server_files}.
 
-Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao dijagram na slici TODO
-
+\begin{figure}[!htb] % Direktoriji i slojevi poslužiteljske aplikacije
+    \centering
+    \includegraphics[width=13cm]{images/server_files.png}
+    \caption{
+        Direktoriji i slojevi poslužiteljske aplikacije.
+        Strelica prikazuje ovisnosti slojeva, odnosno datoteke u direktoriju prema kojima strelica pokazuje uvoze datoteke iz direktorija gdje strelica izvire.
+        Iznimka su konstante aplikacije koje uvoze svi direktoriji i na dijagramu su označene narančastom bojom.
+        Zelenom bojom označen je podatkovni sloj, plavom upravljački, sivom posredinčki \engl{middleware}, i žutom konfiguracije i ulazna datoteka.
+    }
+    \label{fig:server_files}
+\end{figure}
+\razmaks
 
 \razmaks
 % Autentifikacija
@@ -1297,7 +1336,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
     \item \emph{enums} -- sadrži sve enumeracije koje se koriste u aplikaciji, TypeScript za razliku od JavaScript-a ima podršku za enumeracije koje se stvaraju pomoću ključne riječi \emph{enum}, ali je u konfiguraciji ovog rada bitno paziti da se ne koristi \emph{const enum} tip jer ga prevoditelj Babel ne podržava
     \item \emph{models} -- sadrži definicije, odnosno klase i sučelja podatkvnih modela koji se koriste za forme (\emph{formModels} direktorij), šalju poslužitelju (\emph{requestModels} direktorij), primaju s poslužitelja (\emph{viewModels} direktorij), drže u \emph{localStorage} globalnom objektu (\emph{localStorage.model.ts} datoteka), ili općenito koriste u više slojeva aplikacije, a da nisu modeli stanja aplikacije (oni se nalaze u \emph{state} direktoriju)
     \item \emph{scenes} -- sadrži sve komponente i potkomponente koje su vezane uz specifičnu putanju aplikacije, odnosno nisu ponovno iskoristive na drugim putanjama
-    \item \emph{state} -- sadrži sve datoteke s Redux logikom, podijeljene s obzirom na dijelove stanja na koje se odnose, detaljnije razjašnjeno u poglavlju TODO
+    \item \emph{state} -- sadrži sve datoteke s Redux logikom, podijeljene s obzirom na dijelove stanja na koje se odnose, detaljnije razjašnjeno u poglavlju \ref{sec:state}
     \item \emph{styles} -- sadrži SCSS\footnote{
         SCSS je jedna od dvije moguće sintakse za Sass jezik (druga se zove baš \emph{Sass}) koja je sličnija CSS-u, odnosno SCSS je nadogradnja \engl{superset} je nad standardnom CSS-om slično kako je TypeScript nadogradnja nad JavaScript-om
     } datoteke koje definiraju dizajn aplikacije, u procesu izgradnje prevode se u zajedničku CSS datoteku
@@ -1367,9 +1406,9 @@ Ovaj pristup, u kojem se ključan dio stanja dijagrama preslikava iz mehanizma d
 
 \razmaks
 % Upravljanje stanjem aplikacije
-\subsection{Upravljanje stanjem aplikacije}
+\subsection{Upravljanje stanjem aplikacije} \label{sec:state}
 
-Stanje aplikacije, odnosno model Redux stanja raspodijeljen je u 4 nezavisna podstanja: \emph{diagram}, \emph{exercise}, \emph{http}, \emph{user}.
+Stanje aplikacije, odnosno model Redux stanja raspodijeljen je u četiri nezavisna podstanja: \emph{diagram}, \emph{exercise}, \emph{http}, \emph{user}.
 Svaki od podstanja ima direktorij s istim imenom u direktoriju \emph{state} u kojem se nalaze datoteke s definicijama i implementacijama akcija \engl{actions}, stvaratelja akcija \engl{action creators}, konstanti tipova akcija \engl{action types} funkcije sažimanja \engl{reducers} i modela stanja \engl{state model}.
 Akcije koje se izvoze iz \emph{actions} datoteka nisu Redux akcije već kompleksnije akcije koje se izvoze komponentama na korištenje.
 One pozivaju http zahtjeve i stvaraju Redux akcije, pomoću stvaratelja akcija, koje šalju \engl{dispatch} funkcijama sažimanja.
@@ -1393,7 +1432,75 @@ u njemu su definirane akcije za dohvaćanje zadatka i ažuriranje najnovije verz
 Podstanje \emph{diagram} upravlja sa stanjem dijagram koje se nalazi u tom istom sučelju.
 Ono definira akcije koje su usko vezane uz mehanizam dijagrama i održava pročišćenu aplikacijsku verziju stanja mehanizma dijagrama na način kako je objašnjeno u poglavlju \ref{sec:diagram}.
 
+\razmakp
 
+Definicja sučelja za opisan model stanja aplikacije, odnosno sučelja za sva podstanja aplikacija prikazana su u isječku koda \ref{lst:state}.
+
+\razmakp % Pojednostavljena verzija sučelja stanja aplikacije
+\begin{lstlisting}[language=TypeScript, caption={Pojednostavljena verzija sučelja stanja aplikacije}, label={lst:state}]
+// pomocni tipovi
+type Nullable<T> = null | T;
+type NodeData = { keys: string[]; rows: object[]; };
+interface NodesDictValue {
+  settings: object;
+  previousNodeIds: string[];
+  inLinkIds: string[];
+  nextNodeIds: string[];
+  outLinkIds: string[];
+}
+interface LinksDictValue {
+  sourceNodeId: string;
+  targetNodeId: string;
+}
+// dijelomicna view model sucelja:
+interface AttemptViewModel {
+  currentState: {
+    diagramState: Nullable<DiagramState>;
+    serializedGraph: string;
+  };
+}
+interface ExerciseViewModel {
+  lastAttempt: AttemptViewModel;
+}
+// korijensko stanje aplikacije
+interface RootState {
+  diagram: DiagramState;
+  exercise: ExerciseState;
+  http: HttpState;
+  user: UserState;
+}
+// podstanja aplikacije:
+interface DiagramState {
+  selectedNodeId: Nullable<string>;
+  startNodeIds: string[];
+  endNodeId: Nullable<string>;
+  nodes: { [nodeId: string]: NodesDictValue };
+  links: { [linkId: string]: LinksDictValue; };
+  dataByNode: { [nodeId: string]: NodeData; };
+}
+interface ExerciseState {
+  table: { rows: ExerciseTableRowViewModel[]; };
+  activeExercise: Nullable<ExerciseViewModel>;
+  activeAttempt: Nullable<AttemptViewModel>;
+}
+interface HttpState { /* ... */ }
+interface UserState {
+  user: Nullable<UserViewModel>;
+  isAuthenticated: boolean;
+}
+\end{lstlisting}
+\razmaks
+
+\noindent Opis svojstava sučelja \emph{DiagramState}, odnosno attributa podstanja \emph{diagram}:
+
+\begin{itemize}
+    \item \emph{selectedNodeId} -- ključ trenutno odabranog čvora u mehanizmu dijagrama, vrijednost je jednaka \emph{null} kada nije odabran niti jedan čvor
+    \item \emph{startNodeIds} -- ključevi svih čvorova koji su instance razreda \emph{StartNodeModel}, odnosno predstavljaju početne čvorove dijagrama koji samo unose tablicu \emph{input} zadatka u dijagram
+    \item \emph{endNodeId} -- ključ čvora koji je instanca razreda \emph{EndNodeModel}, odnosno čvora koji predstavlja konačan čvor u dijagramu čiji će se podaci uspoređivati s tablicom \emph{output} zadatka, svaki ispravan dijagram ima najviše jedan čvor tipa \emph{EndNodeModel}
+    \item \emph{nodes} -- rječnik svih čvorova dijagrama, svaki element sadrži liste izravno povezanih čvorova i poveznica (bridova) te kopiju objekta postavki čvora
+    \item \emph{links} -- rječnik svih poveznica (bridova) u dijagramu, svaki element sadrži ključeve dva čvora koje povezuje pri tome razlikujući izvorišni i odredišni čvor
+    \item \emph{dataByNode} -- rječnik svih čvorova koji sadrže podatake, odnosno imaju izlaznu tablicu; čvor sadrži podatke samo ako svi njegovi prethodnici sadrže podatke, odnosno ako su svi prethodnici spojeni sa \emph{StartNodeModel} čvorovima i imaju ispravan objekt postavki
+\end{itemize}
 
 % Zaključak
 \chapter{Zaključak}
