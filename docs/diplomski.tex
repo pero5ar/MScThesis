@@ -129,7 +129,7 @@
 \chapter{Uvod}
 
 Učenje programiranja, odnosno koncepata koji se koriste u programiranju i računalnog načina razmišljanja, u što ranijoj dobi je među ključnim točkama prijedloga reformi obrazovanja u raznim zemljama.
-Cilj je da se time što ranije osposobi djecu za naprednije korištenje računalnih alata na kojima se moderan svijet sve oslanja te razvije kreativnost i sposobnost rješavanja novih i nepoznatih problema u tim alatima.
+Cilj je da se time što ranije osposobi djecu za naprednije korištenje računalnih alata na kojima se moderan svijet oslanja te razvije kreativnost i sposobnost rješavanja novih i nepoznatih problema u tim alatima.
 Budući da je, zbog ograničenog znanja jezika i matematike djece u ranoj fazi obrazovanja, teško učiti pisanje programskog koda djecu koja su u dobi nižih razreda osnovne škole, osmišljeni su razni interaktivni alati i vizualni programski jezici pomoću kojih učenici mogu određene koncepte početi istraživati čak i s predškolskom razinom znanja.
 Najpoznatiji takav alat je Scratch gdje slijednim slaganjem konfigurabilnih blokova, koji po potrebi predstavljaju osnovne ili kompleksne operacije, osoba može razviti program za riješiti opisan problem\citep{scratch}.
 
@@ -138,7 +138,7 @@ Slijedna priroda slaganja blokova ne samo potiče, već isključivo omogućuje r
 Budući da je proceduralna paradigma često prva paradigma u kojoj se programira, ovo ne stvara problem za učenje programiranja, ali ograničava razvijanje drugačijih pristupa u rješavanju problema koji mogu biti korisni u nekim drugim računalnim alatima.
 
 Računalni alati pomoću kojih analiziramo podatke, kao što su programi za tablično računanje koje mnogi ljudi koriste na svakodnevnoj bazi za poslovne i privatne potrebe, prvenstveno se oslanjaju na deklarativnom pristupu. 
-Operacije koje ti alati nude -- filtracija, projekcija, sortiranje, grupiranje i slično -- svoj uzor i osnovnu imaju na operacijama relacijske algebre.
+Operacije koje ti alati nude -- filtriranje, projekcija, sortiranje, grupiranje i slično -- svoj uzor i osnovnu imaju na operacijama relacijske algebre.
 Osnovu na relacijskoj algebri ima i najpoznatiji programski jezik specijaliziran za dohvat i manipulaciju podataka SQL, koji je deklarativan programski jezik.
 
 \newpage
@@ -239,6 +239,7 @@ Metode \emph{then} i \emph{catch} su nužne jer \emph{Promise} omotava asinkrone
     \label{fig:promise_lifecycle}
 \end{figure}
 
+\newpage
 \emph{Promise} u svom životnom ciklusu prolazi kroz dva od tri moguća stanja.
 Na početku je u pripravnosti \engl{pending} i ovisno o uspješnosti asinkrone operacije odlazi u stanje \emph{ispunjen} \engl{fulfilled} ili \emph{odbijen} \engl{rejected} (vidi sliku \ref{fig:promise_lifecycle}).
 U trenutku ulaska u jedno od dva konačna stanja poziva se funkcija ili novi \emph{Promise} definiran kao rezultat funkcije koja je argument \emph{then} ili \emph{catch} metode.
@@ -455,7 +456,7 @@ U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podršk
 % Express
 \subsection{Express}
 
-Express (poznat još i kao \emph{Express.js}) je minimalistički radni okvir \engl{framework} koji nadograđuje Node sučelje i module za gradnju web poslužitelja s naprednim mogućnostima usmjeravanja \engl{routing} i opcionalnim korištenjem mehanizama predložaka \engl{template engines} za izgradnju web stranica.
+Express (poznat još i kao \emph{Express.js}) je radni okvir \engl{framework} koji nadograđuje Node sučelje i module za gradnju web poslužitelja s naprednim mogućnostima usmjeravanja \engl{routing} i opcionalnim korištenjem mehanizama predložaka \engl{template engines} za izgradnju web stranica.
 Napredne mogućnosti usmjeravanja olakšavaju razdvajanje koda s obzirom na korijenske API rute (korijenske resurse REST arhitekturnog stila), dodavanje međusloja sloja \engl{middleware} u cjevovod \engl{pipeline} specifičnih ruta, serviranje statičkih datoteka i konfiguriranje privremene memorije \engl{cache}.
 
 U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi u svim verzijama Node okruženja iznad verzije 0.10\citep{gh_express}.
@@ -608,16 +609,16 @@ class Tablica extends React.Component {
   }
 }
 
-function Readak(props) {
+function Redak(props) {
   return (
     <tr key={props.key}>
       <div>{props.data}</div>
-      <Button onClick={props.deleteRow} text="Obrisi" />
+      <Gumb onClick={props.deleteRow} text="Obrisi" />
     </tr>
   );
 }
 
-function Button(props) {
+function Gumb(props) {
   return <button onClick={props.onClick}>{props.text}</button>;
 }
 \end{lstlisting}
@@ -690,7 +691,15 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
 \end{enumerate}
 \razmaks
 
-Na slici TODO prikazan je pojednostavljen dijagram u kojim fazama se pozivaju metode komponente.
+Na slici \ref{fig:react_lifecycle} prikazan je pojednostavljen dijagram u kojim fazama se pozivaju metode komponente.
+
+\begin{figure}[!htb] % Životni ciklus Promise objekta
+  \centering
+  \includegraphics[width=15.6cm]{images/react_life.png}
+  \caption{Redoslijed poziva metoda životnog ciklusa React komponente}
+  \label{fig:react_lifecycle}
+  \razmakp
+\end{figure}
 
 
 \razmaks
@@ -709,12 +718,12 @@ Ova akcija je nepovratna, nakon nje više se ne može jednostavno ažurirati pre
 Za izgradnju aplikacijske strane u ovom radu koristio se predložak koji se dobije naredbom „\emph{create-react-app <ime\_aplikacije> -{}-typescript}“ s Create React App verzijom 3.0.
 Početna struktura projekta nakon pokretanja naredbe može se vidjeti na slici \ref{fig:cra}.
 
-\razmaks
 \begin{figure}[!htb] % Struktura aplikacije stvorene naredbom „\emph{create-react-app moja-aplikacija -{}-typescript}“
     \centering
     \includegraphics[width=12cm]{images/cra.png}
     \caption{Struktura aplikacije stvorene naredbom „\emph{create-react-app moja-aplikacija -{}-typescript}“. Desna slika je nastavak na lijevu.}
     \label{fig:cra}
+    \razmaks
 \end{figure}
 
 
@@ -732,7 +741,11 @@ Takvo ponašanjem unutar React aplikacije može se postići koristeći bibliteku
 Pomoću njega dobije se pristup promjenjivom objektu povijesti \engl{history}, kojim se služi kao s povijesti preglednika, i gotovim navigacijskim komponentama za upravljanje s tom povijesti.
 Jedini uvjet za korištenje tih mogućnosti je da su komponente koje ih koriste ugniježđene u komponenti \emph{Router}\citep{react_router}.
 
-\razmakp %
+\razmakp
+
+U isječku koda \ref{lst:react_router} je primjer aplikacije koja bi se korisniku prikazala kao web stranica s dvije poveznice na čiji klik se mijenja putanja aplikacije i tekst ispod poveznica.
+
+\newpage % Primjer korištenja React Router biblioteke
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja React Router biblioteke}, label={lst:react_router}]
 import * as React from 'react';
 import {
@@ -762,8 +775,6 @@ class App extends React.Component {
 }
 \end{lstlisting}
 \razmaks
-
-U isječku koda \ref{lst:react_router} je primjer aplikacije koja bi se korisniku prikazala kao web stranica s dvije poveznice na čiji klik se mijenja putanja aplikacije i tekst ispod poveznica.
 
 \emph{BrowserRouter} komponenta koristi HTML5 history API\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/History_API}} za upravljanje s povijesti preglednika.
 U tu komponentu su ugniježđene \emph{Route} komponente koje služe za određivanje koje će komponente biti prikazane na kojim rutama.
@@ -876,7 +887,7 @@ ReactDOM.render(
 \razmaks
 
 
-\razmaks
+\newpage
 % STORM React Diagrams
 \subsection{STORM React Diagrams} \label{sec:storm}
 
@@ -896,7 +907,7 @@ Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove 
 U okviru ovog rada korištene su nadograđene verzije modela tih \emph{default} elemenata.
 
 
-\razmaks
+\newpage
 % Bootstrap i React Bootstrap
 \subsection{Bootstrap i React Bootstrap}
 
@@ -1356,7 +1367,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
 \end{itemize}
 \razmaks
 
-\razmaks
+\newpage
 % Mehanizam dijagrama
 \subsection{Mehanizam dijagrama} \label{sec:diagram}
 
@@ -1403,6 +1414,15 @@ Ova implementacija dodana je prvenstveno jer, čak i uz simuliranje događaja mi
 Obe metode pozivaju Redux akcije za dodavanje čvorova i dijagrama koje također stvaraju i sve spomenute metode za osluškivanje događaja.
 Ta logika je smještena tu zato što se stanje dijagrama izravno prati u stanju aplikacije i svaka akcija u mehanizmu dijagrama koja mijenja stanje dijagram mora biti ili izravno pozvana putem Redux akcije koja onda uz poziv metode mehanizma dijagram ujedno ažurira aplikacijsko stanje aplikacije (što je slučaj za dodavanje čvorova i poveznica), ili imati prikladnu metodu osluškivanja koja poziva prikladnu Redux akciju da ažurira aplikacijsko stanje dijagrama (što je slučaj za događaje brisanja čvorova i poveznica, događaj selekcije čvora i događaj mijenjanja objekta postavki čvora).
 Ovaj pristup, u kojem se ključan dio stanja dijagrama preslikava iz mehanizma dijagram au aplikacijsko stanje, uvelike pomaže pri otkrivanju grešaka i omogućava spremanje stanja dijagrama koje je očišćeno od svog „šuma“ podataka koje se nalazi u standardnoj serijalizaciji dijagrama, kao što su podaci o koordinatama ili bojama elemenata i puno pogodnije za kasniju analizu koraka koje je korisnik napravio unutar jednog pokušaja rješavanja zadatka.
+
+\begin{figure}[!htb] % Isječak sučelja mehanizma crtanja dijagrama
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/diagram.png}
+  \caption{Isječak sučelja mehanizma crtanja dijagrama}
+  \label{fig:diagram}
+  \razmaks
+\end{figure}
 
 \razmaks
 % Upravljanje stanjem aplikacije
@@ -1505,7 +1525,29 @@ interface UserState {
 % Zaključak
 \chapter{Zaključak}
 
-TODO
+U ovom radu dan je pregled razvijenog sustava za učenje koncepata deklarativne programske paradigme i interaktivnog alata za izgradnju dijagrama podatkovnog toka koji je ključan dio sustava.
+Veliki naglasak u razvoju sustava je dan na arhitekturi i modelu kako bi i on i alat bili jednostavno proširivi novim zadacima, funkcionalnostima i operacijama u budućnosti.
+Iz istog razloga veliki dio ovog rada posvećen je objašnjavanju te arhitekture i korištenih tehnologija čije razumijevanje je ključno da bi se razumjelo implementaciju i odluke donesene pri osmišljavanju implementacije sustava.
+
+Alat se u budućnosti može vrlo jednostavno proširiti s operacijom kao što je grupiranje -- dovoljno je dodati čvor s prikladnom logikom za takvu operaciju -- a s minimalnim preinakama na implementaciju mogu se dodati i puno napredniji koncepti kao što je spajanje raznovrsnih tablica s obzirnom na dani uvjet.
+Jedna naprednija funkcionalnost koja se može uvesti u sustavu, a da se koristi izgrađeni mehanizam dijagrama, je mogućnost spremanja kombinacije blokova, tj. operacija, u jedan jedinstven ponovno iskoristiv blok, odnosno izgradnja osobnih spremljenih procedura za kasnije korištenje.
+Sam sustav može se proširiti naprednim opcijama i interaktivnim načinom izgradnje zadataka gdje se ti zadaci potom mogu kategorizirati i ciljano dijeliti s drugim korisnicima. Jedna jednostavna funkcionalnost koja se može uvesti u sustavu s postojećom implementacijom je naprednije praćenje osobne statistike rješavanja zadataka, te praćenje te iste karakteristike za druge korisnike od strane korisnika koji je označen kao učitelj tih korisnika.
+
+Nadalje, u modeliranju podataka je mnogo odluka doneseno u svrhu što detaljnijeg i lakšeg praćenja koraka koje korisnici rade u rješavanju zadataka za kasniju analizu.
+Budući da je ideja da se ovakav sustav može uvesti kao dodatak u nastavi ili izvannastavnim obrazovnim aktivnostima, mogućnost analiziranja takvih podataka je ključna da bi se mogla procijeniti ne samo korisnost sustava, već da bi se analizom uzoraka ponašanja u pristupu rješavanja zadataka moglo uočiti i procijeniti gdje i na koji način je potrebno sustav poboljšati, odnosno prepoznati koji koncepti deklarativnog programiranja su učenicima problematični i teški te proširiti vježbe i zadatke u cilju razjašnjavanja tih koncepata.
+
+\razmakp
+
+Opisane mogućnosti proširenja samo su neke od opcija koje se mogu implementirati ovisno o korištenju sustava u budućnosti.
+Okvir za njihovu implementaciju dan je u ovom radu, a sam sustav je spreman za testiranje nad ciljanom skupinom korisnika -- djecom u ranim razredima osnovne škole.
+Ovakav sustav bilo bi korisno prezentirati i dati na korištenje učenicima koji se unutar svog programa informatike još nisu susreli s proračunskim tablicama kako bi se mogla analizirati korisnost sustava u olakšavanju stjecanja znanja za korištenje takvih alata, budući da je alat koji se koristi trenutnom sustavu prvenstveno inspiriran kao interaktivna i jednostavna verzija alata za manipulaciju tabličnih podataka.
+
+Naravno, sustav je otvoren i za korištenje u bilo kojem drugom okruženju gdje bi se mogao smatrati korisnim ili zanimljivim, a interaktivan alat koji mu je ključan dio je lako izdvojiv za kopiranje i implementiranje u nekom drugom sustavu gdje bi se takav alat mogao smatrati korisnim.
+
+\razmakp
+
+Cilj ovog rada je uspješno postignut, ostvareni su opisani sustav i alat, a mogućnosti daljnjeg rada i nadogradnji sustava su detaljno razložene.
+Idući korak za ovaj sustav je njegovo korištenje nad testnom skupinom, kako bi se korisnost alata mogla detaljno analizirati te kako bi prioriteti daljnjeg rada i nadogradnje bili što jasniji.
 
 
 
