@@ -3,6 +3,7 @@ import EndNodeModel from './end.nodeModel';
 import SelectNodeModel from './select.nodeModel';
 import StartNodeModel from './start.nodeModel';
 import WhereNodeModel, { WHERE_CONDITIONS as WHERE_CONDITIONS_OBJECT } from './where.nodeModel';
+import UnionNodeModel from './union.nodeModel';
 
 export type AbstractNodeModel = AbstractNodeModel;
 
@@ -18,6 +19,7 @@ export default {
 	EndNodeModel,
 	SelectNodeModel,
 	WhereNodeModel,
+	UnionNodeModel,
 };
 
 export function getClassFromInstanceType(instanceType: string): Nullable<NodeModelClass<AbstractNodeModel>> {
@@ -32,6 +34,9 @@ export function getClassFromInstanceType(instanceType: string): Nullable<NodeMod
 	}
 	if (instanceType === WhereNodeModel.NAME) {
 		return WhereNodeModel;
+	}
+	if (instanceType === UnionNodeModel.NAME) {
+		return UnionNodeModel;
 	}
 	return null;
 }

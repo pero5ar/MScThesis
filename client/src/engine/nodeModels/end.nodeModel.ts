@@ -4,7 +4,7 @@ import AbstractNodeModel, { IN_PORT_LABEL } from './abstract.nodeModel';
 
 export default class EndNodeModel extends AbstractNodeModel<{}> {
 	static NAME = 'End';
-	static COLOR = 'rgb(221, 15, 180)';
+	static COLOR = 'rgb(161, 6, 32)';
 
 	static DEFAULT_NODE_SETTINGS = {};
 

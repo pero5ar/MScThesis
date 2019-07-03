@@ -54,6 +54,10 @@ class Tray extends React.PureComponent<Props> {
 					onClick={this.addNode}
 				/>
 				<TrayItem
+					model={Engine.NodeModels.UnionNodeModel}
+					onClick={this.addNode}
+				/>
+				<TrayItem
 					model={Engine.NodeModels.EndNodeModel}
 					onClick={this.addNode}
 					disabled={hasEnd}

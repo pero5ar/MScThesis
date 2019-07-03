@@ -133,9 +133,6 @@ export default function diagramReducer(state: DiagramState = initialState, actio
 					},
 				},
 			};
-			if (isNodeConnectedToStartOnAllEnds(state, action.payload.sourceNodeId)) {
-				newState.dataByNode = updateDataByNodesWithMissingNodes(newState, action.payload.targetNodeId);
-			}
 			return newState;
 
 		case DIAGRAM_ACTIONS.REMOVE_LINK:

@@ -7,6 +7,7 @@ import StartNodeSettings from './StartNodeSettings';
 import EndNodeSettings from './EndNodeSettings';
 import SelectNodeSettings from './SelectNodeSettings';
 import WhereNodeSettings from './WhereNodeSettings';
+import UnionNodeSettings from './UnionNodeSettings';
 
 interface OwnProps {
 	nodeId: Nullable<string>;
@@ -61,6 +62,9 @@ export default class NodeSettings extends React.PureComponent<Props, State> {
 		}
 		if (node instanceof Engine.NodeModels.WhereNodeModel) {
 			return <WhereNodeSettings node={node} removeNode={this.removeNode} />;
+		}
+		if (node instanceof Engine.NodeModels.UnionNodeModel) {
+			return <UnionNodeSettings node={node} removeNode={this.removeNode} />;
 		}
 		return null;
 	}

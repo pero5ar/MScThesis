@@ -1,6 +1,6 @@
 import { DiagramState } from 'state/diagram';
 
-import { callNodeRun } from './engine.util';
+import { callNodeRun, countInPortsForNode } from './engine.util';
 
 type DataByNode = DiagramState['dataByNode'];
 
@@ -15,6 +15,9 @@ export function isNodeConnectedToStartOnAllEnds(state: Readonly<DiagramState>, n
 		return true;
 	}
 	if (state.nodes[nodeId].previousNodeIds.length === 0) {
+		return false;
+	}
+	if (state.nodes[nodeId].previousNodeIds.length !== countInPortsForNode(nodeId)) {
 		return false;
 	}
 	const updatedVisitedNodeIds = [ ...visitedNodeIds, nodeId ];

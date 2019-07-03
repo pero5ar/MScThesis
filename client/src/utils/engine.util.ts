@@ -15,7 +15,7 @@ export function generateSettingsChangedListener(onSettingsChanged: Engine.Settin
 }
 
 export function callNodeRun(nodeId: string, ...dataArgs: NodeData[]): NodeData {
-	const node = Engine.getInstance().getActiveDiagram().getNode(nodeId) as Engine.NodeModel;
+	const node = Engine.getInstance().getNode(nodeId);
 	if (!node) {
 		throw new Error(`Node ${nodeId} does not exist`);
 	}
@@ -39,4 +39,12 @@ export function getLinkAndPointFromMoveAction(action: Engine.BaseAction): GetLin
 		return { link: null, point };;
 	}
 	return { link: link as Engine.LinkModel, point };
+}
+
+export function countInPortsForNode(nodeId: string) {
+	const node = Engine.getInstance().getNode(nodeId);
+	if (!node) {
+		throw new Error(`Node ${nodeId} does not exist`);
+	}
+	return node.getInPorts().length;
 }
