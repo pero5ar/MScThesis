@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import { NodeModels, GetNodeModelSettingsType, WHERE_CONDITIONS } from 'engine';
 
@@ -72,20 +73,20 @@ class WhereNodeSettings extends React.PureComponent<Props> {
 	}
 
 	render() {
-		const { message, options } = this.props;
+		const { message, options, removeNode, node } = this.props;
 
 		return (
 			<div className="node-settings">
-				<h3>WHERE node settings for {this.props.node.id}</h3>
+				<h3 style={{ color: node.color }}>{node.name} node settings</h3>
 				<br />
-				<button onClick={this.props.removeNode}>Remove Node</button>
+				<Button variant="danger" onClick={removeNode}>Remove Node</Button>
 				<br />
 				<br />
 				{options
 					? (<>
-						<Select<string> value={this.props.node.settings.key} options={options} onChange={this.onKeyChange} />
-						<Select value={this.props.node.settings.conditionType} options={CONDITION_TYPE_OPTIONS} onChange={this.onConditionTypeChange} />
-						<input key={this.props.node.id} value={this.props.node.settings.conditionValue} onChange={this.onConditionValueChange} />
+						<Select<string> value={node.settings.key} options={options} onChange={this.onKeyChange} />
+						<Select value={node.settings.conditionType} options={CONDITION_TYPE_OPTIONS} onChange={this.onConditionTypeChange} />
+						<input key={node.id} value={node.settings.conditionValue} onChange={this.onConditionValueChange} />
 					</>)
 					: message
 				}

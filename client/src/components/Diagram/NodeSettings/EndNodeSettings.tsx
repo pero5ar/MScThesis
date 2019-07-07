@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from 'react-bootstrap/Button';
 
 import { NodeModels } from 'engine';
 
@@ -13,9 +14,9 @@ export default class EndNodeSettings extends React.PureComponent<Props> {
 	render() {
 		return (
 			<div className="node-settings">
-				<h3>END node settings for {this.props.node.id}</h3>
+				<h3 style={{ color: this.props.node.color }}>{this.props.node.name} node settings</h3>
 				<br />
-				<button onClick={this.props.removeNode}>Remove Node</button>
+				<Button variant="danger" onClick={this.props.removeNode}>Remove Node</Button>
 			</div>
 		);
 	}

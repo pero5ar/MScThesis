@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import { NodeModels, GetNodeModelSettingsType } from 'engine';
 
@@ -13,8 +14,9 @@ interface CheckboxProps {
 
 const Checkbox = ({ label, value, onChange }: CheckboxProps) => (
 	<div>
-		<span>{label.replace('_', ' ')}</span>
 		<input type="checkbox" onChange={onChange} checked={value} />
+		&nbsp;
+		<span>{label.replace('_', ' ')}</span>
 	</div>
 );
 
@@ -72,9 +74,9 @@ class SelectNodeSettings extends React.PureComponent<Props> {
 
 		return (
 			<div className="node-settings">
-				<h3>SELECT node settings for {node.id}</h3>
+				<h3 style={{ color: node.color }}>{node.name} node settings</h3>
 				<br />
-				<button onClick={removeNode}>Remove Node</button>
+				<Button variant="danger" onClick={removeNode}>Remove Node</Button>
 				<br />
 				<br />
 				{ options ? options.map(this.renderOption) : message }

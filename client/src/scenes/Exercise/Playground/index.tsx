@@ -109,6 +109,8 @@ class ExercisePlayground extends React.PureComponent<Props, State> {
 		}
 		return (
 			<Diagram
+				title={activeExercise.title}
+				taskDetails={activeExercise.description}
 				input={activeExercise.input}
 				initialState={attemptState}
 				saveState={this.saveAttempt}

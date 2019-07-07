@@ -1,4 +1,5 @@
 .diagram {
+	display: flex;
 	width: 100%;
 	height: 100%;
 
@@ -76,6 +77,18 @@
 			& .pointui {
 				fill: rgba(255, 255, 255, 0.5);
 			}
+
+			& .srd-default-node {
+
+				&__ports > div {
+					justify-content: center;
+
+					& .name {
+						padding-right: 1px;
+						padding-left: 1px;
+					}
+				}
+			}
 		}
 	}
 
@@ -88,14 +101,14 @@
 		margin-bottom: 20px;
 	}
 
-	& .body {
+	& .diagram-body {
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
 		min-height: 100%;
 	}
 	
-	& .header {
+	& .diagram-header {
 		display: flex;
 		background: rgb(30, 30, 30);
 		flex-grow: 0;
@@ -109,9 +122,10 @@
 		}
 	}
 	
-	& .content {
+	& .diagram-content {
 		display: flex;
 		flex-grow: 1;
+		max-height: 500px;
 
 		& .diagram-layer {
 			position: relative;
@@ -133,18 +147,37 @@
 			}
 		}
 	}
+
+	& .task-details {
+		background-color: #1e1e1e;
+		color: white;
+		min-height: 48px;
+		padding: 8px 16px;
+	}
 	
-	& .footer {
+	& .node-details {
 		display: flex;
 		align-items: stretch;
-		height: 200px;
+		flex-grow: 1;
 
-		& > div {
-			width: 50%;
+		& .node-data {
+			min-height: 100px;
+			overflow: auto;
 		}
 
 		& .node-settings {
 			border: 5px black;
+			padding-top: 8px;
+			padding-left: 8px;
+			padding-right: 4px;
+			padding-bottom: 16px;
+			width: 320px;
+			background-color: #3c3c3c;
+			color: white;
+
+			& > h3 {
+				filter: brightness(2)
+			}
 		}
 	}
 }

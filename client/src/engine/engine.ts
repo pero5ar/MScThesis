@@ -98,7 +98,10 @@ export default class Engine {
 			if (!_port || _port.isLocked()) {
 				return false;
 			}
-			const { x: x0, y: y0, width, height } = this.diagramEngine.getPortCoords(_port);
+			const { x: xC, y: yC } = this.diagramEngine.getPortCenter(_port);
+			const { width, height } = this.diagramEngine.getPortCoords(_port);
+			const x0 = xC - width / 2.0;
+			const y0 = yC - height / 2.0;
 			const x1 = x0 + width;
 			const y1 = y0 + height;
 

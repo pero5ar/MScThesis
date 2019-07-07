@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Table from 'react-bootstrap/Table';
 
 import NodeDataModel from 'models/nodeData.model';
 
@@ -22,7 +23,7 @@ class NodeData extends React.PureComponent<Props> {
 			return <span>Node needs to be connected to start to calculate data</span>;
 		}
 		return (
-			<table>
+			<Table striped={true} bordered={true} responsive={true}>
 				<thead>
 					<tr>
 						{data.keys.map((_key) => <th key={_key}>{_key}</th>)}
@@ -35,7 +36,7 @@ class NodeData extends React.PureComponent<Props> {
 						</tr>
 					))}
 				</tbody>
-			</table>
+			</Table>
 		);
 	}
 }

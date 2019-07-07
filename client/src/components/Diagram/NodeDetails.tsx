@@ -17,12 +17,11 @@ class NodeDetails extends React.PureComponent<Props> {
 	render() {
 		const { selectedNodeId } = this.props;
 		return (
-			<div className="footer">
-				<div>
-					<QueryPreview />
+			<div className="node-details">
+				<NodeSettings nodeId={selectedNodeId} />
+				<div className="node-data">
 					<NodeData nodeId={selectedNodeId} />
 				</div>
-				<NodeSettings nodeId={selectedNodeId} />
 			</div>
 		);
 	}

@@ -20,6 +20,8 @@ import Tray from './Tray';
 import 'storm-react-diagrams/dist/style.min.css';
 
 interface OwnProps {
+	title?: string;
+	taskDetails?: string;
 	input: NodeData;
 	initialState: Nullable<AttemptStateViewModel>;
 	saveState: (diagramState: DiagramState, serializedGraph: string, output?: NodeData) => Promise<void>;
@@ -40,12 +42,17 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & ReactReduxActionsToDispatchActions<DispatchProps>;
 
 class Diagram extends React.Component<Props> {
+	static defaultProps: Partial<Props> = {
+		title: 'Diagram Engine',
+		taskDetails: '',
+	};
+
 	ref: Nullable<HTMLDivElement> = null;
 
-	async componentDidMount() {
+	componentDidMount() {
 		const { initialState, setState } = this.props;
 		if (initialState) {
-			await setState(initialState.diagramState, initialState.serializedGraph);
+			setState(initialState.diagramState, initialState.serializedGraph);
 		}
 	}
 
@@ -87,23 +94,28 @@ class Diagram extends React.Component<Props> {
 	}
 
 	render() {
-		const { input } = this.props;
+		const { input, title, taskDetails } = this.props;
 
 		return (
-			<div className="diagram" ref={this.setRef}>
-				<div className="body">
-					<div className="header">
-						<div className="title">Diagram Engine</div>
+			<div className="diagram">
+				<div className="diagram-body">
+					<div className="diagram-header">
+						<div className="title">
+							<h4>{title}</h4>
+						</div>
 					</div>
-					<div className="content">
+					<div className="diagram-content">
 						<Tray input={input} />
-						<div className="diagram-layer">
+						<div className="diagram-layer" ref={this.setRef}>
 							<Engine.DiagramWidget
 								className="srd-demo-canvas"
 								diagramEngine={Engine.getInstance().getDiagramEngine()}
 								actionStoppedFiring={this.onActionStoppedFiring}
 							/>
 						</div>
+					</div>
+					<div className="task-details">
+						<h5>{taskDetails}</h5>
 					</div>
 					<NodeDetails />
 				</div>

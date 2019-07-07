@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import { NodeModels, GetNodeModelSettingsType } from 'engine';
 
@@ -32,13 +33,14 @@ class UnionNodeSettings extends React.PureComponent<Props> {
 
 		return (
 			<div className="node-settings">
-				<h3>SELECT node settings for {node.id}</h3>
+				<h3 style={{ color: node.color }}>{node.name} node settings</h3>
 				<br />
-				<button onClick={removeNode}>Remove Node</button>
+				<Button variant="danger" onClick={removeNode}>Remove Node</Button>
 				<br />
 				<br />
 				<div>
 					<label>Remove duplicates</label>
+					&nbsp;
 					<input type="checkbox" onChange={this.onCheck} checked={node.settings.removeDuplicates} />
 				</div>
 			</div>
