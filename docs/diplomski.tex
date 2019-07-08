@@ -251,7 +251,8 @@ Budući da novi koncept \emph{Promise} objekta nije u savršeno pomogao s čitlj
 Ideja je da se funkcije koje su asinkrone, odnosno vraćaju \emph{Promise} označe ključnom riječi \emph{async}.
 Rezultat te funkcije se može odmotati korištenjem ključne riječi \emph{await}.
 Time se postiže neblokirajuće čekanje na izvršavanje asinkrone operacije, ekvivalentno tome da se pozvalo \emph{then}\footnote{
-    Transpilator u praksi ne prevodi \emph{await} i kod koji slijedi u \emph{then} već prevodi cijelu \emph{async} funkciju u funkciju generator \engl{generator function} gdje samo \emph{await} zamjeni s \emph{yield“} Ta funkcija generator je potom omotana u drugu funkciju koja koristi taj generator da bi iterirala po koracima lanca asinkronih operacija i pozvala \emph{then} za idući dio lanca. Nakon toga je funkcija generator, budući da je i ona relativno novi dodatak (ECMAScript 2015), prevedena u kod koji je u skladu sa starijim standardom.
+    Transpilator u praksi ne prevodi \emph{await} i kod koji slijedi u \emph{then} već prevodi cijelu \emph{async} funkciju u funkciju generator \engl{generator function} gdje samo \emph{await} zamjeni s \emph{yield}.
+    Ta funkcija generator je potom omotana u drugu funkciju koja koristi taj generator da bi iterirala po koracima lanca asinkronih operacija i pozvala \emph{then} za idući dio lanca. Nakon toga je funkcija generator, budući da je i ona relativno novi dodatak (ECMAScript 2015), prevedena u kod koji je u skladu sa starijim standardom.
 }.
 Za obradu grešaka, umjesto \emph{catch} metode koristi se postojeći \emph{catch} blok.
 
@@ -282,11 +283,11 @@ Tipovi mogu biti primitivi (\emph{number}, \emph{boolean}, \emph{string}, \emph{
     \emph{unknown} je uveden tek u TypeScript verziji 3 kao sigurnija alternativa tipu \emph{any}\citep{ts_hand}
 }) ili kombinacije spomenutih tipova ostvarenih pomoću sučelja \engl{interface}, unija, presjeka ili kondicionalnih tipova.\citep{gh_ts_spec}\citep{ts_hand}
 
-Korištenje tipova postiže čitljivi i lakše održiv kod,a tipovi omogućavaju se detektiranje nekih čestih JavaScript grešaka pri prevođenju TypeScript koda u JavaScript\footnote{
-    Na JSConf Hawaii konferenciji u veljači 2019 godine je predstavnica tvrtke AirBnB izjavila kako su postmortem analizom svojeg dnevnika grešaka i njihovih ispravaka zaključili da bi migriranje iz JavaScript-a u TypeScript eliminirali 38\% grešaka prije nego što se dese, odnosno pri prevođenju u JavaScript\citep{yt_ts}
+Korištenje tipova postiže čitljivi i lakše održiv kod, a tipovi omogućavaju se detektiranje nekih čestih JavaScript grešaka pri prevođenju TypeScript koda u JavaScript\footnote{
+    Na JSConf Hawaii konferenciji u veljači 2019. godine predstavnica tvrtke AirBnB izjavila je kako su postmortem analizom svojeg dnevnika grešaka i njihovih ispravaka zaključili da bi migriranjem iz JavaScript-a u TypeScript eliminirali 38\% grešaka prije nego što se dogodile, odnosno pri prevođenju u JavaScript\citep{yt_ts}
 }.
 U isječku koda \ref{lst:typescript} prikazano je nekoliko primjera definiranja i korištenja TypeScript tipova\footnote{
-    Napomena: u trenutku pisanja ovog rada najnovija verzija jezika TypeScript je 3.4, no napisani primjeri vrijede i za verziju 2
+    u trenutku pisanja ovog rada najnovija verzija jezika TypeScript je 3.4, no napisani primjeri vrijede i za verziju 2
 }.
 
 \razmakp % Primjer definiranja i korištenja TypeScript tipova
@@ -353,7 +354,7 @@ Bitno je napomenuti da korištenje TypeScript jezika ne isključuje mogućnost k
 Budući da je TypeScript samo nadogradnja na JavaScript, TypeScript datoteke mogu bez ikakvog problema uvoziti \engl{import} JavaScript datoteke i obratno.
 Prevoditelj će u takvoj situaciji samo tretirati sve tipove unutar JavaScript datoteke kao tip \emph{any} koji može označavati bilo koji tip, osim ako prevoditelj ima pristup deklaracijskim datotekama \engl{declaration files} za funkcije i varijable koje se izvoze \engl{export} i koriste unutar JavaScript datoteke.
 Deklaracijske datoteke su poseban tip TypeScript datoteka\footnote{označavaju se ekstenzijom „.d.ts“} u kojima se nalazi isključivo deklaracije tipova funkcija i objekata koje se koriste u nekoj JavaScript datoteci ili paketu.\citep{ts_hand}
-Budući da su većina paketa koje se koriste u razviju TypeScript projekata napisani isključivo u JavaScript kodu, deklaracijske datoteke često se koriste kako bi se opisalo metode tog paketa i održala sigurnost tipova pri prevođenju jezika.
+Budući da su većina paketa koje se koriste u razvoju TypeScript projekata napisani isključivo u JavaScript kodu, deklaracijske datoteke često se koriste kako bi se opisalo metode tog paketa i održala sigurnost tipova pri prevođenju jezika.
 U nastavku slijedi primjer definicije deklaracijske datoteke za neki paket koji nema vlastitu deklaracijsku datoteku.
 
 \razmakp % Primjer deklaracijske datoteke
@@ -374,7 +375,7 @@ JSX je kratica za JavaScript XML i to je sintaksno proširenje jezika JavaScript
 Korištenje funkcije ili razreda na taj način označava poziv te funkcije, odnosno poziv posebne metode razreda. Sintaksu primarno koristi biblioteka React i paketi koji ovise o toj biblioteci kako bi što čitljivije definirali vizualne komponente koje će se prevesti u HTML kod\citep{react_docs}.
 Datoteke koje koriste sintaksu uglavnom završavaju ekstenzijom \emph{.jsx}, odnosno \emph{.tsx} za TypeScript\citep{ts_hand}.
 Sav napisani XML kod je ustvari JavaScript, uključivo s elementima koji se zovu isto kao standardni HTML elementi (npr. \emph{div}, \emph{span}, \emph{table}…)\footnote{
-    U slučaju tih HTML elemenata riječ je o funkcijama ugrađenih u biblioteku koje su implementirane tako da se pri pozivu i prevođenju povratne vrijednosti u HTML prikažu kao ti isti HTML tagovi.
+    U slučaju tih HTML elemenata riječ je o funkcijama ugrađenim u biblioteku koje su implementirane tako da se pri pozivu i prevođenju povratne vrijednosti u HTML prikažu kao ti isti HTML tagovi.
 }tako da pisanje ekstenzije nije nužno osim ako prevoditelj sintakse nije podešen tako da to zahtijeva.
 
 
@@ -398,9 +399,9 @@ Datoteka može sadržavati neke osnovne informacije o projektu kao što su ime, 
 }.
 
 Instalacija paketa se odvija tako da se u naredbenoj liniji pozove naredba \emph{npm install} koja potom sve pakete koji su navedeni u \emph{dependencies} i one pakete koje se nalaze u \emph{dependencies} tih paketa i tako rekurzivno preuzima iz NPM repozitorija u mapu \emph{node\_modules}\citep{npm_docs}.
-Svi paketi, i oni navedeni u \emph{dependencies} i oni o kojima ti paketi ovise, na istoj razini hijerarhije u mapi \emph{node\_modules}, odnosno svi paketi su u korijenu te mape\footnote{Prije NPM verzije 3 su bili hijerarhijski raspoređeni s obzirom na ovisnosti}.
+Svi paketi, i oni navedeni u \emph{dependencies} i oni o kojima ti paketi ovise, na istoj razini hijerarhije u mapi \emph{node\_modules}, odnosno svi paketi su u korijenu te mape\footnote{Prije NPM verzije 3 bili su hijerarhijski raspoređeni s obzirom na ovisnosti}.
 Razlog tome je ušteda memorije i brža instalacija paketa u slučaju da velik broj paketa dijeli istu ovisnost.
-Problem može nastati u slučaju da dva paketa ovise o istom paketu koji su međusobno nekompatibilni.
+Problem može nastati u slučaju da dva paketa ovise o različitim verzijama istog paketa koje su međusobno nekompatibilne.
 Ako su pravilno verzionirani, odnosno ako se razlikuju u \emph{Major} verziji\footnote{vidi poglavlje \ref{sec:semver}}, ona verzija paketa koja je kasnije dodana će se instalirati unutar mape paketa koji koristi tu verziju kako ne bi utjecala na rad paketa koji koristi drukčiju verziju\citep{npm_npm3}.
 
 
@@ -411,18 +412,18 @@ Ako su pravilno verzionirani, odnosno ako se razlikuju u \emph{Major} verziji\fo
 NPM paketi se oslanjaju na to da ih njihovi autori verzioniraju poštujući pravila semantičkog verzioniranja.
 Semantičko verzioniranje je način zapisivanja verzija programske podrške gdje se verzija sastoji od tri broja odvojenih točkama.
 Prvi broj verzije zove se \emph{Major} i on ukazuje na to da je riječ o potpuno drugačijoj verziji paketa koja nije kompatibilna s verzijama koje se razlikuju u tom broju \engl{breaking change}.
-Drugi broj je \emph{Minor} i on ukazuje na to da su se desile promjene u funkcionalnosti i/ili sučelju paketa, ali je verzija kompatibilna sa svim nižim verzijama koji imaju isti \emph{Major} broj \engl{backwards compatible}, odnosno u slučaju da se koristi novija \emph{Minor} verzija od predviđene funkcionirat će jednako.
+Drugi broj je \emph{Minor} i on ukazuje na to da su se dogodile promjene u funkcionalnosti i/ili sučelju paketa, ali je verzija kompatibilna sa svim nižim verzijama koji imaju isti \emph{Major} broj \engl{backwards compatible}, odnosno u slučaju da se koristi novija \emph{Minor} verzija od predviđene funkcionirat će jednako.
 Treći broj je \emph{Patch} i ukazuje na to da se nije utjecalo na funkcionalnosti i sučelje paketa, već se samo ispravilo greške u implementaciji funkcionalnosti na toj \emph{Major.Minor} verziji\citep{semver}.
 
 \razmakp
 
 NPM pri instalaciji paketa iz naredbene linije, ako mu nije drukčije navedeno pored verzije dodaje znak „\string^“ koji označava da će pri preuzimanju paketa iz repozitorija uzeti najnoviju \emph{Minor} verziju za taj \emph{Major}.
-Točnije, u slučaju da je verzija paketa navedena kao „\string^1.2.3“ to znači skini mi bilo koju verziju koja je veća ili jednaka verziji „1.2.3“ i manja od verzije „2.0.0“.
-U slučaju da se želi precizirati točnu verziju oznaka se može maknuti ili, ako se želi isključivo skinuti najnoviju \emph{Patch} verziju staviti znak tilda („\string~“)\footnote{
+Točnije, u slučaju da je verzija paketa navedena kao „\string^1.2.3“ to znači da će se preuzesti bilo koja verzija koja je veća ili jednaka verziji „1.2.3“ i manja od verzije „2.0.0“.
+U slučaju da se želi precizirati točnu verziju oznaka se može maknuti ili, ako se želi isključivo preuzeti najnoviju \emph{Patch} verziju, staviti znak tilda („\string~“)\footnote{
     Upozorenje: Tilda („\string~“) ustvari znači da zadnji navedeni broj može biti veći od onog koji piše. Ako se verzija navede s izostavljenim \emph{Patch} brojem to onda znači da \emph{Minor} može biti veći, odnosno u slučaju da je navedena verzija „\string~1.2“ to znači da u obzir dolazi svaka verzija veća ili jednaka „1.2.0“ i manja od „2.0.0“
 }.
 Stvari se drukčije ponašaju u slučaju da je \emph{Major} verzija 0, što je karakteristično za pakete koji su još uvijek u ranoj fazi razvoja i nestabilni.
-Tada se drugi broj tretira kao da je \emph{Major}, jer on označava da su se desile promjene nekompatibilne s prijašnjom verzijom\citep{npm_docs}.
+Tada se drugi broj tretira kao da je \emph{Major}, jer on označava da su se dogodile promjene nekompatibilne s prijašnjom verzijom\citep{npm_docs}.
 
 
 \newpage
@@ -439,7 +440,7 @@ Podaci se spremaju u MongoDB dokument bazu podataka \engl{document-based databas
 
 \emph{Node.js} (u daljnjem tekstu Node) je izvršno okruženje za JavaScript izgrađeno nad Chrome V8 mehanizmom \engl{engine}.
 Node je primarno namijenjen izgradnji skripti za web poslužitelje i alate naredbene linije \engl{command line tools}.
-Ključna prednost koju nudi u izgradnji web poslužitelja je što omogućava da se koristi isti jezik (JavaScript ili jezik koji se prevodi u JavaScript) koristi za izgradnju poslužiteljske i klijentske strane, što olakšava razvoj u slučaju kada isti razvojni tim programira i poslužiteljsku i klijentsku aplikaciju\citep{wiki_node}.
+Ključna prednost koju nudi u izgradnji web poslužitelja je što omogućava da se koristi isti jezik (JavaScript ili jezik koji se prevodi u JavaScript) za izgradnju poslužiteljske i klijentske strane, što olakšava razvoj u slučaju kada isti razvojni tim programira i poslužiteljsku i klijentsku aplikaciju\citep{wiki_node}.
 
 Druga prednost je u konkurentnom model jezika JavaScript \footnote{vidi poglavlje \ref{sec:async}} koji omogućava i potiče neblokirajuće, odnosno asinkrone ulazno-izlazne operacije \engl{asynchronous I/O}, što pomaže u izgradnji skalabilnih i brzih web poslužitelja.
 Naravno taj isti model onemogućava stvaranje zasebnih dretvi u jednom Node procesu. Node proces pri pokretanju stvara fiksan broj dretvi koje su potrebne za njegov rad i ne nudi programeru stabilno sučelje za stvaranje novih dretvi.
@@ -448,7 +449,7 @@ Od verzije 10.5 uveden je eksperimentalan modul \emph{worker-threads}\footnote{
 } koji omogućava stvaranje novih dretvi kako bi se sinkrone operacije zahtjevne za procesor \engl{CPU intensive} mogle prebaciti na njih.
 Način na koji se ovaj problem rješavao do sada je bio stvaranje novih procesa pomoću postojećeg Node sučelja ili vanjskih paketa\citep{art_node}.
 
-Svaka parna verzija ima podršku za održavanje \engl{long termn support} koja počinje kada krene razvoj sljedeće neparne verzije.
+Svaka parna verzija ima podršku za održavanje \engl{long term support} koja počinje kada krene razvoj sljedeće neparne verzije.
 U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podrška za verziju 12\footnote{od 10. listopada 2019.}\citep{wiki_node}.
 
 
@@ -466,11 +467,11 @@ U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi
 % MongoDB
 \subsection{MongoDB} \label{sec:mongo}
 
-\emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, specifično riječ je o dokument sustavu baza podataka gdje su dokumenti predstavljeni u JSON\footnote{
+\emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, preciznije riječ je o dokument sustavu baza podataka gdje su dokumenti predstavljeni u JSON\footnote{
     \emph{JavaScript Object Notation} – način reprezentacije podataka kao JavaScript objekata - \url{https://www.json.org}
 } formatu.
 Dokumenti nisu zapravo spremljeni u JSON, već u BSON (\emph{binary JSON}) formatu, što je binarna serijalizacija proširenih JSON objekata koje Mongo koristi za spremanje podataka i upita.
-Prošireni JSON znači da Mongo podržava neke tipove koji ne postoje u standardnom JSON-u i JavaScript-u kao što su cjelobrojni brojevi (\emph{int} i \emph{long}), precizni 128 bitni brojevi (\emph{decimal}), binarni podaci i poseban tip za primarne ključeve dokumenata.
+Prošireni JSON znači da Mongo podržava neke tipove koji ne postoje u standardnom JSON-u i JavaScript-u kao što su cjelobrojni brojevi (\emph{int} i \emph{long}), precizni 128-bitni brojevi (\emph{decimal}), binarni podaci i poseban tip za primarne ključeve dokumenata.
 
 Mongo dokumenti su posloženi u kolekcije \engl{collections}.
 Kolekcije u praksi predstavljaju dokumente sličnog tipa i namijenjene su tome da se nad njima vrše upiti.
@@ -482,8 +483,8 @@ Budući da je riječ o NoSQL bazi podataka, ne postoje relacije, odnosno automat
 Za većinu aplikacija ovo nije problem jer princip kojim se modeliraju dokumenti u kolekciji nije isti kao modeliranje zapisa u relacijskoj bazi.
 Mongo dokumenti modeliraju se kao agregati podataka, odnosno dokumenti koji su u izravnoj ovisnosti o drugom dokumentu nalaze se unutar tog dokumenta.
 Tipičan primjer toga je račun nakon kupovine i stavke na tom računu.
-Gdje bi u relacijskom sustavu to bile dvije tablice, u Mongo sustavu se ta situacija modelira na način da su stavke računa lista objekata koja se nalazi unutar dokumenta račun.
-Na ovaj način jednostavno se može izgraditi distribuiran sustav baze podataka jer je svaki dokument ustvari agregat neovisan o drugim dokumentima.
+U relacijskom sustavu to bi bile dvije tablice, a u Mongo sustavu ta se situacija modelira na način da su stavke računa lista objekata koja se nalazi unutar dokumenta račun.
+Na ovaj se način jednostavno može izgraditi distribuiran sustav baze podataka jer je svaki dokument ustvari agregat neovisan o drugim dokumentima.
 Naravno u praksi poveznice između dokumenata su nekad nužne i tada se za njihovo održavanje treba brinuti unutar aplikacijske logike.
 
 
@@ -498,7 +499,7 @@ ODM biblioteke služe za modeliranje podataka NoSQL baza podataka slično kako O
 To sučelje se onda koristi za definiranje \emph{Model} objekta.
 \emph{Model} objekt predstavlja Mongo kolekciju, čiji dokumenti nužno odgovaraju obliku kakav je definiran pomoću \emph{Schema} objekta, i služi za pozivanje upita nad kolekcijom i kreiranje instanci modela.
 Instanca modela predstavlja jedan specifičan dokument koji odgovara \emph{Schema} definiciji objekta tog istog modela.
-Na ovaj način se Mongo dokumenti u aplikaciji mogu proširiti s validacijskim slojem i metodama, odnosno dokumenti postaju objekti koji u sebi sadržavaju dio domenske logike za taj agregat\citep{mongoose}.
+Na ovaj se način Mongo dokumenti u aplikaciji mogu proširiti s validacijskim slojem i metodama, odnosno dokumenti postaju objekti koji u sebi sadržavaju dio domenske logike za taj agregat\citep{mongoose}.
 
 Mongoose je implementiran tako da ovisi o i koristi službeni Mongo driver za Node, kojem se može pristupiti iz globalnog Mongoose objekta u slučaju da postoji potreba za nekim naprednim Mongo driver mogućnostima koje Mongoose sučelje ne nudi izravno\footnote{\url{https://docs.mongodb.com/ecosystem/drivers/node}}.
 U trenutku pisanja ovog rada najnovija verzija Mongoose paketa je 5.6, a paketi iznad verzije 5.2 (uključivo) zahtijevaju MongoDB Server verzije 4.0 ili iznad.
@@ -566,7 +567,8 @@ class HelloWorldAsAClass extends React.Component {
 Struktura stabla komponenti znači da su komponente posložene hijerarhijski, odnosno komponente djeca \engl{child components} su ugniježđene u roditeljskoj komponenti \engl{parent component}.
 Svaka komponenta može primiti podatke putem svog \emph{props} objekta od svoje roditeljske komponente\citep{react_docs}.
 React projekti često prate obrazac podijele komponenti na \emph{pametne} i \emph{glupe} odnosno komponente koje sadrže logiku (često nazvane \emph{container components} i prezentacijske komponente \engl{presentational components}.
-Prezentacijske komponente nemaju vlastito stanje, već samo primaju podatke i akcije putem \emph{props} objekta od svojih roditelja, a sav ostali kod koje sadrže odnosi se isključivo na prezentacijsku logiku, odnosno kako će se komponenta prikazati. Roditeljska \emph{pametna} komponenta implementira vlastito stanje i sve akcije koje se dešavaju u toj komponenti i svim prezentacijskim komponenata koja su joj djeca\citep{med_comp}.
+Prezentacijske komponente nemaju vlastito stanje, već samo primaju podatke i akcije putem \emph{props} objekta od svojih roditelja, a sav ostali kod koji sadrže odnosi se isključivo na prezentacijsku logiku, odnosno kako će se komponenta prikazati.
+Roditeljska \emph{pametna} komponenta implementira vlastito stanje i sve akcije koje se dešavaju u toj komponenti i svim prezentacijskim komponentama koje su joj djeca\citep{med_comp}.
 
 Jednostavan primjer toga je tablica s redcima koji se mogu brisati na klik gumba.
 Redak i gumb u retku su prezentacijske komponente, dok je tablica pametna komponenta.
@@ -639,7 +641,7 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
 
     \item konstruktor
     
-    Standardni konstruktor razreda koji se poziva pri stvaranju nove instance. Konstruktor prima \emph{props} objekt i u njemu se može definirati sva sinkrona logika koja se treba desiti prije faze postavljanja, odnosno pri inicijalizaciji objekta komponente.
+    Standardni konstruktor razreda koji se poziva pri stvaranju nove instance. Konstruktor prima \emph{props} objekt i u njemu se može definirati sva sinkrona logika koja se treba dogoditi prije faze postavljanja, odnosno pri inicijalizaciji objekta komponente.
 
     \item svojstva \emph{props} i \emph{state}
     
@@ -661,16 +663,16 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
     Metoda \emph{forceUpdate}, kako joj i ime govori, forsira komponentu da se ažurira, odnosno ponovno izvodi ciklus faze promjene u kojoj poziva metodu \emph{render}.
     Metoda \emph{setState} je asinkrona metoda koja služi za postavljanje stanja.
     Ona ne vraća \emph{Promise} objekt\footnote{vidi poglavlje \ref{sec:async}}, već prima funkciju povratnog poziva kao svoj drugi argument.
-    Razlog ovakve implementacije je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se desili u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
+    Razlog ovakve implementacije je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se dogodile u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
     Ova optimizacija je bitna jer ažuriranje stanja u većini situacija znači ažuriranje cijele komponente (s ponovnim pozivom \emph{render} metode) što je potencijalno skupa operacija.
 
     \item metode životnog ciklusa: \emph{componentDidMount}, \emph{shouldComponentUpdate},
     \break \emph{getSnapshotBeforeUpdate}, \emph{componentDidUpdate} i \emph{componentWillUnmount}.
     
     Metode se redom pozivaju: neposredno nakon postavljanja komponente, neposredno prije poziva \emph{render} metode, u trenutku izvršavanja \engl{commit} povratne vrijednosti \emph{render} metode na DOM, neposredno ažuriranja komponente, i neposredno prije rastavljanja komponente.
-    Metoda \emph{shouldComponentUpdate} može utjecati na životni ciklus na način da ovisno o njenoj povratnoj vrijednosti (koja je logičkog tipa – engl. \emph{boolean} će se ažuriranje komponente, odnosno poziv metode \emph{render}, desiti ili prekinuti.
+    Metoda \emph{shouldComponentUpdate} može utjecati na životni ciklus na način da ovisno o njenoj povratnoj vrijednosti (koja je logičkog tipa – engl. \emph{boolean}) će se ažuriranje komponente, odnosno poziv metode \emph{render}, dogoditi ili prekinuti.
     Ako komponenta nasljeđuje razred \emph{React.PureComponent}, nema pristup ovoj metodi jer je već implementirana u tom razredu.
-    Razred \emph{React.PureComponent} implementira metodu \emph{shouldComponentUpdate} na način da radi plitku usporedbu \engl{shallow compare} svojstava objekata \emph{props} i \emph{state} od trenutnog i budućeg stanja. Ako se neki od svojstava razlikuje (po referenci za objekte, a po vrijednosti za primitivne vrijednosti) ažuriranje će se desiti, u suprotnom stanje komponente se smatra nepromijenjenim. Ovaj način usporedbe je jako brz, stoga se \emph{React.PureComponent} često koristi za optimizaciju performansi\citep{react_docs}.
+    Razred \emph{React.PureComponent} implementira metodu \emph{shouldComponentUpdate} na način da radi plitku usporedbu \engl{shallow compare} svojstava objekata \emph{props} i \emph{state} od trenutnog i budućeg stanja. Ako se neki od svojstava razlikuje (po referenci za objekte, a po vrijednosti za primitivne vrijednosti) ažuriranje će se dogoditi, u suprotnom stanje komponente se smatra nepromijenjenim. Ovaj način usporedbe je jako brz, stoga se \emph{React.PureComponent} često koristi za optimizaciju performansi\citep{react_docs}.
 
     \item statička metoda životnog ciklusa \emph{getDerivedStateFromProps}
     
@@ -1529,24 +1531,25 @@ U ovom radu dan je pregled razvijenog sustava za učenje koncepata deklarativne 
 Veliki naglasak u razvoju sustava je dan na arhitekturi i modelu kako bi i on i alat bili jednostavno proširivi novim zadacima, funkcionalnostima i operacijama u budućnosti.
 Iz istog razloga veliki dio ovog rada posvećen je objašnjavanju te arhitekture i korištenih tehnologija čije razumijevanje je ključno da bi se razumjelo implementaciju i odluke donesene pri osmišljavanju implementacije sustava.
 
-Alat se u budućnosti može vrlo jednostavno proširiti s operacijom kao što je grupiranje -- dovoljno je dodati čvor s prikladnom logikom za takvu operaciju -- a s minimalnim preinakama na implementaciju mogu se dodati i puno napredniji koncepti kao što je spajanje raznovrsnih tablica s obzirnom na dani uvjet.
-Jedna naprednija funkcionalnost koja se može uvesti u sustavu, a da se koristi izgrađeni mehanizam dijagrama, je mogućnost spremanja kombinacije blokova, tj. operacija, u jedan jedinstven ponovno iskoristiv blok, odnosno izgradnja osobnih spremljenih procedura za kasnije korištenje.
-Sam sustav može se proširiti naprednim opcijama i interaktivnim načinom izgradnje zadataka gdje se ti zadaci potom mogu kategorizirati i ciljano dijeliti s drugim korisnicima. Jedna jednostavna funkcionalnost koja se može uvesti u sustavu s postojećom implementacijom je naprednije praćenje osobne statistike rješavanja zadataka, te praćenje te iste karakteristike za druge korisnike od strane korisnika koji je označen kao učitelj tih korisnika.
+Alat se u budućnosti može vrlo jednostavno proširiti operacijom kao što je grupiranje -- dovoljno je dodati čvor s prikladnom logikom za takvu operaciju -- a s minimalnim preinakama mogu se dodati i puno napredniji koncepti kao što je spajanje raznovrsnih tablica s obzirnom na dani uvjet.
+Jedna naprednija funkcionalnost koja se može uvesti u sustav, a da se koristi izgrađeni mehanizam dijagrama, je mogućnost spremanja kombinacije blokova, tj. operacija, u jedan jedinstven ponovno iskoristiv blok, odnosno izgradnja osobnih spremljenih procedura za kasnije korištenje.
+Sam sustav može se proširiti naprednim opcijama i interaktivnim načinom izgradnje zadataka gdje se ti zadaci potom mogu kategorizirati i ciljano dijeliti s drugim korisnicima.
+Također, unutar postojeće implementacije može se jednostavno dodati naprednije praćenje osobne statistike rješavanja zadataka, te praćenje te iste karakteristike za druge korisnike od strane korisnika koji je označen kao učitelj tih korisnika.
 
 Nadalje, u modeliranju podataka je mnogo odluka doneseno u svrhu što detaljnijeg i lakšeg praćenja koraka koje korisnici rade u rješavanju zadataka za kasniju analizu.
-Budući da je ideja da se ovakav sustav može uvesti kao dodatak u nastavi ili izvannastavnim obrazovnim aktivnostima, mogućnost analiziranja takvih podataka je ključna da bi se mogla procijeniti ne samo korisnost sustava, već da bi se analizom uzoraka ponašanja u pristupu rješavanja zadataka moglo uočiti i procijeniti gdje i na koji način je potrebno sustav poboljšati, odnosno prepoznati koji koncepti deklarativnog programiranja su učenicima problematični i teški te proširiti vježbe i zadatke u cilju razjašnjavanja tih koncepata.
+Budući da je ideja da se ovakav sustav može uvesti kao dodatak u nastavi ili izvannastavnim obrazovnim aktivnostima, mogućnost analiziranja takvih podataka je ključna da bi se mogla procijeniti ne samo korisnost sustava, već da bi se analizom uzoraka ponašanja u pristupu rješavanja zadataka moglo uočiti i procijeniti gdje i na koji način poboljšati sustav, odnosno prepoznati koji su koncepti deklarativnog programiranja učenicima problematični i teški te proširiti vježbe i zadatke u cilju razjašnjavanja tih koncepata.
 
 \razmakp
 
 Opisane mogućnosti proširenja samo su neke od opcija koje se mogu implementirati ovisno o korištenju sustava u budućnosti.
 Okvir za njihovu implementaciju dan je u ovom radu, a sam sustav je spreman za testiranje nad ciljanom skupinom korisnika -- djecom u ranim razredima osnovne škole.
-Ovakav sustav bilo bi korisno prezentirati i dati na korištenje učenicima koji se unutar svog programa informatike još nisu susreli s proračunskim tablicama kako bi se mogla analizirati korisnost sustava u olakšavanju stjecanja znanja za korištenje takvih alata, budući da je alat koji se koristi trenutnom sustavu prvenstveno inspiriran kao interaktivna i jednostavna verzija alata za manipulaciju tabličnih podataka.
+Ovakav sustav bilo bi korisno prezentirati i dati na korištenje učenicima koji se unutar svog programa informatike još nisu susreli s proračunskim tablicama kako bi se mogla analizirati korisnost sustava u olakšavanju stjecanja znanja za korištenje takvih alata.
 
 Naravno, sustav je otvoren i za korištenje u bilo kojem drugom okruženju gdje bi se mogao smatrati korisnim ili zanimljivim, a interaktivan alat koji mu je ključan dio je lako izdvojiv za kopiranje i implementiranje u nekom drugom sustavu gdje bi se takav alat mogao smatrati korisnim.
 
 \razmakp
 
-Cilj ovog rada je uspješno postignut, ostvareni su opisani sustav i alat, a mogućnosti daljnjeg rada i nadogradnji sustava su detaljno razložene.
+Cilj ovog rada je uspješno postignut, ostvareni su opisani sustav i alat, a mogućnosti daljnjeg rada i nadogradnji sustava detaljno su razložene.
 Idući korak za ovaj sustav je njegovo korištenje nad testnom skupinom, kako bi se korisnost alata mogla detaljno analizirati te kako bi prioriteti daljnjeg rada i nadogradnje bili što jasniji.
 
 
