@@ -514,7 +514,7 @@ Primjer korištenja biblioteke Mongoose nalazi se u poglavlju \ref{sec:data} u i
 
 Klijentska aplikacija izrađena je koristeći biblioteku React po predlošku i konfiguraciji paketa Create React App.
 Izgled aplikacije definiran je primarno koristeći radni okvir \engl{framework} Bootstrap, a elementi radnog okvira korišteni su kao React komponente pomoću React Bootstrap implementacije.
-Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
+Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web-aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
 Biblioteka STORM React Diagrams koristi se za izgradnju dinamičnih dijagrama koji su ključan dio aplikacije, a Axios biblioteka se koristi za komunikaciju s poslužiteljem.
 
 
@@ -524,11 +524,11 @@ Biblioteka STORM React Diagrams koristi se za izgradnju dinamičnih dijagrama ko
 
 React je JavaScript biblioteka otvorenog kôda namijenjena brzoj i jednostavnoj izgradnji korisničkih sučelja.
 Razvijena je od strane Facebooka 2013. godine i zadnja stabilna verzija u trenutku pisanja ovog rada je 16.8.6. \citep{gh_react_changelog}.
-U izvorima se biblioteka također može naći pod nazivima „React.js“ i „ReactJS“, dok je „React Native“ radni okvir za razvoj mobilnih aplikacija u jeziku JavaScript na sličan način kako se web aplikacije grade u React-u \citep{wiki_react}.
+U izvorima se biblioteka također može naći pod nazivima „React.js“ i „ReactJS“, dok je „React Native“ radni okvir za razvoj mobilnih aplikacija u jeziku JavaScript na sličan način kako se web-aplikacije grade u React-u \citep{wiki_react}.
 Iako je React biblioteka \engl{library}, nije u potpunosti netočno zvati je radnim okvirom \engl{framework}.
 Tijekom godina nakupilo se mnoštvo biblioteka i radnih okvira za korištenje sa samim React-om, da se pod izrazom React često podrazumijeva i njihovo korištenje, što daje dojam cjelokupnog radnog okvira. No, po svojoj definiciji je biblioteka.
 
-React se koristi za razvoj jednostraničnih \engl{single page} web aplikacija.
+React se koristi za razvoj jednostraničnih \engl{single page} web-aplikacija.
 Produkcijska verzija React stranice često se sastoji od jedne male HTML datoteke (reda veličine dvadesetak linija kôda) i JavaScript datoteke od nekoliko desetaka tisuća linija kôda.
 Razlog je u tome što je sav sadržaj stranice ugrađen u JavaScript kako bi se mogao dinamički mijenjati.
 
@@ -696,7 +696,7 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su 
 
 Na slici \ref{fig:react_lifecycle} prikazan je pojednostavljen dijagram u kojim fazama se pozivaju metode komponente.
 
-\begin{figure}[!htb] % Životni ciklus Promise objekta
+\begin{figure}[!htb] % Redoslijed poziva metoda životnog ciklusa React komponente
   \centering
   \includegraphics[width=15.6cm]{images/react_life.png}
   \caption{Redoslijed poziva metoda životnog ciklusa React komponente}
@@ -734,10 +734,10 @@ Početna struktura projekta nakon pokretanja naredbe može se vidjeti na slici \
 % React Router
 \subsection{React Router}
 
-Činjenica da je web aplikacija jednostranična ne mora začiti da korisnik ne može pristupati različitim dijelovima, odnosno stanjima te aplikacije pomoću poveznica.
+Činjenica da je web-aplikacija jednostranična ne mora začiti da korisnik ne može pristupati različitim dijelovima, odnosno stanjima te aplikacije pomoću poveznica.
 Korisnik želi imati mogućnosti da putem poveznice izravno dođe do nekog dijela aplikacije ili da se vrati na prethodno stanje aplikacije klikom \emph{Nazad} u pregledniku, kao što to može s klasičnim web-stranicama\footnote{Ovdje se izraz \emph{web-stranica} odnosi na engl. \emph{website}, odnosno kolekciju stranica \engl{web page}.}.
 
-Takvo ponašanjem unutar React aplikacije može se postići koristeći bibliteku React Router („\emph{react-router}“), točnije paket \emph{react-router-dom} koji je implementacija React Router API-ja za web, odnosno namijenjena aplikacijama koje se izvršvaju u web pregledniku\footnote{
+Takvo ponašanjem unutar React aplikacije može se postići koristeći bibliteku React Router („\emph{react-router}“), točnije paket \emph{react-router-dom} koji je implementacija React Router API-ja za web, odnosno namijenjena aplikacijama koje se izvršvaju u internetskom pregledniku\footnote{
     Nije potrebno instalirati oba paketa.
     Paket \emph{react-router-dom} sadrži \emph{react-router}.
     Paket \emph{react-router} je bazni paket koji koriste specifične implementacije kao što su \emph{react-router-dom} i \emph{react-router-native} (implementacija namijenjena korištenju u React Native radnom okviru).
@@ -782,13 +782,13 @@ class App extends React.Component {
 
 \emph{BrowserRouter} komponenta koristi HTML5 history API\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/History_API}} za upravljanje s povijesti preglednika.
 U tu komponentu su ugniježđene \emph{Route} komponente koje služe za određivanje koje će komponente biti prikazane na kojim rutama.
-Bitno je imati na umu da je dovoljan uvjet za prikaz komponente u \emph{component} atributu taj da početak putanje odgovara atributu \emph{path}.
-Za postizanje ponašanja da se vrijednosti moraju u potpunosti podudarati služi ključna riječ \emph{exact}.
+Bitno je imati na umu da je dovoljan uvjet za prikaz komponente u \emph{component} atributu da početak putanje odgovara atributu \emph{path}.
+Za postizanje ponašanja da se vrijednost rute u pregledniku mora u potpunosti podudarati s vrijednosti atributa \emph{path} služi ključna riječ \emph{exact}.
 U slučaju da u prethodno navedenom primjeru nije korišten \emph{exact}, na putanji „/about“ bi bila prikazana i komponenta \emph{Home} uz komponentu \emph{About}.
 
 \emph{Route} komponente mogu se dodatno ugnijezditi u komponentu \emph{Switch}.
-\emph{Switch} komponenta definira logiku prikzivanja isključivo prve \emph{Route} komponente koja se podudara s putanjom.
-Korištenjem ove logike može se definirati i posljednja \emph{Route} komponenta koja pokriva slučaj neočekivanih putanja, kao što je prikazano u isječku kôda \ref{lst:react_router_switch}.
+Komponenta \emph{Switch} definira logiku prikzivanja isključivo prve \emph{Route} komponente koja se podudara s putanjom.
+Korištenjem ove logike može se definirati i posljednja komponenta \emph{Route} koja pokriva slučaj neočekivanih putanja, kao što je prikazano u isječku kôda \ref{lst:react_router_switch}.
 U tom primjeru ponovno se koristi \emph{exact}, u protivnom bi se na svim rutama koje počinju s „/“ odabrala prva komponenta.
 
 \razmakp % Primjer korištenja Switch komponente
@@ -803,7 +803,7 @@ U tom primjeru ponovno se koristi \emph{exact}, u protivnom bi se na svim rutama
 \end{lstlisting}
 \razmaks
 
-Od daljnjih komponenti paketa jako je bitna i komponenta \emph{Redirect} koja svojim prikazivanjem nadjačava trenutnu lokaciju u objektu povijesti i preusmjerava korisnika na novu putanju (određena atributom \emph{to}).
+Od daljnjih komponenti paketa jako je bitna i komponenta \emph{Redirect} koja svojim prikazivanjem nadjačava trenutnu lokaciju u objektu povijesti i preusmjerava korisnika na novu putanju (određenu atributom \emph{to}).
 Isto ponašanje postiže se pozivom metode \emph{replace} nad objektom \emph{history}.
 
 Objektu \emph{history} može se pristupiti u komponentama koje su „stvorene s \emph{routerom}“, odnosno u komponentama koje su predane kao vrijednosti \emph{component} atributa \emph{Route} komponenti ili instancirane s metodom \emph{withRouter}.
@@ -819,10 +819,10 @@ On uvodi u aplikaciju jedno\footnote{
 } globalno stanje koje je predstavljeno kao stablo JavaScript objekata, odnosno jedan veliki objekt koji u sebi sadrži hijerarhijski posložene podobjekte kao vrijednost.
 
 Stanje je globalno dostupno bilo kojem dijelu aplikacije putem Redux API-ja, odnosno pozivanjem emph{getState} metode nad singleton objektom \emph{store} koji se inicijalizira pri pokretanju aplikacije i u sebi sadrži objekt stanja. 
-Objekt dobiven na taj način je nepromjenjiv, što znači da pridruživanjem nove vrijednosti ili reference bilo kojem od njegovih atributa ne može se utjecati nad stanjem aplikacije, odnosno izmijeniti objekt koji se nalazi u \emph{store} singletonu.
-Jedini način za izmijeniti objekt je poslati \engl{dispatch} akciju tom istom \emph{store}.
-Akcija \engl{action} je objekt koji opisuje promjenu stanja koja se želi postići i šalje se kao argument \emph{dispatch} metode \emph{store} singletona.
-Kada \emph{store} primi akciju poziva funkciju sažimanja \engl{reduce} koja je definira logiku koja se izvršava za traženu akciju.
+Objekt dobiven na taj način je nepromjenjiv, što znači da pridruživanjem nove vrijednosti ili reference bilo kojem od njegovih atributa ne može se promijeniti stanje aplikacije, odnosno izmijeniti objekt koji se nalazi u \emph{store} singletonu.
+Jedini način za izmijeniti objekt je poslati \engl{dispatch} akciju.
+Akcija \engl{action} je objekt koji opisuje promjenu stanja koja se želi postići i šalje se kao argument metode \emph{dispatch} \emph{store} singletona.
+Kada objekt \emph{store} primi akciju poziva funkciju sažimanja \engl{reduce} koja je definira logiku koja se izvršava za traženu akciju.
 Akcije sadrže tekstualni atribut tip \engl{type} koji se koristi u funkciji sažimanja kako bi se znalo koju logiku izvršiti\footnote{
     najčešće implementirano kao obično \emph{switch-case} grananje ovisno o vrijednosti atributa tip
 }.
@@ -830,13 +830,13 @@ Osim toga, akcije mogu imati dodatne podatke\footnote{
     u terminologiji Redux biblioteke nazivaju se korisnim teretom \engl{payload}
 } pomoću kojih, uz pristup prethodnom stanju, funkcija sažimanja određuje novo stanje aplikacije.
 Pri izgradnji novog stanja u funkciji sažimanja, ključno je da se grane stabla stanja ne mijenjaju izravno \engl{mutate}, nego da se za svaki dio stanja koji ima promjene gradi novi objekt.
-Ovakav princip ponašanja inspiriran je funkcijskom paradigmom programiranja \citep{redux}.
+Ovakav princip ponašanja inspiriran je funkcijskom programskom paradigmom \citep{redux}.
 
-Za osluškivanje promjena na stanjem koristi se metoda \emph{subscribe} (također metoda \emph{store} objekta), a budući da je deklarativno mijenjanje izgleda React komponente s obzirom na promjenu nekog dijela stanja aplikacije ključan dio gradnje React aplikacija, postoji paket \emph{react-redux} (službeni paket tima koji razvija Redux) koji definira sučelje kojim se pojedina React komponenta može povezati \engl{connect} na Redux stanje te osluškivati i slati promjene nad specifičnim dijelom Redux stanja.
+Za osluškivanje promjena stanja koristi se metoda \emph{subscribe} (metoda objekta \emph{store}), a budući da je deklarativno mijenjanje izgleda React komponente s obzirom na promjenu nekog dijela stanja aplikacije ključan dio gradnje React aplikacija, postoji paket \emph{react-redux} (službeni paket tima koji razvija Redux) koji definira sučelje kojim se pojedina React komponenta može povezati \engl{connect} na Redux stanje te osluškivati i slati promjene nad specifičnim dijelom Redux stanja.
 Sama biblioteka Redux (tj. paket \emph{redux}) ne ovisi o biblioteci React, dok \emph{react-redux} ovisi o obije biblioteke\footnote{
     u trenutku pisanja ovog rada, aktualna verzija \emph{redux} paketa je 4, a za korištenja njega i React 16, potrebna je \emph{react-redux} verzija 7
 }.
-U isječku kôda \ref{lst:redux} prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa s React-om.
+U isječku kôda \ref{lst:redux} prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa u React-u.
 
 \razmakp % Primjer korištenja Redux biblioteke u React aplikaciji
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja Redux biblioteke u React aplikaciji}, label={lst:redux}]
@@ -895,20 +895,20 @@ ReactDOM.render(
 % STORM React Diagrams
 \subsection{STORM React Diagrams} \label{sec:storm}
 
-STORM React Diagrams je React biblioteka namijenjena gradnji dijagrama razvijena u TypeScript-u dostupna pod MIT licencom.
+STORM React Diagrams je React biblioteka namijenjena gradnji dijagrama razvijena u TypeScript-u dostupna pod licencom MIT.
 Specifično riječ je o dijagramima koji se mogu modelirati na principu grafova, odnosno čvorova i bridova.
-Podatkovna i upravljačka logika čvorova, bridova i svih drugih elementa bibliteke sadržana je u objektima koji se zovu entiteti \engl{entity}, svaki od kojih nasljeđuje bazni razred \emph{BaseEntity}, dok je njihova vizualna reprezentacija, odnosno logika pogleda \engl{view logic} ostvarena pomoću React komponeti koji se nazivaju \emph{widgeti} i svi nasljeđuju baznu komponetu \emph{BaseWidget}.
+Podatkovna i upravljačka logika čvorova, bridova i svih drugih elementa bibliteke sadržana je u objektima koji se zovu entiteti \engl{entity}, svaki od kojih nasljeđuje bazni razred \emph{BaseEntity}, dok je njihova vizualna reprezentacija, odnosno logika pogleda \engl{view logic} ostvarena pomoću React komponeti koji se nazivaju \emph{widgeti} i nasljeđuju baznu komponetu \emph{BaseWidget}.
 Glavni \emph{widget} u kojem se iscrtavaju svi elementi je komponenta \emph{DiagramWidget} koja u svom objektu \emph{props} prima instancu entiteta \emph{DiagramEngine}.
 \emph{DiagramEngine} je glavni upravljački entitet koji za atribut ima instancu razreda \emph{DiagramModel} u kojoj je sadržano stanje dijagrama.
-\emph{DiagramModel} implementira logiku dodavanja i brisanja entiteta u dijagramu, dok \emph{DiagramEngine} sadrži tvornice \engl{factory} za stvaranje tih entiteta i implementira potpornu logiku koja je potrebna za crtanje elementa kao što je primjerice traženje najkraćeg puta između dva čvora.
+\emph{DiagramModel} implementira logiku dodavanja i brisanja entiteta u dijagramu, dok \emph{DiagramEngine} sadrži tvornice \engl{factory} za stvaranje entiteta i implementira potpornu logiku koja je potrebna za crtanje elementa kao što je primjerice traženje najkraćeg puta između dva čvora.
 Bitno je naglasiti da je, po prethodno opisanoj arhitekturi, komponenta \emph{DiagramWidget} ustvari implementacija vizualne reprezentacije entiteta \emph{DiagramModel}.
 
 Entiteti ne ovise o svojim ili bilo kojem drugom \emph{widgetu}, dok \emph{widgeti} ovise o entitetima koje predstavljaju, stoga je uvijek moguće izmijeniti koje \emph{widgete} biblioteka koristi izmjenom tvornica koje sadrži instanca razreda \emph{DiagramEngine}.
 Tvornice su instance razreda koje implementiraju metode stvaranja React komponente, tj \emph{widgeta}, i instance entiteta za odabrani element.
 \emph{DiagramEngine} mora nužno sadržavati metode tvornice za čvorove (\emph{node}), bridove (\emph{link}), točke čvorova na koje se bridovi mogu povezati (\emph{port}) i točke u bridovima u kojima se brid lomi ili je krajnja točka brida (\emph{point}).
 
-Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove \emph{default} verzije koje implementiraju neku osnovnu logiku koja bi bila potrebna za izradu osnovnog dijagrama, a također nudi i opcionalnu implementaciju CSS klasa za te elemente kako bi se moglo što prije krenuti s razvojem \citep{storm_rd}.
-U okviru ovog rada korištene su nadograđene verzije modela tih \emph{default} elemenata.
+Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove \emph{zadane} \engl{default} verzije koje implementiraju neku osnovnu logiku koja bi bila potrebna za izradu osnovnog dijagrama, a također nudi i opcionalnu definiciju CSS klasa za te elemente kako bi se moglo što prije krenuti s razvojem \citep{storm_rd}.
+U okviru ovog rada korištene su nadograđene verzije modela tih \emph{zadanih} elemenata.
 
 
 \newpage
@@ -919,7 +919,7 @@ Bootstrap je jednostavan radni okvir za gradnju web-stranica prilagodljivih za r
 Nudi velik skup predefiniranih HTML komponenti i standardiziranih CSS klasa koje se mogu koristiti za brzu izgradnju čestih elemenata stranice kao što su izbornici, obrasci \engl{forms}, okviri za slike i sl.
 Također ima i definiran sustav mrežne raspodijele elemenata, koji osigurava prilagodljivu veličinu i raspodjelu sadržaja s obzirom na veličinu zaslona korisničkog uređaja.
 
-Standardizirane CSS klase omogućavaju laganu izmjenu dizajna stranice ako se koristi isključivo zadane Bootstrap klase za stiliziranje HTML elemenata.
+Standardizirane CSS klase omogućavaju laganu izmjenu dizajna stranice ako se koristi isključivo zadane Bootstrap-ove klase za stiliziranje HTML elemenata.
 Dovoljno je zamijeniti CSS datoteku, odnosno temu s novom koja definira stil tih istih klasa.
 Time se osobi koja gradi web-stranicu pruža mogućnost da različite projekte gradi istim elementima, kojima zna ponašanje.
 
@@ -928,19 +928,19 @@ Budući da Bootstrap postoji od 2011. \citep{wiki_bs}, na internetu postoji mno�
 \razmakp
 
 React Bootstrap („\emph{react-bootstrap}“) je implementacija Bootstrap-a u React-u.
-Imlementira sve standarizirane Bootstrap CSS klase kao React komponente i eliminira ovisnost kompleksnijih Bootstrap elemenata o jQuery biblioteci\footnote{\url{https://jquery.com/}}.
+Imlementira sve standarizirane Bootstrap-ove CSS klase kao React komponente i eliminira ovisnost kompleksnijih Bootstrap-ovih elemenata o jQuery biblioteci\footnote{\url{https://jquery.com/}}.
 
-U trenutku pisanja ovog rada najnovija verzija React Bootstrap paketa je „1.0.0-beta.9“ koja je kompatibilna s Bootstrap 4.3 stilovima.
-Ranije verzije („<1.0“) su kompatibilne s Bootstrap 3 stilovima \citep{bs_react}.
+U trenutku pisanja ovog rada najnovija verzija paketa React Bootstrap je „1.0.0-beta.9“ koja je kompatibilna s temama Bootstrap verzije 4.3.
+Ranije verzije („<1.0“) su kompatibilne s temama Bootstrap verzije 3 \citep{bs_react}.
 
 
 \razmaks
 % Axios
 \subsection{Axios}
 
-Axios je HTTP klijent baziran na JavaScript \emph{Promise} objektu.
+Axios je HTTP klijent temeljen na JavaScript-ovom \emph{Promise} objektu.
 Paket apstrahira dio logike za slanje XHR (krat. \emph{XMLHttpRequest}\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest}}) mrežnog zahtijeva, nudi sučelje za slanje zahtijeva koje vraća \emph{Promise} objekt i automatski parsira JSON odgovore.
-U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija „0.19“), ali zbog svoje jednostavnosti korištenja i podržanosti na svim modernim web preglednicima je među najpopularnijim paketima na NPM-u, sa skoro pet milijuna tjednih preuzimanja \citep{axios}.
+U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija „0.19“), ali zbog svoje jednostavnosti korištenja i podržanosti na svim modernim internatskim preglednicima je među najpopularnijim paketima na NPM-u, sa skoro pet milijuna tjednih preuzimanja \citep{axios}.
 
 
 
@@ -981,9 +981,9 @@ U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija 
 \section{Model podataka} \label{sec:data}
 
 Podaci u aplikaciji opisani su pomoću relativno jednostavnog modela koji se sastoji od tri agregata: korisnik \engl{user}, zadatak \engl{exercise} i pokušaj \engl{attempt}.
-Korisnik je korisnik aplikacije, zadatak je opis zadatka koji se može rješavati sa svim podacima nužnim za njegov početak i provjeru ispravnosti, dok je pokušaj njihova poveznica.
+Agregat korisnik predstavlja korisnika aplikacije, zadatak je opis zadatka koji se može rješavati sa svim podacima nužnim za njegov početak i provjeru ispravnosti, dok je pokušaj njihova poveznica.
 Pokušaj predstavlja jedno korisnikovo rješavanje zadatka i sadrži u sebi sva stanja, odnosno sve korake koje je korisnik napravio u okviru tog pokušaja.
-Za bolje razumijevanje modela, u isječku kôda \ref{lst:schema} nalazi se pojednostavljena verzija (bez validacije, metoda i definicija nekih poddokumenata) Mongoose \emph{Schema} objekata za svaki od modela.
+Za bolje razumijevanje modela, u isječku kôda \ref{lst:schema} nalazi se pojednostavljena verzija (bez validacije, metoda i definicija poddokumenata) Mongoose-ovih \emph{Schema} objekata za svaki od modela.
 
 \razmakp % Pojednostavljena verzija podatkovnih modela, odnosno shema dokumenata spremljenih u Mongo bazi
 \begin{lstlisting}[language=JavaScript, caption={Pojednostavljena verzija podatkovnih modela, odnosno Mongoose shema dokumenata spremljenih u Mongo bazi}, label={lst:schema}]
@@ -1052,23 +1052,23 @@ const attemptModel = mongoose.model('Attempt', attemptSchema);
 % Opis modela
 \subsection{Opis modela}
 
-Pogledom na modele, odnosno sheme Korisnik i Zadatak u isječku kôda \ref{lst:schema} može se primijetiti da se oni međusobno referenciraju, odnosno shema Korisnik sadrži listu zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema Zadatak listu korisnija koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
+Sheme Korisnik i Zadatak u isječku kôda \ref{lst:schema} međusobno se referenciraju, odnosno shema Korisnik sadrži listu ključeva zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema Zadatak listu ključeva korisnika koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
 
-Kako je već spomenuto\footnote{poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li ključevi koji su navedeni u listama.
+Kako je već spomenuto\footnote{poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li dokumenti s ključevima koji su navedeni u listama.
 Ovi atributi stoga nisu izvor istine \engl{source of truth} za to je li korisnik pokušao ili riješio zadatak.
-Zaključak da je korisnik sigurno pokušao riješiti zadatak može se dovesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio taj zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
+Zaključak da je korisnik pokušao riješiti zadatak može se izvesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
 
-Prethodno spomenute liste u shemama Korisnik i Zadatak postoje više za potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
+Prethodno spomenute liste u shemama Korisnik i Zadatak postoje zbog potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
 U slučaju da se želi izvesti precizna analiza statistike, ona bi se izvršavala isključivo nad kolekcijom pokušaja.
 
 \razmakp
 
-Još dvije reference na druge dokumente su atributi \emph{previousAttemptId} i \emph{nextAttemptId} koji sadrže ključ prijašnjeg, odnosno idućeg pokušaja.
-Oba atributa su namijenjeni kasnijoj analizi podataka o pokušajima u slučaju da se želi rekurzivno pretraživati pokušaje za specifičan par ključeva korisnika i zadatka redoslijedom kojim su ti pokušaji nastali.
+Dodatne reference na druge dokumente su atributi \emph{previousAttemptId} i \emph{nextAttemptId} koji sadrže ključ prijašnjeg, odnosno idućeg pokušaja.
+Oba atributa su namijenjena kasnijoj analizi podataka o pokušajima u slučaju da se želi rekurzivno pretraživati pokušaje za specifičan par ključeva korisnika i zadatka redoslijedom kojim su ti pokušaji nastali.
 
 Korisnik za neki zadatak u bilo kojem trenutku može imati samo jedan aktivan pokušaj, a pokušaj je aktivan ako i samo ako atribut \emph{nextAttemptId} nema vrijednost (tj. ako je vrijednost jednaka \emph{null}) i ne postoji završno stanje, odnosno atribut \emph{endState} nema vrijednosti.
 U slučaju da atribut \emph{nextAttemptId} nema vrijednost, ali postoji završno stanje, riječ je o posljednjem pokušaju korisnika za taj zadatak koji je završio.
-U tom slučaju nastavljanje rješavanja zadatka je jedino moguće stvaranjem novog pokušaja.
+U tom je slučaju nastavljanje rješavanja zadatka jedino moguće stvaranjem novog pokušaja.
 Stvaranjem novog pokušaja atributu \emph{nextAttemptId} od prijašnjeg zadnjeg pokušaja pridružuje se vrijednost primarnog ključa novonastalog pokušaja, a novonastalom pokušaju atributu \emph{previousAttemptId} vrijednost primarnog ključa tog prijašnjeg zadnjeg pokušaja.
 
 Drugim riječima, za neki zadatak kojeg je specifičan korisnik barem jednom pokušao rješavati, nužno postoji jedan dokument koji nema vrijednost \emph{previousAttemptId} i predstavlja prvi pokušaj, i jedan dokument koji nema vrijednost \emph{nextAttemptId} i predstavlja posljednji pokušaj (dokumenti nisu međusobno isključivi).
@@ -1077,19 +1077,19 @@ Drugim riječima, za neki zadatak kojeg je specifičan korisnik barem jednom pok
 % Rasprava o modelu
 \subsection{Rasprava o modelu}
 
-Do sada opisane karakteristike modela podataka moglo se jednostavno riješiti i u relacijskom modelu podataka.
-U kontekstu relacijskog modeliranja kolekcija pokušaja nije ništa drugo nego N:M poveznica između korisnika i zadataka, stoga do sada opisani model ne zahtijeva ništa kompleksnije rješenje u relacijskoj bazi, no razlog za izbor dokument baze podataka je u jednostavnoj proširivosti opisanih modela.
+Do sada opisane karakteristike modela podataka moglo se jednostavno implementirati i u relacijskom modelu podataka.
+U kontekstu relacijskog modeliranja kolekcija pokušaja nije ništa drugo nego N:M veza između korisnika i zadataka, stoga do sada opisani model ne zahtijeva ništa kompleksnije rješenje u relacijskoj bazi, no razlog za izbor dokument baze podataka je u jednostavnoj proširivosti opisanih modela.
 
 \razmakp
 
-Ponovnim pregledom shema u isječku kôda \ref{lst:schema} može se primijetiti da svaka shema ima barem jedan kompleksniji objekt, odnosno poddokument ugniježđen u sebe.
+Ponovnim pregledom shema u isječku kôda \ref{lst:schema} može se primijetiti da svaka shema ima barem jedan kompleksniji objekt, odnosno poddokument.
 Model korisnika mora biti nadogradiv s obzirom na osobne informacije korisnika (\emph{personalData}) i podatke koje se tiču specifičnog tipa korisnika (\emph{studentData} i \emph{teacherData}).
 U tradicionalnom relacijskom modelu\footnote{
     neki moderni relacijski sustavi baza podataka mogu sadržavati kao atribute zapisa slobodne tipove kao što je JSON, takav tip se kosi s atomarnosti stupaca koje zahtijeva prva normalna forma, stoga se modeliranje relacija s takvim tipovima u kontekstu ove rečenice ne smatra „tradicionalnim relacijskim modelom“
 } trebalo bi precizno definirati svaki od atributa tih podataka i potencijalno model razbiti na više tablica s obzirom na tip korisnika.
 
 Budući da u trenutnoj fazi razvoja većina atributa, odnosno potrebnih podataka nije poznata, korištenje dokument baze omogućuje da se trenutni model korisnika može jednostavno proširiti u budućnosti, bez pisanja ikakve migracije podataka.
-Dovoljno je samo proširiti Mongoose shemu, a čak i to je opcionalno ako ne treba implementirati nikakvu validacijsku logiku za atribute tih objekata.
+Dovoljno je samo proširiti Mongoose-ovu shemu, a čak i to je opcionalno ako ne treba implementirati nikakvu validacijsku logiku za atribute tih objekata.
 
 \razmakp
 
@@ -1201,7 +1201,7 @@ Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao di
 
 Autentifikacijska logika sadržana je unutar korisničke sheme i autentifikacijskog posredničkog sloja \engl{middleware}.
 
-Korisnička shema nema jednostavan atribut \emph{password} kako je to prikazano u isječku kôda \ref{lst:schema}, već u sebi sadrži metodu postavljanja \engl{setter} koja osigurava da se u bazi ne sprema izravno korisnikova zaporka, već da se generira njen sažetak \engl{hash}.
+Korisnička shema nema jednostavan atribut \emph{password} kako je to prikazano u isječku kôda \ref{lst:schema}, već u sebi sadrži metodu postavljanja \engl{setter} koja osigurava da se u bazu ne sprema izravno korisnikova zaporka, već da se generira njen sažetak \engl{hash}.
 Implementacija te metode postavljanja vidljiva je u isječku kôda \ref{lst:pwd}.
 
 \razmakp % Attribut \emph{password} sheme Korisnik
@@ -1220,14 +1220,14 @@ Sažetak se generira pomoću paketa \emph{bcrypt} koji implementira istoimeni al
 Algoritam zahtijeva \emph{salt} u obliku broja rundi za generiranje sažetka.
 Broj rundi predaje se aplikaciji pomoću varijable okruženja \emph{PWD\_ROUNDS} i eksponencijalno produljuje vrijeme potrebno za generiranje sažetka, stoga se, budući da je za metodu postavljanja potrebno koristiti sinkronu implementaciju, preporučuje koristiti jednoznamenkasti broj za vrijednost \emph{PWD\_ROUNDS} \citep{bcrypt}.
 Također bitno je za naglasiti da se \emph{salt} sažetka sprema uz sam sažetak, tako da je dobra praksa dodati \emph{pepper} što je nasumično generirani tajni ključ koji se nadodaje na zaporku korisnika prije generiranja sažetka.
-Vrijednost \emph{pepper} čuva se isključivo u varijablama okruženja aplikacije, tako da u slučaju da neautorizirana osoba dobije podatke o sažecima zaporaka korisnika iz baze podataka, bez \emph{pepper} vrijednosti napadač teško može zaključiti koje su bile originalne zaporke korisnika.
+Vrijednost \emph{pepper} čuva se isključivo u varijablama okruženja aplikacije, tako da u slučaju da neautorizirana osoba dobije podatke o sažecima zaporaka korisnika iz baze podataka, bez \emph{pepper} vrijednosti teško može zaključiti koje su bile originalne zaporke korisnika.
 
-Ovo ne osigurava aplikaciju od napada ako koristi tu istu bazu zaporaka, ali barem osigurava korisnika od toga da se njegova zaporka upotrebi negdje drugdje u slučaju da koristi istu zaporku na više mjesta (što velik broj korisnika radi).
+Ovo ne osigurava aplikaciju od napada ako koristi tu istu bazu zaporaka, ali barem osigurava korisnika od toga da se njegova zaporka upotrijebi negdje drugdje ako koristi istu zaporku na više mjesta (što velik broj korisnika radi).
 
 \razmakp
 
-Opisana metoda koristi se samo pri stvaranju stvaranju korisnika, dok se za provjeru zaporke korisnika koristi metoda \emph{isPasswordValid} koja je definirana nad shemom Korisnik i poziva se nad instancom modela sheme.
-Implementacija se oslanja na već opisanoj metodi sažimanja i usporedbi rezultata s onim koji piše u bazi, samo što se u ovoj situaciji može koristiti asinkron poziv metode sažimanja tako da proces provjere zaporke ne blokira obradu drugih zahtijeva. 
+Opisana metoda koristi se samo pri stvaranju korisnika, dok se za provjeru zaporke korisnika koristi metoda \emph{isPasswordValid} koja je definirana nad shemom Korisnik i poziva se nad instancom modela sheme.
+Implementacija se oslanja na već opisanoj metodi sažimanja i usporedbi rezultata s onim koji piše u bazi, samo što se u ovoj situaciji može koristiti asinkroni poziv metode sažimanja tako da proces provjere zaporke ne blokira obradu drugih zahtijeva.
 Kod metode prikazan je u isječku kôda \ref{lst:isPwd}.
 
 \razmakp % Metoda \emph{isPasswordValid} sheme Korisnik
@@ -1274,7 +1274,7 @@ userSchema.methods.clearToken = async function () {
 \end{lstlisting}
 \razmaks
 
-Na svakoj putanji koja zahtijeva autentifikaciju, odnosno gdje u obradi cjevovoda prije metode upravljačkog sloja stoji metoda \emph{authenticate}, klijentska aplikacija mora u zaglavlju zahtijeva imati adresu elektroničku pošte korisnika i \emph{token} tog korisnika.
+Na svakoj putanji koja zahtijeva autentifikaciju, odnosno u zahtjevu u čijem se cjevovodu obrade zahtjeva prije metode upravljačkog sloja poziva metoda \emph{authenticate}, klijentska aplikacija mora u zaglavlju zahtjeva imati adresu elektroničku pošte i \emph{token} korisnika.
 Adresa elektroničke pošte je jedinstvena za svakog korisnika i koristi se kao identifikator pomoću kojeg se korisnik dohvaća.
 Za svrhu očuvanja jedinstvenosti i brz dohvat korisnika pomoću tog atributa koristi se \emph{unique index} implementacija Mongo sustava \citep{mongo} dostupna u Mongoose API-ju kao svojstvo pri definiciji atributa \citep{mongoose}.
 U slučaju da zahtjev ne sadrži spomenute podatke ili je neki od njih neispravan, klijentskoj aplikaciji se šalje HTTP status kôd 401 (\emph{Unauthorized}).
@@ -1322,7 +1322,7 @@ Ulazna datoteka klijentske aplikacije je \emph{index.tsx} u direktoriju \emph{sr
 U korijenu direktorija \emph{src} nalaze se još dvije TypeScript datoteke, \emph{App.tsx} i \emph{serviceWorker.ts}.
 
 Datoteka \emph{serviceWorker.ts} ostala je nepromijenjena od inicijalizacije Create React App predloška \footnote{poglavljle \ref{sec:cra}} i nudi gotovu \emph{Service Worker API} konfiguraciju.
-Riječ je o API-ju koju implementiraju moderni web preglednici prvenstveno za potrebe čuvanja privremene memorije \engl{cache} u slučaju sporog interneta ili za ostvarivanje offline web aplikacije\footnote{
+Riječ je o API-ju koju implementiraju moderni internetski preglednici prvenstveno za potrebe čuvanja privremene memorije \engl{cache} u slučaju sporog interneta ili za ostvarivanje offline web-aplikacije\footnote{
     aplikacija koja se mora samo učitati pri prvom korištenju, a dalje funkcionira offline
 }.
 
@@ -1333,8 +1333,8 @@ U datoteci \emph{App.tsx} definirana je korijenska React komponenta koja predsta
 \razmakp
 
 Osim direktorija \emph{src}, postoji \emph{public} direktorij u kojem su definirane sve statičke datoteke, odnosno resursi koji ne prolaze kroz proces izgradnje \engl{build}, već ostaju onakvi kakvi jesu.
-To su korijenska \emph{index.html} datoteka, prva datoteka koju preglednik učitava; \emph{manifest.json}, manifest web aplikacije koji je potreban za PWA\footnote{
-    \emph{Progressive Web App} -- web aplikacija koja se, na operacijskim sustavima koji ih podržavaju, može ponašati poput nativne, naizgled samostalne aplikacije (u pozadini web preglednik pokreće aplikaciju, ali se ne prikazuje sučelje tog preglednika), \url{https://developers.google.com/web/progressive-web-apps}
+To su korijenska \emph{index.html} datoteka, prva datoteka koju preglednik učitava; \emph{manifest.json}, manifest web-aplikacije koji je potreban za PWA\footnote{
+    \emph{Progressive Web App} -- web-aplikacija koja se, na operacijskim sustavima koji ih podržavaju, može ponašati poput nativne, naizgled samostalne aplikacije (u pozadini internetski preglednik pokreće aplikaciju, ali se ne prikazuje sučelje tog preglednika), \url{https://developers.google.com/web/progressive-web-apps}
 }; \emph{favicon} ikona; slike, fontovi i ikone korištene u aplikaciji; te statičke JavaScript i CSS datoteke koje nema potrebe uvoziti u razvojnom dijelu aplikacije, u slučaju ovog rada to je \emph{bootstrap.min.css} koji sadrži Bootstrap temu koja se koristi u ovoj aplikaciji.
 Datoteka \emph{index.html} je jedina HTML datoteka u projektu, odakle i naziv jednostranična aplikacija \engl{single page application}.
 Datoteka definira vanjske ovisnosti (dostupne na vanjskom poslužitelju), ovisnosti koje se nalaze u \emph{public} direktoriju i minimalno ili gotovo ništa sadržaja, odnosno \emph{body} element sadrži samo \emph{noscript} i prazan \emph{div} element s vrijednosti \emph{id} atributa jednakom „root“.
@@ -1346,7 +1346,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
 
 \begin{itemize}
     \item \emph{components} -- sadrži sve ponovno iskoristive React komponente, odnosno sve komponente koje se koriste na više različitih putanja, tj. u više \emph{scenes} poddirektorija
-    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji i direktorij \emph{routes} koji sadrži poslužiteljske API putanje (\emph{constants/routes/api.ts}) i putanje web aplikacije (\emph{constants/routes/client.ts})
+    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji i direktorij \emph{routes} koji sadrži poslužiteljske API putanje (\emph{constants/routes/api.ts}) i putanje web-aplikacije (\emph{constants/routes/client.ts})
     \item \emph{engine} -- apstrakcija mehanizma izgradnje dijagrama, datoteka \emph{engine/index.ts} izvozi samo one objekte, metode i tipove koji su potrebni ostatku aplikacije da koriste mehanizam dijagrama, dok je sva ostala potrebna logika i ovisnost na STORM React Diagrams paket sadržana u okviru ovog direktorija
     \item \emph{enums} -- sadrži sve enumeracije koje se koriste u aplikaciji, TypeScript za razliku od JavaScript-a ima podršku za enumeracije koje se stvaraju pomoću ključne riječi \emph{enum}, ali je u konfiguraciji ovog rada bitno paziti da se ne koristi \emph{const enum} tip jer ga prevoditelj Babel ne podržava
     \item \emph{models} -- sadrži definicije, odnosno klase i sučelja podatkvnih modela koji se koriste za forme (\emph{formModels} direktorij), šalju poslužitelju (\emph{requestModels} direktorij), primaju s poslužitelja (\emph{viewModels} direktorij), drže u \emph{localStorage} globalnom objektu (\emph{localStorage.model.ts} datoteka), ili općenito koriste u više slojeva aplikacije, a da nisu modeli stanja aplikacije (oni se nalaze u \emph{state} direktoriju)
@@ -1393,7 +1393,7 @@ Na primjeru razreda \emph{SelectNodeModel} objekt postavki u sebi sadrži listu 
 Metoda \emph{run} u tom slučaju pri primanju ulaznog parametra tablice stvara novu tablicu koja sadrži iste retke kao i primljena, samo bez stupaca koji nisu navedeni u objektu postavki čvora nad kojim je metoda pozvana. 
 Ključna stvar za svaku \emph{run} metodu je da je ona čista funkcija \emph{pure function}, odnosno da njeno pozivanje ne mijenja ni ulazne parametre ni unutarnje stanje objekta nad kojim je pozvana.
 
-Ostali \emph{default} entiteti nisu zahtijevali proširivanje svojih razreda, ali zato razred \emph{DiagramModel} je.
+Ostali zadani \engl{default} entiteti nisu zahtijevali proširivanje svojih razreda, ali zato razred \emph{DiagramModel} je.
 Razred \emph{DiagramModel} proširen je razredom \emph{CustomDiagramModel} koji reimplementira deserijalizaciju dijagrama kako bi ona bila usklađena s implementacijom u \emph{AbstractNodeModel} razredu.
 Specifično u procesu deserijalizacije čvorova nužno je iščitati tip čvora kako bi se mogao instancirati ispravan čvor.
 
@@ -1446,7 +1446,7 @@ Razlog je u tome što akcije na taj dio stanja se ne šalju iz komponenti već i
 \razmakp
 
 Podstanje \emph{user} sadrži korisničke podatke i akcije tog podstanja povezane su uz autorizaciju, odnosno registraciju i prijavu korisnika.
-Budući da osvježavanje stranice u web pregledniku osvježi i Redux stanje ako neki oblik perzistencije nije implementiran, \emph{user} akcije uz ažuriranje Redux stanja ažuriraju i brinu se o autorizacijskim podacima unutar \emph{localStorage} globalnog objekta, specifično riječ je o adresi elektroničke pošte i tokenu koji su nužni dijelovi zaglavlja većine HTTP zahtijeva\footnote{poglavlje \ref{sec:auth}}.
+Budući da osvježavanje stranice u internetskom pregledniku osvježi i Redux stanje ako neki oblik perzistencije nije implementiran, \emph{user} akcije uz ažuriranje Redux stanja ažuriraju i brinu se o autorizacijskim podacima unutar \emph{localStorage} globalnog objekta, specifično riječ je o adresi elektroničke pošte i tokenu koji su nužni dijelovi zaglavlja većine HTTP zahtijeva\footnote{poglavlje \ref{sec:auth}}.
 Nikoji drugi podaci nisu perzistirani već će se dohvatiti pri osvježavanju stranice budući da komponente za dohvat svih tih podataka pozivaju prikladne akcije unutar svojih \emph{componentDidMount} metoda\footnote{poglavlje \ref{sec:react}}.
 Neperzistencija Redux stanja je namjerna jer osigurava mogućnost osvježavanja aplikacije s ispravnim stanjem s poslužitelja umjesto učitavanja starog stanja koje je potencijalno neispravno zbog neke nepredviđene greške.
 Također, konstantno održavanje cijelog Redux stanja bi potencijalno narušilo performanse jer su akcije pisanja u \emph{localStorge} objekt sinkrone, a u slučaju da ih se ubaci unutar asinkronih metoda bi otvorilo mogućnost greške u redoslijedu pisanja stanja u \emph{localStorge} objekt.
@@ -1565,7 +1565,7 @@ Idući korak za ovaj sustav je njegovo korištenje nad testnom skupinom, kako bi
 \begin{sazetak}
 Postoji velik broj interaktivnih okruženja i alata vizualnog programiranja za učenje proceduralne programske paradigme.
 U ovom radu razvijeno je interaktivno okruženje za podršku učenju deklarativne paradigme.
-Interaktivno okruženje ostvareno je kao web aplikacija i bazirano je na izgradnji dijagrama toka podataka gdje su čvorovi dijagrama operacije deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru.
+Interaktivno okruženje ostvareno je kao web-aplikacija i bazirano je na izgradnji dijagrama toka podataka gdje su čvorovi dijagrama operacije deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru.
 Informaciji sustav razvijen u ovom radu u kojem se nalazi interaktivno okruženje namijenjen je za korištenje na mobilnim i desktop uređajima, prvenstveno od strane mlađih uzrasta u ranoj fazi formalnog obrazovanja.
 
 
