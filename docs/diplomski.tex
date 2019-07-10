@@ -1526,6 +1526,141 @@ interface UserState {
     \item \emph{dataByNode} -- rječnik svih čvorova koji sadrže podatake, odnosno imaju izlaznu tablicu; čvor sadrži podatke samo ako svi njegovi prethodnici sadrže podatke, odnosno ako su svi prethodnici spojeni sa \emph{StartNodeModel} čvorovima i imaju ispravan objekt postavki
 \end{itemize}
 
+
+\newpage
+% Primjer korištenja aplikacije
+\section{Primjer korištenja aplikacije}
+
+Dolaskom na web-stranicu aplikacije korisniku će se prikazati forma za prijavu u sustav.
+Nakon prijave bit će preusmjeren na tablicu sa zadacima koje može rješavati i može kliknuti na bilo koji od zadataka kako bi započeo ili nastavio rješavanje odabranog zadatka. Ako je rješavanje tek započelo, sučelje za rješavanje će izgledati kao na slici \ref{fig:screen1}.
+
+\begin{figure}[!htb] % Sučelje za rješavanje zadatka na početku rješavanja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen1.png}
+  \caption{Sučelje za rješavanje zadatka na početku rješavanja}
+  \label{fig:screen1}
+  \razmaks
+\end{figure}
+
+Na vrhu sučelja nalazi se naziv zadatka i gumbi koji omogućavaju predaju rješenja \engl{submit solution}, odnosno povratak na tablicu sa zadacima.
+U oba će slučaja trenutno stanje dijagrama ostati sačuvano. 
+U sredini sučelja je prostor za izgradnju dijagrama čiji lijevi rub sadrži gumbe koji omogućavaju stvaranje novih čvorova u dijagramu.
+Ispod tog prostora nalazi se opis zadatka i ispod njega su na lijevoj strani postavke za trenutno odabrani čvor u dijagramu, a na desnoj stanje podataka, tj. tablica s podacima u tom čvoru dijagrama.
+Na slici \ref{fig:screen1} niti jedan čvor nije odabran stoga nema postavki i podataka ispod opisa zadatka, ali na slici \ref{fig:screen2} je prikazan primjer s dodanim čvorom \emph{Start}.
+
+\begin{figure}[!htb] % Sučelje za rješavanje zadatka s dodanim čvorom \emph{Start}
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen2.png}
+  \caption{Sučelje za rješavanje zadatka s dodanim čvorom \emph{Start}}
+  \label{fig:screen2}
+  \razmaks
+\end{figure}
+
+\newpage
+\noindent Tekst zadatka prikazanog na slikama u ovom poglavlju glasi:
+
+\begin{quotation}
+    Prikaži redni broj, ime, prezime, i datum rođenja svih muških učenika koji su visoki barem 132 cm i imaju ispod 31 kg te svih ženskih učenica koje su visoke barem 131 cm i imaju ispod 30 kg
+\end{quotation}
+
+\noindent Na početku zadatka ponuđena je tablica učenika koja sadrži stupce: redni broj, ime, prezime prosjek, dan rođenja, mjesec rođenja, datum rođenja, spol, visina, i težina.
+
+\razmakp
+
+\noindent Slike u nastavku prikazuju odabrane korake izgradnje jednog mogućeg točnog rješenja zadatka:
+
+\begin{enumerate}
+    \item filtriranje svih učenika s vrijednosti visina većom ili jednakom 132 (slika \ref{fig:screen3})
+    \item filtriranje svih muških učenika s vrijednosti visina većom ili jednakom 132 i vrijednosti težina manjom od 31 (slika \ref{fig:screen4})
+    \item dodavanje čvora za uniju dosad izgrađene grane i one koja nedostaje (slika \ref{fig:screen5})
+    \item filtriranje svih ženskih učenica s vrijednosti visina većom ili jednakom 131 i vrijednosti težina manjom od 30 (slika \ref{fig:screen6})
+    \item spajanje novoizgrađene grane s čvorom Unija čime taj čvor sada sadrži sve retke koji su dani u uvjetu zadatka (slika \ref{fig:screen7})
+    \item selekcija isključivo stupaca koji su zadani u opisu zadatka (slika \ref{fig:screen8})
+    \item dodavanje čvora \emph{End} kako bi rješenje bilo spremno za predaju, tj. provjeru ispravnosti (slika \ref{fig:screen9})
+\end{enumerate}
+
+\razmaks
+
+\noindent Konačno stanje rješenja prikazano je na slici \ref{fig:screen10}.
+
+\razmakp
+
+\begin{figure}[!htb] % Prvi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen3.png}
+  \caption{Prvi odabrani korak izgradnje rješenja}
+  \label{fig:screen3}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Drugi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen4.png}
+  \caption{Drugi odabrani korak izgradnje rješenja}
+  \label{fig:screen4}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Treći odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen5.png}
+  \caption{Treći odabrani korak izgradnje rješenja}
+  \label{fig:screen5}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Četvrti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen6.png}
+  \caption{Četvrti odabrani korak izgradnje rješenja}
+  \label{fig:screen6}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Peti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen7.png}
+  \caption{Peti odabrani korak izgradnje rješenja}
+  \label{fig:screen7}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Šesti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen8.png}
+  \caption{Šesti odabrani korak izgradnje rješenja}
+  \label{fig:screen8}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Sedmi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen9.png}
+  \caption{Sedmi odabrani korak izgradnje rješenja}
+  \label{fig:screen9}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Konačno stanje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen10.png}
+  \caption{Konačno stanje rješenja}
+  \label{fig:screen10}
+  \razmaks
+\end{figure}
+
+
+
 % Zaključak
 \chapter{Zaključak}
 
