@@ -116,9 +116,14 @@
 		color: white;
 		font-family: Helvetica, Arial;
 		padding: 10px;
+		justify-content: space-between;
 
 		& > * {
 			align-self: center;
+		}
+
+		& h2 {
+			margin: 0;
 		}
 	}
 	
@@ -152,6 +157,7 @@
 		background-color: #1e1e1e;
 		color: white;
 		min-height: 48px;
+		box-sizing: content-box;
 		padding: 8px 16px;
 	}
 	
@@ -177,6 +183,10 @@
 
 			& > h3 {
 				filter: brightness(2)
+			}
+
+			& input, select {
+				background-color: white;
 			}
 		}
 	}

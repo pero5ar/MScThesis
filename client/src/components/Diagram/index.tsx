@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect, ReactReduxActionsToDispatchActions } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import NodeData from 'models/nodeData.model';
 
@@ -102,6 +103,11 @@ class Diagram extends React.Component<Props> {
 					<div className="diagram-header">
 						<div className="title">
 							<h4>{title}</h4>
+						</div>
+						<div style={{ float: 'right' }}>
+							<Button size="sm" variant="info">Submit solution</Button>
+							{' '}
+							<Button size="sm" variant="primary">Back</Button>
 						</div>
 					</div>
 					<div className="diagram-content">
