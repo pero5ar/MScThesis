@@ -96,8 +96,8 @@
     captionpos=b
 }
 
-\renewcommand{\lstlistingname}{Isječak koda}
-\renewcommand{\lstlistlistingname}{Popis isječaka koda}
+\renewcommand{\lstlistingname}{Isječak kôda}
+\renewcommand{\lstlistlistingname}{Popis isječaka kôda}
 
 \newcommand{\razmakp}{\vspace{18pt}}
 \newcommand{\razmaks}{\vspace{10pt}}
@@ -129,25 +129,25 @@
 \chapter{Uvod}
 
 Učenje programiranja, odnosno koncepata koji se koriste u programiranju i računalnog načina razmišljanja, u što ranijoj dobi je među ključnim točkama prijedloga reformi obrazovanja u raznim zemljama.
-Cilj je da se time što ranije osposobi djecu za naprednije korištenje računalnih alata na kojima se moderan svijet oslanja te razvije kreativnost i sposobnost rješavanja novih i nepoznatih problema u tim alatima.
-Budući da je, zbog ograničenog znanja jezika i matematike djece u ranoj fazi obrazovanja, teško učiti pisanje programskog koda djecu koja su u dobi nižih razreda osnovne škole, osmišljeni su razni interaktivni alati i vizualni programski jezici pomoću kojih učenici mogu određene koncepte početi istraživati čak i s predškolskom razinom znanja.
-Najpoznatiji takav alat je Scratch gdje slijednim slaganjem konfigurabilnih blokova, koji po potrebi predstavljaju osnovne ili kompleksne operacije, osoba može razviti program za riješiti opisan problem\citep{scratch}.
+Cilj je da se što ranije osposobi djecu za naprednije korištenje računalnih alata na kojima se moderan svijet oslanja te razvije kreativnost i sposobnost rješavanja novih i nepoznatih problema u tim alatima.
+Budući da je, zbog ograničenog znanja jezika i matematike djece u ranoj fazi obrazovanja, teško učiti pisanje programskog kôda djecu koja su u dobi nižih razreda osnovne škole, osmišljeni su razni interaktivni alati i vizualni programski jezici pomoću kojih učenici mogu određene koncepte početi istraživati čak i s predškolskom razinom znanja.
+Najpoznatiji takav alat je Scratch gdje slijednim slaganjem konfigurabilnih blokova, koji po potrebi predstavljaju osnovne ili kompleksne operacije, osoba može razviti program za riješiti opisan problem \citep{scratch}.
 
 Scratch i alati slični njemu nude moćno okruženje za rješavanje problema na razne načine, ali imaju jedno bitno ograničenje.
-Slijedna priroda slaganja blokova ne samo potiče, već isključivo omogućuje rješenja koja su u skladu s proceduralnom programskom paradigmom.
+Slijedna priroda slaganja blokova ne samo da potiče, već isključivo omogućuje rješenja koja su u skladu s proceduralnom programskom paradigmom.
 Budući da je proceduralna paradigma često prva paradigma u kojoj se programira, ovo ne stvara problem za učenje programiranja, ali ograničava razvijanje drugačijih pristupa u rješavanju problema koji mogu biti korisni u nekim drugim računalnim alatima.
 
 Računalni alati pomoću kojih analiziramo podatke, kao što su programi za tablično računanje koje mnogi ljudi koriste na svakodnevnoj bazi za poslovne i privatne potrebe, prvenstveno se oslanjaju na deklarativnom pristupu. 
-Operacije koje ti alati nude -- filtriranje, projekcija, sortiranje, grupiranje i slično -- svoj uzor i osnovnu imaju na operacijama relacijske algebre.
-Osnovu na relacijskoj algebri ima i najpoznatiji programski jezik specijaliziran za dohvat i manipulaciju podataka SQL, koji je deklarativan programski jezik.
+Operacije koje ti alati nude -- filtriranje, projekcija, sortiranje, grupiranje i slično -- svoj uzor i osnovnu imaju u operacijama relacijske algebre.
+Osnovu u relacijskoj algebri ima i najpoznatiji programski jezik specijaliziran za dohvat i manipulaciju podataka SQL, koji je deklarativan programski jezik.
 
 \newpage
 
 Cilj ovog rada bio je razviti interaktivno okruženje za učenje deklarativne programske paradigme, specifično na primjeru manipulacije tabličnih podataka.
-Razvijen je alat koji se oslanja na tome da korisnik gradi dijagram toka podataka u kojem svaki čvor predstavlja jednu operaciju vizualnog deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru i SQL.
+Razvijen je alat kojim korisnik gradi dijagram toka podataka u kojem svaki čvor predstavlja jednu operaciju vizualnog deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru i SQL.
 Taj alat je ključan dio cijelog sustava u kojem korisnici mogu samostalno rješavati različite zadatke i pratiti svoj napredak.
 U radu su objašnjene tehnologije koje su se koristile u izradi alata i sustava u kojem se nalazi.
-Također je objašnjena i argumentirana implementacija tog alata s ciljem da se u budućnosti sustav i alat mogu jednostavno proširiti.
+Također je objašnjena i argumentirana implementacija alata s ciljem da se u budućnosti sustav i alat mogu jednostavno proširiti.
 
 
 
@@ -155,10 +155,10 @@ Također je objašnjena i argumentirana implementacija tog alata s ciljem da se 
 \chapter{Tehnologije}
 
 
-% Jezik
-\section{Jezik}
+% Programski jezici
+\section{Programski jezici}
 
-Programski jezici implementacije sustava su JavaScript za poslužiteljsku stranu \engl{sever-side} i TypeScript za aplikacijsku, odnosno klijentsku stranu \engl{client-side}.
+Programski jezici u kojima je sustav implementiran su JavaScript za poslužiteljsku stranu \engl{sever-side} i TypeScript za aplikacijsku, odnosno klijentsku stranu \engl{client-side}.
 Na klijentskoj strani je u velikoj mjeri prisutna JSX, odnosno TSX sintaksa.
 
 
@@ -166,23 +166,23 @@ Na klijentskoj strani je u velikoj mjeri prisutna JSX, odnosno TSX sintaksa.
 % JavaScript (ECMAScript)
 \subsection{JavaScript (ECMAScript)}
 
-JavaScript je viši programski jezik opće namjene koji se primarno izvodi u internet preglednicima, odnosno uz HTML i CSS (koji nisu jezici opće namjene) jedini je programski jezik kojeg preglednici nativno (bez dodataka) podržavaju.
-Sintaksa jezika je slična ostalim jezicima takozvane C obitelji jezika, ali za razliku od njih riječ je o dinamičko-tipiziranom \engl{dynamicly typed} interpretabilnom jeziku.\citep{mdn_js}
+JavaScript je viši programski jezik opće namjene koji se primarno izvodi u internetskim preglednicima, odnosno uz HTML i CSS (koji nisu jezici opće namjene) jedini programski jezik kojeg preglednici nativno (bez dodataka) podržavaju.
+Sintaksa jezika je slična ostalim jezicima takozvane C obitelji jezika, ali za razliku od njih riječ je o dinamički tipiziranom \engl{dynamicly typed} interpretabilnom jeziku \citep{mdn_js}.
 
 Jezik podržava više paradigmi, ali je primarno objektno orijentiran i to, za razliku od drugih popularnih jezika te skupine, baziran na prototipovima \engl{prototype-based}, a ne na razredima.
-Ključna razlika između ta dva pristupa je u implementaciji nasljeđivanja. U JavaScript-u se nasljeđivanje odvija proširivanjem \emph{prototipova} koji su posebni tipovi objekata pomoću kojih se stvaraju objekti.\citep{wiki_proto_prog}
-Budući da je koncept prototipova većini programera stran i da, zbog dinamičnih tipova u JavaScriptu, neoprezno korištenje može dovesti do nepredviđenih grešaka, od verzije ECMAScript 2015\footnote{
+Ključna razlika između ta dva pristupa je u implementaciji nasljeđivanja. U JavaScript-u se nasljeđivanje odvija proširivanjem \emph{prototipova} koji su posebni tipovi objekata pomoću kojih se stvaraju objekti \citep{wiki_proto_prog}.
+Budući da je koncept prototipova većini programera stran i da, zbog dinamičkih tipova u JavaScriptu, neoprezno korištenje može dovesti do nepredviđenih grešaka, od verzije ECMAScript 2015\footnote{
     također poznata pod nazivom ECMAScript 6, skraćeno ES6
 } dodani su razredi kao sintaksni šećer \engl{syntax sugar} koje programeri mogu koristiti slično drugim objektno orijentiranim jezicima, a transpilatori\footnote{
-    kompilatori, odnosno jezični prevoditelji koji prevode novije verzije JavaScript jezika u starije kako bi stariji preglednici mogli izvršavati napisan kod, primjer: Babel (\url{https://babeljs.io})
-} ih prevode u prototipove\citep{mdn_class}.
+    kompilatori, odnosno jezični prevoditelji koji prevode novije verzije JavaScript jezika u starije kako bi stariji preglednici mogli izvršavati napisan kôd, primjer: Babel (\url{https://babeljs.io})
+} ih prevode u prototipove \citep{mdn_class}.
 
 \razmakp
 
 ECMAScript je pojam koji se često koristi kao alternativno ime za jezik JavaScript, posebice kada se želi naglasiti korištenje modernih novijih verzija jezika.
-ECMAScript je ustvari specifikacija skriptnog jezika pod kodovima ECMA-262 i ISO/IEC 16262 kojeg održava međunarodna organizacija Ecma International\footnote{\url{https://www.ecma-international.org}}.
+ECMAScript je ustvari specifikacija skriptnog jezika pod kôdovima ECMA-262 i ISO/IEC 16262 kojeg održava međunarodna organizacija Ecma International\footnote{\url{https://www.ecma-international.org}}.
 Taj standard implementira više programskih jezika, ali je daleko najpoznatiji JavaScript za kojeg je primarno standard i napisan.
-U trenutku pisanja ovog rada najnovija verzija standarda je verzija 9, odnosno ECMAScript 2018.\citep{wiki_es}
+U trenutku pisanja ovog rada najnovija verzija standarda je verzija 9, odnosno ECMAScript 2018 \citep{wiki_es}.
 
 \razmaks
 % Asinkronost i Promise objekt
@@ -190,13 +190,13 @@ U trenutku pisanja ovog rada najnovija verzija standarda je verzija 9, odnosno E
 
 Ključan detalj za JavaScript i jezike koje se prevode u JavaScript je da se izvode u jednodretvenom okruženju i da je konkurentnost tog okruženja bazirana na modelu petlje događaja \engl{event loop}.
 Pojednostavljena verzija tog modela je da za svaki asinkroni događaj (primjerice dohvat podataka s poslužitelja) postoji funkcija povratnog poziva \engl{callback function} i ta funkcija se stavlja u red poruka \engl{message queue}.
-Dretva u kojem se izvršava JavaScript kod je ostvarena kao neblokirajuća beskonačna petlja koja, u trenutku kada ne izvršava neki dio koda, provjerava red poruka.
-Ako je asinkron događaj elementa izvađenog iz reda gotov, petlja izvršava funkciju povratnog poziva, inače stavlja događaj nazad u red i provjerava idući element reda.\citep{mdn_event_loop}
+Dretva u kojem se izvršava JavaScript kôd je ostvarena kao neblokirajuća beskonačna petlja koja, u trenutku kada ne izvršava neki dio kôda, provjerava red poruka.
+Ako je asinkron događaj elementa izvađenog iz reda gotov, petlja izvršava funkciju povratnog poziva, inače stavlja događaj nazad u red i provjerava idući element reda \citep{mdn_event_loop}.
 
 \razmakp
 
 U praksi se pokazalo da aplikacijska logika često zahtijeva da se neki asinkron događaj poziva nakon drugog asinkronog događaja, odnosno unutar funkcije povratnog poziva prvog događaja bi se pozivao događaj sa svojom funkcijom povratnog poziva.
-Ovakav scenarij se često mogao ponoviti i u toj unutarnjoj funkciji povratnog poziva što bi dovelo do teško održivog i teško čitljivog koda kojeg neki programeri zovu „callback hell“ ili „callback pyramid of doom“.
+Ovakav scenarij se često mogao ponoviti i u toj unutarnjoj funkciji povratnog poziva što bi dovelo do teško održivog i teško čitljivog kôda kojeg neki programeri zovu „callback hell“ ili „callback pyramid of doom“.
 
 \razmakp % Primjer ugnježđivanja funkcija povratnog poziva
 \begin{lstlisting}[language=JavaScript, caption={Primjer ugnježđivanja funkcija povratnog poziva}, label={lst:callback}]
@@ -230,7 +230,7 @@ doSomething()
 \end{lstlisting}
 \razmaks
 
-Metode \emph{then} i \emph{catch} su nužne jer \emph{Promise} omotava asinkrone operacije i ne može se izravno iz njega iščitati rezultat operacije jer se u trenutku izvršavanja koda ne zna u kojem je stanju \emph{Promise} objekt.
+Metode \emph{then} i \emph{catch} su nužne jer \emph{Promise} omotava asinkrone operacije i ne može se izravno iz njega iščitati rezultat operacije jer se u trenutku izvršavanja kôda ne zna u kojem je stanju \emph{Promise} objekt.
 
 \begin{figure}[!htb] % Životni ciklus Promise objekta
     \centering
@@ -241,17 +241,18 @@ Metode \emph{then} i \emph{catch} su nužne jer \emph{Promise} omotava asinkrone
 
 \newpage
 \emph{Promise} u svom životnom ciklusu prolazi kroz dva od tri moguća stanja.
-Na početku je u pripravnosti \engl{pending} i ovisno o uspješnosti asinkrone operacije odlazi u stanje \emph{ispunjen} \engl{fulfilled} ili \emph{odbijen} \engl{rejected} (vidi sliku \ref{fig:promise_lifecycle}).
+Na početku je u pripravnosti \engl{pending} i ovisno o uspješnosti asinkrone operacije odlazi u stanje \emph{ispunjen} \engl{fulfilled} ili \emph{odbijen} \engl{rejected} (slika \ref{fig:promise_lifecycle}).
 U trenutku ulaska u jedno od dva konačna stanja poziva se funkcija ili novi \emph{Promise} definiran kao rezultat funkcije koja je argument \emph{then} ili \emph{catch} metode.
-U slučaju da \emph{Promise} uđe u odbijeno stanje, a nema poziva \emph{catch} metode, u aplikaciji će se propagirati greška da odbijeno stanje nije obrađeno \engl{unhandled promise rejection}.\citep{mdn_promise}
+U slučaju da \emph{Promise} uđe u odbijeno stanje, a nema poziva \emph{catch} metode, u aplikaciji će se propagirati greška da odbijeno stanje nije obrađeno \engl{unhandled promise rejection} \citep{mdn_promise}.
 
 \razmakp
 
-Budući da novi koncept \emph{Promise} objekta nije u savršeno pomogao s čitljivošću koda, pogotovo u situacijama kada je nužno obraditi grešku u sredini nekog većeg lanca \emph{Promise} objekata, u specifikaciji ECMAScript 2017 se dodatno uljepšala sintaksa korištenja \emph{Promise} objekata uvođenjem novih ključnih riječi \emph{async} i \emph{await} koji se mogu kombinirati s postojećom \emph{try} i \emph{catch} sintaksom.
+Budući da novi koncept \emph{Promise} objekta nije savršeno pomogao s čitljivošću kôda, pogotovo u situacijama kada je nužno obraditi grešku u sredini nekog većeg lanca objekata tipa \emph{Promise}, u specifikaciji ECMAScript 2017 se dodatno uljepšala sintaksa korištenja \emph{Promise} objekata uvođenjem novih ključnih riječi \emph{async} i \emph{await} koji se mogu kombinirati s postojećom sintaksom \emph{try} i \emph{catch}.
 Ideja je da se funkcije koje su asinkrone, odnosno vraćaju \emph{Promise} označe ključnom riječi \emph{async}.
 Rezultat te funkcije se može odmotati korištenjem ključne riječi \emph{await}.
 Time se postiže neblokirajuće čekanje na izvršavanje asinkrone operacije, ekvivalentno tome da se pozvalo \emph{then}\footnote{
-    Transpilator u praksi ne prevodi \emph{await} i kod koji slijedi u \emph{then} već prevodi cijelu \emph{async} funkciju u funkciju generator \engl{generator function} gdje samo \emph{await} zamjeni s \emph{yield“} Ta funkcija generator je potom omotana u drugu funkciju koja koristi taj generator da bi iterirala po koracima lanca asinkronih operacija i pozvala \emph{then} za idući dio lanca. Nakon toga je funkcija generator, budući da je i ona relativno novi dodatak (ECMAScript 2015), prevedena u kod koji je u skladu sa starijim standardom.
+    Transpilator u praksi ne prevodi \emph{await} i kôd koji slijedi u \emph{then} već prevodi cijelu \emph{async} funkciju u funkciju generator \engl{generator function} gdje samo \emph{await} zamjeni s \emph{yield}.
+    Ta funkcija generator je potom omotana u drugu funkciju koja koristi taj generator da bi iterirala po koracima lanca asinkronih operacija i pozvala \emph{then} za idući dio lanca. Nakon toga je funkcija generator, budući da je i ona relativno novi dodatak (ECMAScript 2015), prevedena u kôd koji je u skladu sa starijim standardom.
 }.
 Za obradu grešaka, umjesto \emph{catch} metode koristi se postojeći \emph{catch} blok.
 
@@ -273,20 +274,20 @@ try {
 % TypeScript
 \subsection{TypeScript} \label{sec:ts}
 
-TypeScript je programski jezik razvijen od strane tvrtke Microsoft, koji je nadogradnja \engl{superset} nad jezikom JavaScript.
-TypeScript proširuje JavaScript sintaksu \footnote{specifično ECMAScript 2015 i kasnije verzije specifikacije sintakse} s tipovima i sučeljima.
-Varijable, konstante, funkcije, razredi i elementi razreda mogu se anotirati prikladnim tipovima čija se ispravnost provjerava pri prevođenju TypeScript koda u JavaScript.
+TypeScript je programski jezik razvijen od strane tvrtke Microsoft, koji je nadogradnja \engl{superset} jezika JavaScript.
+TypeScript proširuje sintaksu JavaScript-a \footnote{specifično ECMAScript 2015 i kasnije verzije specifikacije sintakse} tipovima i sučeljima.
+Varijable, konstante, funkcije, razredi i elementi razreda mogu se anotirati prikladnim tipovima čija se ispravnost provjerava pri prevođenju TypeScript kôda u JavaScript.
 Tipovi mogu biti primitivi (\emph{number}, \emph{boolean}, \emph{string}, \emph{symbol}\footnote{
-    \emph{Symbol} je novi JavaScript tip, uveden u ECMAScript 2015 standardu (\url{https://developer.mozilla.org/en-US/docs/Glossary/symbol})
-}, \emph{void}), vrijednosti (npr. \emph{null}, \emph{undefined}, \emph{'1'}, \emph{1}, \emph{true}…), objekti (\emph{object}), ugrađeni objekti (npr. \emph{Array}, \emph{Date}, \emph{Function}…), posebni TypeScript tipovi (\emph{any}, \emph{never} i \emph{unknown} \footnote{
-    \emph{unknown} je uveden tek u TypeScript verziji 3 kao sigurnija alternativa tipu \emph{any}\citep{ts_hand}
-}) ili kombinacije spomenutih tipova ostvarenih pomoću sučelja \engl{interface}, unija, presjeka ili kondicionalnih tipova.\citep{gh_ts_spec}\citep{ts_hand}
+    \emph{Symbol} je novi tip u JavaScript-u, uveden u ECMAScript 2015 standardom (\url{https://developer.mozilla.org/en-US/docs/Glossary/symbol})
+}, \emph{void}), vrijednosti (npr. \emph{null}, \emph{undefined}, \emph{'1'}, \emph{1}, \emph{true}…), objekti (\emph{object}), ugrađeni objekti (npr. \emph{Array}, \emph{Date}, \emph{Function}…), posebni  tipovi u TypeScript-u (\emph{any}, \emph{never} i \emph{unknown}\footnote{
+    \emph{unknown} je uveden tek u verziji TypeScript-a 3 kao sigurnija alternativa tipu \emph{any} \citep{ts_hand}
+}) ili kombinacije spomenutih tipova ostvarenih pomoću sučelja \engl{interface}, unija, presjeka ili kondicionalnih tipova \citep{gh_ts_spec}\citep{ts_hand}.
 
-Korištenje tipova postiže čitljivi i lakše održiv kod,a tipovi omogućavaju se detektiranje nekih čestih JavaScript grešaka pri prevođenju TypeScript koda u JavaScript\footnote{
-    Na JSConf Hawaii konferenciji u veljači 2019 godine je predstavnica tvrtke AirBnB izjavila kako su postmortem analizom svojeg dnevnika grešaka i njihovih ispravaka zaključili da bi migriranje iz JavaScript-a u TypeScript eliminirali 38\% grešaka prije nego što se dese, odnosno pri prevođenju u JavaScript\citep{yt_ts}
+Korištenjem tipova postiže se čitljivi i lakše održiv kôd, a tipovi omogućavaju se detektiranje nekih čestih JavaScript grešaka pri prevođenju TypeScript kôda u JavaScript\footnote{
+    Na JSConf Hawaii konferenciji u veljači 2019. godine predstavnica tvrtke AirBnB izjavila je kako su postmortem analizom svojeg dnevnika grešaka i njihovih ispravaka zaključili da bi migriranjem iz JavaScript-a u TypeScript eliminirali 38\% grešaka prije nego što su se dogodile, odnosno pri prevođenju u JavaScript \citep{yt_ts}.
 }.
-U isječku koda \ref{lst:typescript} prikazano je nekoliko primjera definiranja i korištenja TypeScript tipova\footnote{
-    Napomena: u trenutku pisanja ovog rada najnovija verzija jezika TypeScript je 3.4, no napisani primjeri vrijede i za verziju 2
+Isječkom kôda \ref{lst:typescript} prikazano je nekoliko primjera definiranja i korištenja tipova  u TypeScript-u\footnote{
+    u trenutku pisanja ovog rada najnovija verzija jezika TypeScript je 3.4, no napisani primjeri vrijede i za verziju 2
 }.
 
 \razmakp % Primjer definiranja i korištenja TypeScript tipova
@@ -349,11 +350,11 @@ class Person implements IPerson {
 \end{lstlisting}
 \razmaks
 
-Bitno je napomenuti da korištenje TypeScript jezika ne isključuje mogućnost korištenja čistog JavaScript koda.
-Budući da je TypeScript samo nadogradnja na JavaScript, TypeScript datoteke mogu bez ikakvog problema uvoziti \engl{import} JavaScript datoteke i obratno.
-Prevoditelj će u takvoj situaciji samo tretirati sve tipove unutar JavaScript datoteke kao tip \emph{any} koji može označavati bilo koji tip, osim ako prevoditelj ima pristup deklaracijskim datotekama \engl{declaration files} za funkcije i varijable koje se izvoze \engl{export} i koriste unutar JavaScript datoteke.
-Deklaracijske datoteke su poseban tip TypeScript datoteka\footnote{označavaju se ekstenzijom „.d.ts“} u kojima se nalazi isključivo deklaracije tipova funkcija i objekata koje se koriste u nekoj JavaScript datoteci ili paketu.\citep{ts_hand}
-Budući da su većina paketa koje se koriste u razviju TypeScript projekata napisani isključivo u JavaScript kodu, deklaracijske datoteke često se koriste kako bi se opisalo metode tog paketa i održala sigurnost tipova pri prevođenju jezika.
+Bitno je napomenuti da korištenje jezika TypeScript ne isključuje mogućnost korištenja čistog JavaScript kôda.
+Budući da je TypeScript samo nadogradnja JavaScript-a, TypeScript datoteke mogu bez ikakvog problema uvoziti \engl{import} JavaScript datoteke i obratno.
+Prevoditelj će u takvoj situaciji samo tretirati sve tipove unutar JavaScript datoteke kao tip \emph{any} koji može označavati bilo koji tip, osim ako prevoditelj nema pristup deklaracijskim datotekama \engl{declaration files} za funkcije i varijable koje se izvoze \engl{export} i koriste unutar JavaScript datoteke.
+Deklaracijske datoteke su poseban tip datoteka u TypeScript-u\footnote{označavaju se ekstenzijom „.d.ts“} u kojima se nalaze isključivo deklaracije tipova funkcija i objekata koje se koriste u nekoj JavaScript datoteci ili paketu \citep{ts_hand}.
+Budući da su većina paketa koje se koriste u razvoju TypeScript projekata napisani isključivo u JavaScript-u, deklaracijske datoteke često se koriste kako bi se opisalo metode paketa i održala sigurnost tipova pri prevođenju jezika.
 U nastavku slijedi primjer definicije deklaracijske datoteke za neki paket koji nema vlastitu deklaracijsku datoteku.
 
 \razmakp % Primjer deklaracijske datoteke
@@ -370,12 +371,13 @@ declare module 'my-module' {
 % JSX i TSX
 \subsection{JSX i TSX}
 
-JSX je kratica za JavaScript XML i to je sintaksno proširenje jezika JavaScript gdje se posebne JavaScript funkcije i razredi mogu koristiti kao XML elementi čija struktura nalikuje HTML-u\citep{jsx_spec}.
-Korištenje funkcije ili razreda na taj način označava poziv te funkcije, odnosno poziv posebne metode razreda. Sintaksu primarno koristi biblioteka React i paketi koji ovise o toj biblioteci kako bi što čitljivije definirali vizualne komponente koje će se prevesti u HTML kod\citep{react_docs}.
-Datoteke koje koriste sintaksu uglavnom završavaju ekstenzijom \emph{.jsx}, odnosno \emph{.tsx} za TypeScript\citep{ts_hand}.
-Sav napisani XML kod je ustvari JavaScript, uključivo s elementima koji se zovu isto kao standardni HTML elementi (npr. \emph{div}, \emph{span}, \emph{table}…)\footnote{
-    U slučaju tih HTML elemenata riječ je o funkcijama ugrađenih u biblioteku koje su implementirane tako da se pri pozivu i prevođenju povratne vrijednosti u HTML prikažu kao ti isti HTML tagovi.
-}tako da pisanje ekstenzije nije nužno osim ako prevoditelj sintakse nije podešen tako da to zahtijeva.
+JSX je kratica za JavaScript XML koji je sintaksno proširenje jezika JavaScript u kojem se posebne funkcije i razredi u JavaScript-u mogu koristiti kao XML elementi čija struktura nalikuje HTML-u \citep{jsx_spec}.
+Korištenje funkcije ili razreda na taj način označava poziv funkcije, odnosno poziv posebne metode razreda.
+Sintaksu primarno koristi biblioteka React i paketi koji ovise o toj biblioteci kako bi što čitljivije definirali vizualne komponente koje će se prevesti u HTML kôd \citep{react_docs}.
+Datoteke koje koriste sintaksu uglavnom završavaju ekstenzijom \emph{.jsx}, odnosno \emph{.tsx} za TypeScript \citep{ts_hand}.
+Sav kôd napisan u XML-u je ustvari JavaScript, uključivo s elementima koji se zovu isto kao standardni HTML elementi (npr. \emph{div}, \emph{span}, \emph{table}…)\footnote{
+    U slučaju takvih HTML elemenata riječ je o funkcijama ugrađenim u biblioteku koje su implementirane tako da se pri pozivu i prevođenju povratne vrijednosti u HTML prikažu kao ti isti HTML tagovi.
+} tako da pisanje ekstenzije nije nužno osim ako prevoditelj sintakse nije podešen tako da to zahtijeva.
 
 
 \newpage
@@ -386,50 +388,50 @@ Sav napisani XML kod je ustvari JavaScript, uključivo s elementima koji se zovu
 % NPM
 \subsection{NPM}
 
-Upravitelj i registar paketa NPM je originalno zamišljen kao upravitelj paketa za izvršno okruženje \emph{Node.js}, no postupno je postao glavni repozitorij za sve JavaScript i TypeScript pakete i najveći repozitorij po broju paketa općenito\citep{med_npm_stats}.
+Upravitelj i registar paketa NPM je originalno zamišljen kao upravitelj paketa za izvršno okruženje \emph{Node.js}, no postupno je postao glavni repozitorij za sve JavaScript i TypeScript pakete i najveći repozitorij po broju paketa općenito \citep{med_npm_stats}.
 Registar paketa i programsku podršku održava tvrtka Npm, Inc.
-U trenutku pisanja ovog rada zadnja stabilna verzija programske podrške za NPM je verzija 6.9\citep{wiki_npm}.
+U trenutku pisanja ovog rada zadnja stabilna verzija programske podrške za NPM je verzija 6.9 \citep{wiki_npm}.
 
 \razmakp
 
-Projekti koji se oslanjaju na NPM za upravljanje paketima moraju sadržavati datoteku \emph{packakge.json} koja se najčešće nalazi u korijenskom direktoriju projekta.
-Datoteka može sadržavati neke osnovne informacije o projektu kao što su ime, autor, opis i licenca i neke konfiguracijske detalje, no ključan dio je objekt \emph{dependencies} koji je mapa čiji su ključevi imena paketa koje projekt koristi, a vrijednosti verzije tih paketa\footnote{
-    Neki projekti uz \emph{dependencies} imaju i \emph{devDependencies} objekt u kojem se navode paketi koji su nužni isključivo za razvoj, ali ne i za ispravan rad produkcijske verzije projekta. Primjer toga su paketi s deklaracijama TypeScript tipova i ESLint što je linter – dodatak koji provjerava konzistentnost stila pisanja JavaScript koda i upozorava na loše prakse.
+Projekti koji se oslanjaju na NPM za upravljanje paketima moraju sadržavati datoteku \emph{package.json} koja se najčešće nalazi u korijenskom direktoriju projekta.
+Datoteka može sadržavati neke osnovne informacije o projektu kao što su ime, autor, opis i licenca i neke konfiguracijske detalje, no ključan dio je objekt \emph{dependencies} koji je mapa čiji su ključevi imena paketa koje projekt koristi, a vrijednosti verzije paketa\footnote{
+    Neki projekti uz \emph{dependencies} imaju i \emph{devDependencies} objekt u kojem se navode paketi koji su nužni isključivo za razvoj, ali ne i za ispravan rad produkcijske verzije projekta. Primjer toga su paketi s deklaracijama TypeScript tipova i ESLint što je linter – dodatak koji provjerava konzistentnost stila pisanja JavaScript kôda i upozorava na loše prakse.
 }.
 
-Instalacija paketa se odvija tako da se u naredbenoj liniji pozove naredba \emph{npm install} koja potom sve pakete koji su navedeni u \emph{dependencies} i one pakete koje se nalaze u \emph{dependencies} tih paketa i tako rekurzivno preuzima iz NPM repozitorija u mapu \emph{node\_modules}\citep{npm_docs}.
-Svi paketi, i oni navedeni u \emph{dependencies} i oni o kojima ti paketi ovise, na istoj razini hijerarhije u mapi \emph{node\_modules}, odnosno svi paketi su u korijenu te mape\footnote{Prije NPM verzije 3 su bili hijerarhijski raspoređeni s obzirom na ovisnosti}.
+Instalacija paketa se odvija tako da se u naredbenoj liniji pozove naredba \emph{npm install} koja potom sve pakete koji su navedeni u \emph{dependencies} i one pakete koje se nalaze u \emph{dependencies} tih paketa i tako rekurzivno preuzima iz NPM repozitorija u mapu \emph{node\_modules} \citep{npm_docs}.
+Svi paketi, i oni navedeni u \emph{dependencies} i oni o kojima ti paketi ovise, na istoj razini hijerarhije u mapi \emph{node\_modules}, odnosno svi paketi su u korijenu te mape\footnote{Prije NPM verzije 3 bili su hijerarhijski raspoređeni s obzirom na ovisnosti}.
 Razlog tome je ušteda memorije i brža instalacija paketa u slučaju da velik broj paketa dijeli istu ovisnost.
-Problem može nastati u slučaju da dva paketa ovise o istom paketu koji su međusobno nekompatibilni.
-Ako su pravilno verzionirani, odnosno ako se razlikuju u \emph{Major} verziji\footnote{vidi poglavlje \ref{sec:semver}}, ona verzija paketa koja je kasnije dodana će se instalirati unutar mape paketa koji koristi tu verziju kako ne bi utjecala na rad paketa koji koristi drukčiju verziju\citep{npm_npm3}.
+Problem može nastati u slučaju da dva paketa ovise o različitim verzijama istog paketa koje su međusobno nekompatibilne.
+Ako su pravilno verzionirani, odnosno ako se razlikuju u \emph{Major} verziji\footnote{poglavlje \ref{sec:semver}}, ona verzija paketa koja je kasnije dodana će se instalirati unutar mape paketa koji koristi tu verziju kako ne bi utjecala na rad paketa koji koristi drukčiju verziju \citep{npm_npm3}.
 
 
 \newpage
 % Semantičko verzioniranje
 \subsection{Semantičko verzioniranje} \label{sec:semver}
 
-NPM paketi se oslanjaju na to da ih njihovi autori verzioniraju poštujući pravila semantičkog verzioniranja.
+NPM-paketi oslanjaju se na to da ih njihovi autori verzioniraju poštujući pravila semantičkog verzioniranja.
 Semantičko verzioniranje je način zapisivanja verzija programske podrške gdje se verzija sastoji od tri broja odvojenih točkama.
 Prvi broj verzije zove se \emph{Major} i on ukazuje na to da je riječ o potpuno drugačijoj verziji paketa koja nije kompatibilna s verzijama koje se razlikuju u tom broju \engl{breaking change}.
-Drugi broj je \emph{Minor} i on ukazuje na to da su se desile promjene u funkcionalnosti i/ili sučelju paketa, ali je verzija kompatibilna sa svim nižim verzijama koji imaju isti \emph{Major} broj \engl{backwards compatible}, odnosno u slučaju da se koristi novija \emph{Minor} verzija od predviđene funkcionirat će jednako.
-Treći broj je \emph{Patch} i ukazuje na to da se nije utjecalo na funkcionalnosti i sučelje paketa, već se samo ispravilo greške u implementaciji funkcionalnosti na toj \emph{Major.Minor} verziji\citep{semver}.
+Drugi broj je \emph{Minor} i on ukazuje na to da su se dogodile promjene u funkcionalnosti i/ili sučelju paketa, ali je verzija kompatibilna sa svim nižim verzijama koji imaju isti \emph{Major} broj \engl{backwards compatible}, odnosno u slučaju da se koristi novija \emph{Minor} verzija od predviđene funkcionirat će jednako.
+Treći broj je \emph{Patch} i ukazuje na to da se nije utjecalo na funkcionalnosti i sučelje paketa, već se samo ispravilo greške u implementaciji funkcionalnosti na toj \emph{Major.Minor} verziji \citep{semver}.
 
 \razmakp
 
 NPM pri instalaciji paketa iz naredbene linije, ako mu nije drukčije navedeno pored verzije dodaje znak „\string^“ koji označava da će pri preuzimanju paketa iz repozitorija uzeti najnoviju \emph{Minor} verziju za taj \emph{Major}.
-Točnije, u slučaju da je verzija paketa navedena kao „\string^1.2.3“ to znači skini mi bilo koju verziju koja je veća ili jednaka verziji „1.2.3“ i manja od verzije „2.0.0“.
-U slučaju da se želi precizirati točnu verziju oznaka se može maknuti ili, ako se želi isključivo skinuti najnoviju \emph{Patch} verziju staviti znak tilda („\string~“)\footnote{
+Točnije, u slučaju da je verzija paketa navedena kao „\string^1.2.3“ to znači da će se preuzeti bilo koja verzija koja je veća ili jednaka verziji „1.2.3“ i manja od verzije „2.0.0“.
+U slučaju da se želi precizirati točnu verziju oznaka se može maknuti ili, ako se želi isključivo preuzeti najnoviju \emph{Patch} verziju, staviti znak tilda („\string~“)\footnote{
     Upozorenje: Tilda („\string~“) ustvari znači da zadnji navedeni broj može biti veći od onog koji piše. Ako se verzija navede s izostavljenim \emph{Patch} brojem to onda znači da \emph{Minor} može biti veći, odnosno u slučaju da je navedena verzija „\string~1.2“ to znači da u obzir dolazi svaka verzija veća ili jednaka „1.2.0“ i manja od „2.0.0“
 }.
 Stvari se drukčije ponašaju u slučaju da je \emph{Major} verzija 0, što je karakteristično za pakete koji su još uvijek u ranoj fazi razvoja i nestabilni.
-Tada se drugi broj tretira kao da je \emph{Major}, jer on označava da su se desile promjene nekompatibilne s prijašnjom verzijom\citep{npm_docs}.
+Tada se drugi broj tretira kao da je \emph{Major}, jer on označava da su se dogodile promjene nekompatibilne s prijašnjom verzijom \citep{npm_docs}.
 
 
 \newpage
 % Poslužiteljska strana
 \section{Poslužiteljska strana}
 
-Poslužitelj se pokreće i izvodi u \emph{Node.js} izvršnom okruženju \engl{runtime}, a izgrađen je pomoću radnog okvira \engl{framework} Express.
+Poslužitelj se pokreće i izvodi u izvršnom okruženju \engl{runtime} \emph{Node.js}, a izgrađen je pomoću radnog okvira \engl{framework} Express.
 Podaci se spremaju u MongoDB dokument bazu podataka \engl{document-based database} kojoj se pristupa koristeći biblioteku Mongoose (koja se ujedno koristi i za modeliranje podataka).
 
 
@@ -438,72 +440,72 @@ Podaci se spremaju u MongoDB dokument bazu podataka \engl{document-based databas
 \subsection{Node.js}
 
 \emph{Node.js} (u daljnjem tekstu Node) je izvršno okruženje za JavaScript izgrađeno nad Chrome V8 mehanizmom \engl{engine}.
-Node je primarno namijenjen izgradnji skripti za web poslužitelje i alate naredbene linije \engl{command line tools}.
-Ključna prednost koju nudi u izgradnji web poslužitelja je što omogućava da se koristi isti jezik (JavaScript ili jezik koji se prevodi u JavaScript) koristi za izgradnju poslužiteljske i klijentske strane, što olakšava razvoj u slučaju kada isti razvojni tim programira i poslužiteljsku i klijentsku aplikaciju\citep{wiki_node}.
+Node je primarno namijenjen izgradnji skripti za web-poslužitelje i alate naredbene linije \engl{command line tools}.
+Ključna prednost koju nudi u izgradnji web-poslužitelja je što omogućava da se koristi isti jezik (JavaScript ili jezik koji se prevodi u JavaScript) za izgradnju poslužiteljske i klijentske strane, što olakšava razvoj u slučaju kada isti razvojni tim programira i poslužiteljsku i klijentsku aplikaciju \citep{wiki_node}.
 
-Druga prednost je u konkurentnom model jezika JavaScript \footnote{vidi poglavlje \ref{sec:async}} koji omogućava i potiče neblokirajuće, odnosno asinkrone ulazno-izlazne operacije \engl{asynchronous I/O}, što pomaže u izgradnji skalabilnih i brzih web poslužitelja.
+Druga prednost je u konkurentnom model jezika JavaScript\footnote{poglavlje \ref{sec:async}} koji omogućava i potiče neblokirajuće, odnosno asinkrone ulazno-izlazne operacije \engl{asynchronous I/O}, što pomaže u izgradnji skalabilnih i brzih web-poslužitelja.
 Naravno taj isti model onemogućava stvaranje zasebnih dretvi u jednom Node procesu. Node proces pri pokretanju stvara fiksan broj dretvi koje su potrebne za njegov rad i ne nudi programeru stabilno sučelje za stvaranje novih dretvi.
 Od verzije 10.5 uveden je eksperimentalan modul \emph{worker-threads}\footnote{
     korištenje modula mora se eksplicitno navesti pri pokretanju Node procesa sa zastavicom \emph{-{}-experimental-worker}
 } koji omogućava stvaranje novih dretvi kako bi se sinkrone operacije zahtjevne za procesor \engl{CPU intensive} mogle prebaciti na njih.
-Način na koji se ovaj problem rješavao do sada je bio stvaranje novih procesa pomoću postojećeg Node sučelja ili vanjskih paketa\citep{art_node}.
+Način na koji se ovaj problem rješavao do sada je bio stvaranje novih procesa pomoću postojećeg Node sučelja ili vanjskih paketa \citep{art_node}.
 
-Svaka parna verzija ima podršku za održavanje \engl{long termn support} koja počinje kada krene razvoj sljedeće neparne verzije.
-U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podrška za verziju 12\footnote{od 10. listopada 2019.}\citep{wiki_node}.
+Svaka parna verzija ima podršku za održavanje \engl{long term support} koja počinje kada krene razvoj sljedeće neparne verzije.
+U trenutku pisanja ovog rada verzija 10 ima tu podršku, a uskoro kreće podrška za verziju 12\footnote{od 10. listopada 2019.} \citep{wiki_node}.
 
 
 \newpage
 % Express
 \subsection{Express}
 
-Express (poznat još i kao \emph{Express.js}) je radni okvir \engl{framework} koji nadograđuje Node sučelje i module za gradnju web poslužitelja s naprednim mogućnostima usmjeravanja \engl{routing} i opcionalnim korištenjem mehanizama predložaka \engl{template engines} za izgradnju web stranica.
-Napredne mogućnosti usmjeravanja olakšavaju razdvajanje koda s obzirom na korijenske API rute (korijenske resurse REST arhitekturnog stila), dodavanje međusloja sloja \engl{middleware} u cjevovod \engl{pipeline} specifičnih ruta, serviranje statičkih datoteka i konfiguriranje privremene memorije \engl{cache}.
+Express (poznat još i kao \emph{Express.js}) je radni okvir \engl{framework} koji nadograđuje sučelje Node-a i module za gradnju web-poslužitelja s naprednim mogućnostima usmjeravanja \engl{routing} i opcionalnim korištenjem mehanizama predložaka \engl{template engines} za izgradnju web-stranica.
+Napredne mogućnosti usmjeravanja olakšavaju razdvajanje kôda s obzirom na korijenske rute API-ja (korijenske resurse REST arhitekturnog stila), dodavanje međusloja sloja \engl{middleware} u cjevovod \engl{pipeline} specifičnih ruta, serviranje statičkih datoteka i konfiguriranje privremene memorije \engl{cache}.
 
-U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi u svim verzijama Node okruženja iznad verzije 0.10\citep{gh_express}.
+U trenutku pisanja ovog rada najnovija verzija radnog okvira je verzija 4 i radi u svim verzijama Node okruženja iznad verzije 0.10 \citep{gh_express}.
 
 
 \razmaks
 % MongoDB
 \subsection{MongoDB} \label{sec:mongo}
 
-\emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, specifično riječ je o dokument sustavu baza podataka gdje su dokumenti predstavljeni u JSON\footnote{
+\emph{MongoDB} (u daljnjem tekstu Mongo) je NoSQL sustav baza podataka, preciznije dokument sustav baza podataka u kojem su dokumenti predstavljeni u JSON\footnote{
     \emph{JavaScript Object Notation} – način reprezentacije podataka kao JavaScript objekata - \url{https://www.json.org}
 } formatu.
-Dokumenti nisu zapravo spremljeni u JSON, već u BSON (\emph{binary JSON}) formatu, što je binarna serijalizacija proširenih JSON objekata koje Mongo koristi za spremanje podataka i upita.
-Prošireni JSON znači da Mongo podržava neke tipove koji ne postoje u standardnom JSON-u i JavaScript-u kao što su cjelobrojni brojevi (\emph{int} i \emph{long}), precizni 128 bitni brojevi (\emph{decimal}), binarni podaci i poseban tip za primarne ključeve dokumenata.
+Dokumenti nisu zapravo spremljeni u formatu JSON, već u BSON (\emph{binary JSON}) formatu, što je binarna serijalizacija proširenih JSON objekata koje Mongo koristi za spremanje podataka i upita.
+Prošireni JSON znači da Mongo podržava neke tipove koji ne postoje u standardnom JSON-u i JavaScript-u kao što su cjeli brojevi (\emph{int} i \emph{long}), precizni 128-bitni brojevi (\emph{decimal}), binarni podaci i poseban tip za primarne ključeve dokumenata.
 
-Mongo dokumenti su posloženi u kolekcije \engl{collections}.
+Mongo-dokumenti posloženi su u kolekcije \engl{collections}.
 Kolekcije u praksi predstavljaju dokumente sličnog tipa i namijenjene su tome da se nad njima vrše upiti.
-Upiti u Mongo interaktivnom okruženju ostvaruju se u JavaScript jeziku pozivom prikladne funkcije nad kolekcijom (npr. \emph{find}) i predavanjem JavaScript/JSON objekata kao argumente funkcije za izgradnju upita. Upiti su atomarni \engl{atomic} nad pojedinim dokumentom, no od Mongo verzije 4 postoji transakcijski API pomoću kojeg je moguće ostvariti atomarnost na razini sjednice \engl{session}\footnote{
+Upiti u interaktivnom okruženju Mongo-a ostvaruju se u jeziku JavaScript pozivom prikladne funkcije nad kolekcijom (npr. \emph{find}) i predavanjem JavaScript/JSON objekata kao argumenta funkcije za izgradnju upita. Upiti su atomarni \engl{atomic} nad pojedinim dokumentom, no od verzije 4 Mongo-a postoji transakcijski API pomoću kojeg je moguće ostvariti atomarnost na razini sjednice \engl{session}\footnote{
     funkcionalnost transakcija relativno je nova i još uvijek u beta fazi razvoja za distribuirane Mongo sustave
-}\citep{mongo}.
+} \citep{mongo}.
 
 Budući da je riječ o NoSQL bazi podataka, ne postoje relacije, odnosno automatski održavane poveznice između dokumenta.
 Za većinu aplikacija ovo nije problem jer princip kojim se modeliraju dokumenti u kolekciji nije isti kao modeliranje zapisa u relacijskoj bazi.
-Mongo dokumenti modeliraju se kao agregati podataka, odnosno dokumenti koji su u izravnoj ovisnosti o drugom dokumentu nalaze se unutar tog dokumenta.
-Tipičan primjer toga je račun nakon kupovine i stavke na tom računu.
-Gdje bi u relacijskom sustavu to bile dvije tablice, u Mongo sustavu se ta situacija modelira na način da su stavke računa lista objekata koja se nalazi unutar dokumenta račun.
-Na ovaj način jednostavno se može izgraditi distribuiran sustav baze podataka jer je svaki dokument ustvari agregat neovisan o drugim dokumentima.
-Naravno u praksi poveznice između dokumenata su nekad nužne i tada se za njihovo održavanje treba brinuti unutar aplikacijske logike.
+Mongo-dokumenti modeliraju se kao agregati podataka, odnosno dokumenti koji su u izravnoj ovisnosti o drugom dokumentu nalaze se unutar tog dokumenta.
+Tipičan primjer je račun kupovine i stavke na računu.
+U relacijskom sustavu to bi bile dvije tablice, a u sustavu Mongo ta se situacija modelira na način da su stavke računa lista objekata koja se nalazi unutar dokumenta račun.
+Na ovaj se način jednostavno može izgraditi distribuiran sustav baze podataka jer je svaki dokument ustvari agregat neovisan o drugim dokumentima.
+Naravno u praksi poveznice između dokumenata su nekad nužne i tada se za njihovo održavanje treba brinuti aplikacijskom logikom.
 
 
 \razmaks
 % Mongoose ODM
 \subsection{Mongoose ODM}
 
-Mongoose je JavaScript ODM (krat. \emph{Object Data Model}) biblioteka koja olakšava korištenje Mongo baze podataka.
+Mongoose je JavaScript ODM (krat. \emph{Object Data Model}) biblioteka koja olakšava korištenje baze podataka Mongo.
 ODM biblioteke služe za modeliranje podataka NoSQL baza podataka slično kako ORM (krat. \emph{Object Relational Model}\footnote{
     Pojam je različit od \emph{object-relational mapping} koji označava mapiranje relacijskih podataka u objekte i obratno. Za oba pojma često se koristi ista kratica i većina \emph{object relational model} biblioteka implementira i \emph{object-relational mapping}
-}) biblioteke služe za modeliranje relacija u razrede, odnosno objekte. U Mongoose biblioteci podaci se modeliraju pomoću sučelja koji se zove \emph{Schema}.
-To sučelje se onda koristi za definiranje \emph{Model} objekta.
-\emph{Model} objekt predstavlja Mongo kolekciju, čiji dokumenti nužno odgovaraju obliku kakav je definiran pomoću \emph{Schema} objekta, i služi za pozivanje upita nad kolekcijom i kreiranje instanci modela.
+}) biblioteke služe za modeliranje relacija u razrede, odnosno objekte. U biblioteci Mongoose podaci se modeliraju pomoću sučelja koji se zove \emph{Schema}.
+To sučelje se onda koristi za definiranje objekta \emph{Model}.
+Objekt \emph{Model} predstavlja Mongo kolekciju, čiji dokumenti nužno odgovaraju obliku kakav je definiran pomoću objekta \emph{Schema}, i služi za pozivanje upita nad kolekcijom i kreiranje instanci modela.
 Instanca modela predstavlja jedan specifičan dokument koji odgovara \emph{Schema} definiciji objekta tog istog modela.
-Na ovaj način se Mongo dokumenti u aplikaciji mogu proširiti s validacijskim slojem i metodama, odnosno dokumenti postaju objekti koji u sebi sadržavaju dio domenske logike za taj agregat\citep{mongoose}.
+Na ovaj se način Mongo dokumenti u aplikaciji mogu proširiti s validacijskim slojem i metodama, odnosno dokumenti postaju objekti koji u sebi sadržavaju dio domenske logike za taj agregat \citep{mongoose}.
 
-Mongoose je implementiran tako da ovisi o i koristi službeni Mongo driver za Node, kojem se može pristupiti iz globalnog Mongoose objekta u slučaju da postoji potreba za nekim naprednim Mongo driver mogućnostima koje Mongoose sučelje ne nudi izravno\footnote{\url{https://docs.mongodb.com/ecosystem/drivers/node}}.
-U trenutku pisanja ovog rada najnovija verzija Mongoose paketa je 5.6, a paketi iznad verzije 5.2 (uključivo) zahtijevaju MongoDB Server verzije 4.0 ili iznad.
+Mongoose je implementiran tako da ovisi o i koristi službeni Mongo upravljački program \engl{driver} za Node, kojem se može pristupiti iz globalnog objekta Mongoose u slučaju da postoji potreba za nekim naprednim Mongo mogućnostima koje Mongoose sučelje ne nudi izravno\footnote{\url{https://docs.mongodb.com/ecosystem/drivers/node}}.
+U trenutku pisanja ovog rada najnovija verzija paketa Mongoose je 5.6, a paketi iznad verzije 5.2 (uključivo) zahtijevaju MongoDB Server verzije 4.0 ili više.
 
-Primjer korištenja Mongoose biblioteke nalazi se u poglavlju \ref{sec:data} u isječku koda \ref{lst:schema}.
+Primjer korištenja biblioteke Mongoose nalazi se u poglavlju \ref{sec:data} u isječku kôda \ref{lst:schema}.
 
 
 \newpage
@@ -511,31 +513,31 @@ Primjer korištenja Mongoose biblioteke nalazi se u poglavlju \ref{sec:data} u i
 \section{Aplikacijska (klijentska) strana}
 
 Klijentska aplikacija izrađena je koristeći biblioteku React po predlošku i konfiguraciji paketa Create React App.
-Izgled aplikacije je stiliziran primarno koristeći radni okvir \engl{framework} Bootstrap, a elementi radnog okvira korišteni su kao React komponente pomoću React Bootstrap implementacije.
-Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
-STORM React Diagrams biblioteka koristi se za izgradnju dinamičnih dijagrama koji su ključan dio aplikacije, a Axios biblioteka se koristi za komunikaciju s poslužiteljem.
+Izgled aplikacije definiran je primarno koristeći radni okvir \engl{framework} Bootstrap, a elementi radnog okvira korišteni su kao React komponente pomoću React Bootstrap implementacije.
+Budući da je React biblioteka za izgradnju jednostraničnih \engl{single page} web-aplikacija, za navigaciju po različitim dijelovima aplikacije koristi se paket React Router, dok se stanjem aplikacije upravlja pomoću biblioteke Redux.
+Biblioteka STORM React Diagrams koristi se za izgradnju dinamičnih dijagrama koji su ključan dio aplikacije, a Axios biblioteka se koristi za komunikaciju s poslužiteljem.
 
 
 \razmaks
 % React
 \subsection{React} \label{sec:react}
 
-React je JavaScript biblioteka otvorenog koda namijenjena brzoj i jednostavnoj izgradnji korisničkih sučelja.
-Razvijena je od strane Facebooka 2013. godine i zadnja stabilna verzija u trenutku pisanja ovog rada je 16.8.6.\citep{gh_react_changelog}.
-U izvorima se biblioteka također može naći pod nazivima „React.js“ i „ReactJS“, dok je „React Native“ radni okvir za razvoj mobilnih aplikacija u jeziku JavaScript na sličan način kako se web aplikacije grade u React-u\citep{wiki_react}.
+React je JavaScript biblioteka otvorenog kôda namijenjena brzoj i jednostavnoj izgradnji korisničkih sučelja.
+Razvijena je od strane Facebooka 2013. godine i zadnja stabilna verzija u trenutku pisanja ovog rada je 16.8.6. \citep{gh_react_changelog}.
+U izvorima se biblioteka također može naći pod nazivima „React.js“ i „ReactJS“, dok je „React Native“ radni okvir za razvoj mobilnih aplikacija u jeziku JavaScript na sličan način kako se web-aplikacije grade u React-u \citep{wiki_react}.
 Iako je React biblioteka \engl{library}, nije u potpunosti netočno zvati je radnim okvirom \engl{framework}.
 Tijekom godina nakupilo se mnoštvo biblioteka i radnih okvira za korištenje sa samim React-om, da se pod izrazom React često podrazumijeva i njihovo korištenje, što daje dojam cjelokupnog radnog okvira. No, po svojoj definiciji je biblioteka.
 
-React se koristi za razvoj jednostraničnih \engl{single page} web aplikacija.
-Produkcijska verzija React stranice često se sastoji od jedne male HTML datoteke (reda veličine dvadesetak linija koda) i JavaScript datoteke od nekoliko desetaka tisuća linija koda.
+React se koristi za razvoj jednostraničnih \engl{single page} web-aplikacija.
+Produkcijska verzija React stranice često se sastoji od jedne male HTML datoteke (reda veličine dvadesetak linija kôda) i JavaScript datoteke od nekoliko desetaka tisuća linija kôda.
 Razlog je u tome što je sav sadržaj stranice ugrađen u JavaScript kako bi se mogao dinamički mijenjati.
 
 \razmakp
 
 React koristi virtualni DOM \engl{virtual DOM}.
-DOM (krat. \emph{Document Object Model}) je memorijska reprezentacija web stranice, odnosno dokumenta – primarno logičkog stabla HTML elemenata\citep{mdn_dom}.
+DOM (krat. \emph{Document Object Model}) je memorijska reprezentacija web-stranice, odnosno dokumenta – primarno logičkog stabla HTML elemenata \citep{mdn_dom}.
 Virtualni DOM je apstrakcija standardnog HTML DOM-a koja se koristi kako bi se izbjegle skupe operacije dodavanja i brisanja elemenata u DOM-u.
-Efikasnim upravljanjem virtualnim DOM-om, elementi se ažuriraju u stvarnom DOM-u samo kada je to potrebno, odnosno ažuriraju se isključivo elementi koji su se promijenili\citep{med_vdom}.
+Efikasnim upravljanjem virtualnim DOM-om, elementi se ažuriraju u stvarnom DOM-u samo kada je to potrebno, odnosno ažuriraju se isključivo elementi koji su se promijenili \citep{med_vdom}.
 Primjerice, nepotrebno je da se svaki put iznova crta (odnosno iščitava iz HTML dokumenta) navigacija, ako se isključivo mijenja sadržaj ispod nje.
 
 \razmakp
@@ -543,9 +545,9 @@ Primjerice, nepotrebno je da se svaki put iznova crta (odnosno iščitava iz HTM
 \subsubsection{Komponente}
 
 Filozofija React-a je rastaviti korisničko sučelje na komponente kao ponovno iskoristive izolirane cjeline.
-Instance komponenti se, slično HTML DOM elementima, organiziraju u strukturu stabla, no za razliku od HTML DOM elemenata, komponente mogu imati vlastito stanje i logiku. React komponente ostvarene su ili kao funkcije koje vraćaju JSX element i zovu se funkcijske komponente \engl{functional components}, ili kao razredi koji nasljeđuju razred \emph{React.Component} koji se zovu razredne komponente \engl{class components}.
-Oba načina implementacije stvaraju objekte koji su tipa \emph{React.Component} i prolaze kroz iste faze životnog ciklusa \engl{lifecycle}, no razredne komponente mogu imati vlastito stanje i imaju pristup metodama koje se pozivaju u različitim fazama životnog ciklusa \engl{lifecycle methods}\citep{react_docs}.
-Funkcijske komponente u praksi se koriste za implementaciju jednostavnijih komponenti.
+Instance komponenti se, slično HTML DOM elementima, organiziraju u strukturu stabla, no za razliku od HTML DOM elemenata, komponente mogu imati vlastito stanje i logiku. React-ove komponente ostvarene su ili kao funkcije koje vraćaju JSX element i zovu se funkcijske komponente \engl{functional components}, ili kao razredi koji nasljeđuju razred \emph{React.Component} koji se zovu razredne komponente \engl{class components}.
+Oba načina implementacije stvaraju objekte koji su tipa \emph{React.Component} i prolaze kroz iste faze životnog ciklusa \engl{lifecycle}, no razredne komponente mogu imati vlastito stanje i imaju pristup metodama koje se pozivaju u različitim fazama životnog ciklusa \engl{lifecycle methods} \citep{react_docs}.
+Funkcijske komponente se u praksi koriste za implementaciju jednostavnijih komponenti.
 
 \razmakp % Primjer funkcijske i razredne komponente
 \begin{lstlisting}[language=JavaScript, caption={Primjer funkcijske i razredne komponente}, label={lst:component}]
@@ -564,9 +566,10 @@ class HelloWorldAsAClass extends React.Component {
 \razmaks
 
 Struktura stabla komponenti znači da su komponente posložene hijerarhijski, odnosno komponente djeca \engl{child components} su ugniježđene u roditeljskoj komponenti \engl{parent component}.
-Svaka komponenta može primiti podatke putem svog \emph{props} objekta od svoje roditeljske komponente\citep{react_docs}.
-React projekti često prate obrazac podijele komponenti na \emph{pametne} i \emph{glupe} odnosno komponente koje sadrže logiku (često nazvane \emph{container components} i prezentacijske komponente \engl{presentational components}.
-Prezentacijske komponente nemaju vlastito stanje, već samo primaju podatke i akcije putem \emph{props} objekta od svojih roditelja, a sav ostali kod koje sadrže odnosi se isključivo na prezentacijsku logiku, odnosno kako će se komponenta prikazati. Roditeljska \emph{pametna} komponenta implementira vlastito stanje i sve akcije koje se dešavaju u toj komponenti i svim prezentacijskim komponenata koja su joj djeca\citep{med_comp}.
+Svaka komponenta može primiti podatke putem svog objekta \emph{props} od svoje roditeljske komponente \citep{react_docs}.
+Projekti u React-u često prate obrazac podijele komponenti na \emph{pametne} i \emph{glupe} odnosno komponente koje sadrže logiku (često nazvane \emph{container components} i prezentacijske komponente \engl{presentational components}.
+Prezentacijske komponente nemaju vlastito stanje, već samo primaju podatke i akcije od svojih roditelja putem objekta \emph{props}, a sav ostali kôd koji sadrže odnosi se isključivo na prezentacijsku logiku, odnosno kako će se komponenta prikazati.
+Roditeljska \emph{pametna} komponenta implementira vlastito stanje i sve akcije koje se događaju u toj komponenti i svim prezentacijskim komponentama koje su joj djeca \citep{med_comp}.
 
 Jednostavan primjer toga je tablica s redcima koji se mogu brisati na klik gumba.
 Redak i gumb u retku su prezentacijske komponente, dok je tablica pametna komponenta.
@@ -574,7 +577,7 @@ Tablica za stanje ima listu svih redaka i podataka u njima i definira funkciju b
 Svakoj komponenti \emph{Redak} komponenta \emph{Tablica} prosljeđuje podatke za taj redak i funkciju koja briše taj redak.
 Komponenta \emph{Redak} potom definira prikaz podataka i prosljeđuje komponenti \emph{Gumb} funkciju brisanja.
 Komponenta \emph{Gumb} veže primljenu funkciju brisanja na svoj klik događaj \engl{onclick event}.
-Primjer opisanog scenarija nalazi se u isječku koda \ref{lst:component_props}.
+Primjer opisanog scenarija nalazi se u isječku kôda \ref{lst:component_props}.
 
 \razmakp % Primjer prosljeđivanja podataka i akcija iz roditeljske komponente
 \begin{lstlisting}[language=JavaScript, caption={Primjer prosljeđivanja podataka i akcija iz roditeljske komponente}, label={lst:component_props}]
@@ -628,18 +631,18 @@ function Gumb(props) {
 
 \begin{enumerate}
     \item Početna faza postavljanja \engl{mount}, koja se događa nakon instanciranja objekta komponente, pri njegovom dodavanju u Virtualni DOM.
-    \item Faza promjena \engl{update}, u kojoj je instanca većinu vremena. U ovoj fazi dešava se svako ponovno prikazivanje \engl{rerender} instance komponente, najčešće zbog promjene stanja ili ulaznih parametara (\emph{props}).
-    \item Faza rastavljanja \engl{unmount} je završna faza komponente koja se dešava kada se instanca uklanja iz Virtualnog DOM-a
+    \item Faza promjena \engl{update}, u kojoj je instanca većinu vremena. U ovoj fazi događa se svako ponovno prikazivanje \engl{rerender} instance komponente, najčešće zbog promjene stanja ili ulaznih parametara (\emph{props}).
+    \item Faza rastavljanja \engl{unmount} je završna faza komponente koja se događa kada se instanca uklanja iz Virtualnog DOM-a
 \end{enumerate}
 
-\noindent Poznavanje fazi životnog ciklusa komponente je ključno ne samo za razumijevanje ponašanja React komponenti, već zato što se kompleksna logika unutar komponente ostvaruje proširivanjem metoda razreda \emph{React.Component} koje su direktno vezane uz faze životnog ciklusa.
-Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\citep{react_docs}:
+\noindent Poznavanje fazi životnog ciklusa komponente je ključno ne samo za razumijevanje ponašanja komponenti u React-u, već zato što se kompleksna logika unutar komponente ostvaruje proširivanjem metoda razreda \emph{React.Component} koje su direktno vezane uz faze životnog ciklusa.
+Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su \citep{react_docs}:
 
 \begin{enumerate}[label=(\alph*)]
 
     \item konstruktor
     
-    Standardni konstruktor razreda koji se poziva pri stvaranju nove instance. Konstruktor prima \emph{props} objekt i u njemu se može definirati sva sinkrona logika koja se treba desiti prije faze postavljanja, odnosno pri inicijalizaciji objekta komponente.
+    Standardni konstruktor razreda koji se poziva pri stvaranju nove instance. Konstruktor prima objekt \emph{props} i u njemu se može definirati sva sinkrona logika koja se treba dogoditi prije faze postavljanja, odnosno pri inicijalizaciji objekta komponente.
 
     \item svojstva \emph{props} i \emph{state}
     
@@ -660,17 +663,17 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
     Ove dvije metode su jedine koje se ne mogu proširiti, već isključivo naslijediti od \emph{React.Component}.
     Metoda \emph{forceUpdate}, kako joj i ime govori, forsira komponentu da se ažurira, odnosno ponovno izvodi ciklus faze promjene u kojoj poziva metodu \emph{render}.
     Metoda \emph{setState} je asinkrona metoda koja služi za postavljanje stanja.
-    Ona ne vraća \emph{Promise} objekt\footnote{vidi poglavlje \ref{sec:async}}, već prima funkciju povratnog poziva kao svoj drugi argument.
-    Razlog ovakve implementacije je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se desili u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
+    Ona ne vraća \emph{Promise} objekt\footnote{poglavlje \ref{sec:async}}, već prima funkciju povratnog poziva kao svoj drugi argument.
+    Razlog ovakve implementacije je optimizacija, odnosno React višestruke pozive metode \emph{setState} koji su se dogodile u kratkom vremenskom zna spojiti u jedno ažuriranje stanja.
     Ova optimizacija je bitna jer ažuriranje stanja u većini situacija znači ažuriranje cijele komponente (s ponovnim pozivom \emph{render} metode) što je potencijalno skupa operacija.
 
     \item metode životnog ciklusa: \emph{componentDidMount}, \emph{shouldComponentUpdate},
     \break \emph{getSnapshotBeforeUpdate}, \emph{componentDidUpdate} i \emph{componentWillUnmount}.
     
-    Metode se redom pozivaju: neposredno nakon postavljanja komponente, neposredno prije poziva \emph{render} metode, u trenutku izvršavanja \engl{commit} povratne vrijednosti \emph{render} metode na DOM, neposredno ažuriranja komponente, i neposredno prije rastavljanja komponente.
-    Metoda \emph{shouldComponentUpdate} može utjecati na životni ciklus na način da ovisno o njenoj povratnoj vrijednosti (koja je logičkog tipa – engl. \emph{boolean} će se ažuriranje komponente, odnosno poziv metode \emph{render}, desiti ili prekinuti.
+    Metode se redom pozivaju: neposredno nakon postavljanja komponente, neposredno prije poziva \emph{render} metode, u trenutku izvršavanja \engl{commit} povratne vrijednosti \emph{render} metode na DOM, neposredno nakon ažuriranja komponente, i neposredno prije rastavljanja komponente.
+    Metoda \emph{shouldComponentUpdate} može utjecati na životni ciklus na način da ovisno o njenoj povratnoj vrijednosti (koja je logičkog tipa – engl. \emph{boolean}) će se ažuriranje komponente, odnosno poziv metode \emph{render}, dogoditi ili prekinuti.
     Ako komponenta nasljeđuje razred \emph{React.PureComponent}, nema pristup ovoj metodi jer je već implementirana u tom razredu.
-    Razred \emph{React.PureComponent} implementira metodu \emph{shouldComponentUpdate} na način da radi plitku usporedbu \engl{shallow compare} svojstava objekata \emph{props} i \emph{state} od trenutnog i budućeg stanja. Ako se neki od svojstava razlikuje (po referenci za objekte, a po vrijednosti za primitivne vrijednosti) ažuriranje će se desiti, u suprotnom stanje komponente se smatra nepromijenjenim. Ovaj način usporedbe je jako brz, stoga se \emph{React.PureComponent} često koristi za optimizaciju performansi\citep{react_docs}.
+    Razred \emph{React.PureComponent} implementira metodu \emph{shouldComponentUpdate} na način da radi plitku usporedbu \engl{shallow compare} svojstava objekata \emph{props} i \emph{state} od trenutnog i budućeg stanja. Ako se neko od svojstava razlikuje (po referenci za objekte, a po vrijednosti za primitivne vrijednosti) ažuriranje će se dogoditi, u suprotnom stanje komponente se smatra nepromijenjenim. Ovaj način usporedbe je jako brz, stoga se \emph{React.PureComponent} često koristi za optimizaciju performansi \citep{react_docs}.
 
     \item statička metoda životnog ciklusa \emph{getDerivedStateFromProps}
     
@@ -681,19 +684,19 @@ Elementi razreda \emph{React.Component} i svakog razreda koji ga nasljeđuje su\
 
     Ove metode ne moraju nužno biti prefiksirane s \emph{UNSAFE\_} i u prethodnim verzijama React-a (prije verzije 16.3) nemaju taj prefiks.
     Prefiks je dodan kako bi se naglasilo da će metode biti uklonjene u verziji 17 i da ih se preporuča ne koristiti.
-    Razlog zašto nisu odmah uklonjene je da bi ljudi lakše migrirali s React verzije 15 na verziju 16\citep{react_16_3}.
+    Razlog zašto nisu odmah uklonjene je da bi ljudi lakše migrirali s React verzije 15 na verziju 16 \citep{react_16_3}.
 
     \item metoda \emph{componentDidCatch} i statička metoda \emph{getDerivedStateFromError}
     
     Ovo su metode koje se koriste u svrhu upravljanja greškama \engl{error handling} i dio su skupa novih metoda koje su dodane u React 16\footnote{
-        Uz njih su dodane i metode \emph{getSnapshotBeforeUpdate} i \emph{getDerivedStateFromProps}. Ključno je napomenuti da nisu sve metode dodane odmah u verziji 16.0, već postupno u verzijama 16.0, 16.3 i 16.6\citep{gh_react_changelog}.
-    }\citep{react_error}.
+        Uz njih su dodane i metode \emph{getSnapshotBeforeUpdate} i \emph{getDerivedStateFromProps}. Ključno je napomenuti da nisu sve metode dodane odmah u verziji 16.0, već postupno u verzijama 16.0, 16.3 i 16.6 \citep{gh_react_changelog}.
+    } \citep{react_error}.
 \end{enumerate}
 \razmaks
 
 Na slici \ref{fig:react_lifecycle} prikazan je pojednostavljen dijagram u kojim fazama se pozivaju metode komponente.
 
-\begin{figure}[!htb] % Životni ciklus Promise objekta
+\begin{figure}[!htb] % Redoslijed poziva metoda životnog ciklusa React komponente
   \centering
   \includegraphics[width=15.6cm]{images/react_life.png}
   \caption{Redoslijed poziva metoda životnog ciklusa React komponente}
@@ -708,10 +711,10 @@ Na slici \ref{fig:react_lifecycle} prikazan je pojednostavljen dijagram u kojim 
 
 Paket Create React App je službeni predložak koji apstrahira od programera većinu konfiguracije i paketa koji su nužni za razvoj React aplikacija.
 Instalacijom i pokretanjem paketa korisnik dobiva konfiguriran prevoditelj Babel\footnote{\url{https://babeljs.io}} s opcionalnom TypeScript podrškom\footnote{
-    Podrška za TypeScript je došla u Babel verziji 7, a u trenutku pisanja ovog rada Babel-ov TypeScript prevoditelj ne podržava sve dijelove TypeScript sintakse. Primjer toga su prostori imena \engl{namespace} i konstantne enumeracije \engl{const enums}\citep{ms_dev_babel}.
+    Podrška za TypeScript je došla u Babel verziji 7, a u trenutku pisanja ovog rada Babel-ov TypeScript prevoditelj ne podržava sve dijelove TypeScript sintakse. Primjer toga su prostori imena \engl{namespace} i konstantne enumeracije \engl{const enums} \citep{ms_dev_babel}.
 }, upravitelj modulima Webpack\footnote{\url{https://webpack.js.org}} s postavljenim serverom za razvoj i skripte za pokretanje i izgradnju aplikacije.
 U slučaju da korisnik želi izmijeniti ili proširiti predefinirane postavke, to može jednostavnim pokretanjem skripte \emph{eject} koja izbacuje i otkriva svu konfiguraciju i pakete koji su se nalazili unutar paketa Create React App.
-Ova akcija je nepovratna, nakon nje više se ne može jednostavno ažurirati predložak, već se mora ručno ažurirati svaki od paketa i dijelova konfiguracije\citep{gh_cra}.
+Ova akcija je nepovratna, nakon nje više se ne može jednostavno ažurirati predložak, već se mora ručno ažurirati svaki od paketa i dijelova konfiguracije \citep{gh_cra}.
 
 \razmakp
 
@@ -731,19 +734,20 @@ Početna struktura projekta nakon pokretanja naredbe može se vidjeti na slici \
 % React Router
 \subsection{React Router}
 
-Činjenica da je web aplikacija jednostranična ne mora začiti da korisnik ne može pristupati različitim dijelovima, odnosno stanjima te aplikacije pomoću poveznica.
-Korisnik želi imati mogućnosti da putem poveznice izravno dođe do nekog dijela aplikacije ili da se vrati na prethodno stanje aplikacije klikom \emph{Nazad} u pregledniku, kao što to može s klasičnim web stranicama\footnote{Ovdje se izraz \emph{web stranica} odnosi na engl. \emph{website}, odnosno kolekciju stranica \engl{web page}.}.
+Činjenica da je web-aplikacija jednostranična ne mora začiti da korisnik ne može pristupati različitim dijelovima, odnosno stanjima te aplikacije pomoću poveznica.
+Korisnik želi imati mogućnosti da putem poveznice izravno dođe do nekog dijela aplikacije ili da se vrati na prethodno stanje aplikacije klikom \emph{Nazad} u pregledniku, kao što to može s klasičnim web-stranicama\footnote{Ovdje se izraz \emph{web-stranica} odnosi na engl. \emph{website}, odnosno kolekciju stranica \engl{web page}.}.
 
-Takvo ponašanjem unutar React aplikacije može se postići koristeći bibliteku React Router („\emph{react-router}“), točnije paket \emph{react-router-dom} koji je implementacija React Router API-ja za web, odnosno namijenjena aplikacijama koje se izvršvaju u web pregledniku\footnote{
-    Nije potrebno instalirati oba paketa jer paket \emph{react-router-dom} sadrži u sebi \emph{react-router}.
-    Paket \emph{react-router} je ustvari bazni paket koji koriste specifične implementacije kao što su \emph{react-router-dom} i \emph{react-router-native} (implementacija namijenjena korištenju u React Native radnom okviru).
+Takvo ponašanjem unutar React aplikacije može se postići koristeći bibliteku React Router („\emph{react-router}“), točnije paket \emph{react-router-dom} koji je implementacija React Router API-ja za web, odnosno namijenjena aplikacijama koje se izvršvaju u internetskom pregledniku\footnote{
+    Nije potrebno instalirati oba paketa.
+    Paket \emph{react-router-dom} sadrži \emph{react-router}.
+    Paket \emph{react-router} je bazni paket koji koriste specifične implementacije kao što su \emph{react-router-dom} i \emph{react-router-native} (implementacija namijenjena korištenju u React Native radnom okviru).
 }.
 Pomoću njega dobije se pristup promjenjivom objektu povijesti \engl{history}, kojim se služi kao s povijesti preglednika, i gotovim navigacijskim komponentama za upravljanje s tom povijesti.
-Jedini uvjet za korištenje tih mogućnosti je da su komponente koje ih koriste ugniježđene u komponenti \emph{Router}\citep{react_router}.
+Jedini uvjet za korištenje tih mogućnosti je da su komponente koje ih koriste ugniježđene u komponenti \emph{Router} \citep{react_router}.
 
 \razmakp
 
-U isječku koda \ref{lst:react_router} je primjer aplikacije koja bi se korisniku prikazala kao web stranica s dvije poveznice na čiji klik se mijenja putanja aplikacije i tekst ispod poveznica.
+Isječku kôda \ref{lst:react_router} je primjer aplikacije koja se korisniku prikazuje kao web-stranica s dvije poveznice na čiji klik se mijenja putanja aplikacije i tekst ispod poveznica.
 
 \newpage % Primjer korištenja React Router biblioteke
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja React Router biblioteke}, label={lst:react_router}]
@@ -778,13 +782,13 @@ class App extends React.Component {
 
 \emph{BrowserRouter} komponenta koristi HTML5 history API\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/History_API}} za upravljanje s povijesti preglednika.
 U tu komponentu su ugniježđene \emph{Route} komponente koje služe za određivanje koje će komponente biti prikazane na kojim rutama.
-Bitno je imati na umu da je dovoljan uvjet za prikaz komponente u \emph{component} atributu taj da početak putanje odgovara atributu \emph{path}.
-Za postizanje ponašanja da se vrijednosti moraju u potpunosti podudarati služi ključna riječ \emph{exact}.
+Bitno je imati na umu da je dovoljan uvjet za prikaz komponente u \emph{component} atributu da početak putanje odgovara atributu \emph{path}.
+Za postizanje ponašanja da se vrijednost rute u pregledniku mora u potpunosti podudarati s vrijednosti atributa \emph{path} služi ključna riječ \emph{exact}.
 U slučaju da u prethodno navedenom primjeru nije korišten \emph{exact}, na putanji „/about“ bi bila prikazana i komponenta \emph{Home} uz komponentu \emph{About}.
 
 \emph{Route} komponente mogu se dodatno ugnijezditi u komponentu \emph{Switch}.
-\emph{Switch} komponenta definira logiku prikzivanja isključivo prve \emph{Route} komponente koja se podudara s putanjom.
-Korištenjem ove logike može se definirati i posljednja \emph{Route} komponenta koja pokriva slučaj neočekivanih putanja, kao što je prikazano u isječku koda \ref{lst:react_router_switch}.
+Komponenta \emph{Switch} definira logiku prikzivanja isključivo prve \emph{Route} komponente koja se podudara s putanjom.
+Korištenjem ove logike može se definirati i posljednja komponenta \emph{Route} koja pokriva slučaj neočekivanih putanja, kao što je prikazano u isječku kôda \ref{lst:react_router_switch}.
 U tom primjeru ponovno se koristi \emph{exact}, u protivnom bi se na svim rutama koje počinju s „/“ odabrala prva komponenta.
 
 \razmakp % Primjer korištenja Switch komponente
@@ -799,7 +803,7 @@ U tom primjeru ponovno se koristi \emph{exact}, u protivnom bi se na svim rutama
 \end{lstlisting}
 \razmaks
 
-Od daljnjih komponenti paketa jako je bitna i komponenta \emph{Redirect} koja svojim prikazivanjem nadjačava trenutnu lokaciju u objektu povijesti i preusmjerava korisnika na novu putanju (određena atributom \emph{to}).
+Od daljnjih komponenti paketa jako je bitna i komponenta \emph{Redirect} koja svojim prikazivanjem nadjačava trenutnu lokaciju u objektu povijesti i preusmjerava korisnika na novu putanju (određenu atributom \emph{to}).
 Isto ponašanje postiže se pozivom metode \emph{replace} nad objektom \emph{history}.
 
 Objektu \emph{history} može se pristupiti u komponentama koje su „stvorene s \emph{routerom}“, odnosno u komponentama koje su predane kao vrijednosti \emph{component} atributa \emph{Route} komponenti ili instancirane s metodom \emph{withRouter}.
@@ -815,10 +819,10 @@ On uvodi u aplikaciju jedno\footnote{
 } globalno stanje koje je predstavljeno kao stablo JavaScript objekata, odnosno jedan veliki objekt koji u sebi sadrži hijerarhijski posložene podobjekte kao vrijednost.
 
 Stanje je globalno dostupno bilo kojem dijelu aplikacije putem Redux API-ja, odnosno pozivanjem emph{getState} metode nad singleton objektom \emph{store} koji se inicijalizira pri pokretanju aplikacije i u sebi sadrži objekt stanja. 
-Objekt dobiven na taj način je nepromjenjiv, što znači da pridruživanjem nove vrijednosti ili reference bilo kojem od njegovih atributa ne može se utjecati nad stanjem aplikacije, odnosno izmijeniti objekt koji se nalazi u \emph{store} singletonu.
-Jedini način za izmijeniti objekt je poslati \engl{dispatch} akciju tom istom \emph{store}.
-Akcija \engl{action} je objekt koji opisuje promjenu stanja koja se želi postići i šalje se kao argument \emph{dispatch} metode \emph{store} singletona.
-Kada \emph{store} primi akciju poziva funkciju sažimanja \engl{reduce} koja je definira logiku koja se izvršava za traženu akciju.
+Objekt dobiven na taj način je nepromjenjiv, što znači da pridruživanjem nove vrijednosti ili reference bilo kojem od njegovih atributa ne može se promijeniti stanje aplikacije, odnosno izmijeniti objekt koji se nalazi u \emph{store} singletonu.
+Jedini način za izmijeniti objekt je poslati \engl{dispatch} akciju.
+Akcija \engl{action} je objekt koji opisuje promjenu stanja koja se želi postići i šalje se kao argument metode \emph{dispatch} \emph{store} singletona.
+Kada objekt \emph{store} primi akciju poziva funkciju sažimanja \engl{reduce} koja je definira logiku koja se izvršava za traženu akciju.
 Akcije sadrže tekstualni atribut tip \engl{type} koji se koristi u funkciji sažimanja kako bi se znalo koju logiku izvršiti\footnote{
     najčešće implementirano kao obično \emph{switch-case} grananje ovisno o vrijednosti atributa tip
 }.
@@ -826,13 +830,13 @@ Osim toga, akcije mogu imati dodatne podatke\footnote{
     u terminologiji Redux biblioteke nazivaju se korisnim teretom \engl{payload}
 } pomoću kojih, uz pristup prethodnom stanju, funkcija sažimanja određuje novo stanje aplikacije.
 Pri izgradnji novog stanja u funkciji sažimanja, ključno je da se grane stabla stanja ne mijenjaju izravno \engl{mutate}, nego da se za svaki dio stanja koji ima promjene gradi novi objekt.
-Ovakav princip ponašanja inspiriran je funkcijskom paradigmom programiranja\citep{redux}.
+Ovakav princip ponašanja inspiriran je funkcijskom programskom paradigmom \citep{redux}.
 
-Za osluškivanje promjena na stanjem koristi se metoda \emph{subscribe} (također metoda \emph{store} objekta), a budući da je deklarativno mijenjanje izgleda React komponente s obzirom na promjenu nekog dijela stanja aplikacije ključan dio gradnje React aplikacija, postoji paket \emph{react-redux} (službeni paket tima koji razvija Redux) koji definira sučelje kojim se pojedina React komponenta može povezati \engl{connect} na Redux stanje te osluškivati i slati promjene nad specifičnim dijelom Redux stanja.
+Za osluškivanje promjena stanja koristi se metoda \emph{subscribe} (metoda objekta \emph{store}), a budući da je deklarativno mijenjanje izgleda React komponente s obzirom na promjenu nekog dijela stanja aplikacije ključan dio gradnje React aplikacija, postoji paket \emph{react-redux} (službeni paket tima koji razvija Redux) koji definira sučelje kojim se pojedina React komponenta može povezati \engl{connect} na Redux stanje te osluškivati i slati promjene nad specifičnim dijelom Redux stanja.
 Sama biblioteka Redux (tj. paket \emph{redux}) ne ovisi o biblioteci React, dok \emph{react-redux} ovisi o obije biblioteke\footnote{
     u trenutku pisanja ovog rada, aktualna verzija \emph{redux} paketa je 4, a za korištenja njega i React 16, potrebna je \emph{react-redux} verzija 7
 }.
-U isječku koda \ref{lst:redux} prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa s React-om.
+U isječku kôda \ref{lst:redux} prikazan je potpuni primjer korištenja \emph{redux} i \emph{react-redux} paketa u React-u.
 
 \razmakp % Primjer korištenja Redux biblioteke u React aplikaciji
 \begin{lstlisting}[language=JavaScript, caption={Primjer korištenja Redux biblioteke u React aplikaciji}, label={lst:redux}]
@@ -891,52 +895,52 @@ ReactDOM.render(
 % STORM React Diagrams
 \subsection{STORM React Diagrams} \label{sec:storm}
 
-STORM React Diagrams je React biblioteka namijenjena gradnji dijagrama razvijena u TypeScript-u dostupna pod MIT licencom.
+STORM React Diagrams je React biblioteka namijenjena gradnji dijagrama razvijena u TypeScript-u dostupna pod licencom MIT.
 Specifično riječ je o dijagramima koji se mogu modelirati na principu grafova, odnosno čvorova i bridova.
-Podatkovna i upravljačka logika čvorova, bridova i svih drugih elementa bibliteke sadržana je u objektima koji se zovu entiteti \engl{entity}, svaki od kojih nasljeđuje bazni razred \emph{BaseEntity}, dok je njihova vizualna reprezentacija, odnosno logika pogleda \engl{view logic} ostvarena pomoću React komponeti koji se nazivaju \emph{widgeti} i svi nasljeđuju baznu komponetu \emph{BaseWidget}.
-Glavni \emph{widget} u kojem se iscrtavaju svi elementi je komponenta \emph{DiagramWidget} koja u svom \emph{props} objektu prima instancu entiteta \emph{DiagramEngine}.
+Podatkovna i upravljačka logika čvorova, bridova i svih drugih elementa bibliteke sadržana je u objektima koji se zovu entiteti \engl{entity}, svaki od kojih nasljeđuje bazni razred \emph{BaseEntity}, dok je njihova vizualna reprezentacija, odnosno logika pogleda \engl{view logic} ostvarena pomoću React komponeti koji se nazivaju \emph{widgeti} i nasljeđuju baznu komponetu \emph{BaseWidget}.
+Glavni \emph{widget} u kojem se iscrtavaju svi elementi je komponenta \emph{DiagramWidget} koja u svom objektu \emph{props} prima instancu entiteta \emph{DiagramEngine}.
 \emph{DiagramEngine} je glavni upravljački entitet koji za atribut ima instancu razreda \emph{DiagramModel} u kojoj je sadržano stanje dijagrama.
-\emph{DiagramModel} implementira logiku dodavanja i brisanja entiteta u dijagramu, dok \emph{DiagramEngine} sadrži tvornice \engl{factory} za stvaranje tih entiteta i implementira potpornu logiku koja je potrebna za crtanje elementa kao što je primjerice traženje najkraćeg puta između dva čvora.
+\emph{DiagramModel} implementira logiku dodavanja i brisanja entiteta u dijagramu, dok \emph{DiagramEngine} sadrži tvornice \engl{factory} za stvaranje entiteta i implementira potpornu logiku koja je potrebna za crtanje elementa kao što je primjerice traženje najkraćeg puta između dva čvora.
 Bitno je naglasiti da je, po prethodno opisanoj arhitekturi, komponenta \emph{DiagramWidget} ustvari implementacija vizualne reprezentacije entiteta \emph{DiagramModel}.
 
 Entiteti ne ovise o svojim ili bilo kojem drugom \emph{widgetu}, dok \emph{widgeti} ovise o entitetima koje predstavljaju, stoga je uvijek moguće izmijeniti koje \emph{widgete} biblioteka koristi izmjenom tvornica koje sadrži instanca razreda \emph{DiagramEngine}.
 Tvornice su instance razreda koje implementiraju metode stvaranja React komponente, tj \emph{widgeta}, i instance entiteta za odabrani element.
 \emph{DiagramEngine} mora nužno sadržavati metode tvornice za čvorove (\emph{node}), bridove (\emph{link}), točke čvorova na koje se bridovi mogu povezati (\emph{port}) i točke u bridovima u kojima se brid lomi ili je krajnja točka brida (\emph{point}).
 
-Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove \emph{default} verzije koje implementiraju neku osnovnu logiku koja bi bila potrebna za izradu osnovnog dijagrama, a također nudi i opcionalnu implementaciju CSS klasa za te elemente kako bi se moglo što prije krenuti s razvojem\citep{storm_rd}.
-U okviru ovog rada korištene su nadograđene verzije modela tih \emph{default} elemenata.
+Biblioteka uz bazne razrede spomenutih entiteta i \emph{widgeta} nudi i njihove \emph{zadane} \engl{default} verzije koje implementiraju neku osnovnu logiku koja bi bila potrebna za izradu osnovnog dijagrama, a također nudi i opcionalnu definiciju CSS klasa za te elemente kako bi se moglo što prije krenuti s razvojem \citep{storm_rd}.
+U okviru ovog rada korištene su nadograđene verzije modela tih \emph{zadanih} elemenata.
 
 
 \newpage
 % Bootstrap i React Bootstrap
 \subsection{Bootstrap i React Bootstrap}
 
-Bootstrap je jednostavan radni okvir za gradnju web stranica prilagodljivih za raznolike uređaje.
+Bootstrap je jednostavan radni okvir za gradnju web-stranica prilagodljivih za raznolike uređaje.
 Nudi velik skup predefiniranih HTML komponenti i standardiziranih CSS klasa koje se mogu koristiti za brzu izgradnju čestih elemenata stranice kao što su izbornici, obrasci \engl{forms}, okviri za slike i sl.
 Također ima i definiran sustav mrežne raspodijele elemenata, koji osigurava prilagodljivu veličinu i raspodjelu sadržaja s obzirom na veličinu zaslona korisničkog uređaja.
 
-Standardizirane CSS klase omogućavaju laganu izmjenu dizajna stranice ako se koristi isključivo zadane Bootstrap klase za stiliziranje HTML elemenata.
+Standardizirane CSS klase omogućavaju laganu izmjenu dizajna stranice ako se koristi isključivo zadane Bootstrap-ove klase za stiliziranje HTML elemenata.
 Dovoljno je zamijeniti CSS datoteku, odnosno temu s novom koja definira stil tih istih klasa.
-Time se osobi koja gradi web stranicu pruža mogućnost da različite projekte gradi istim elementima, kojima zna ponašanje.
+Time se osobi koja gradi web-stranicu pruža mogućnost da različite projekte gradi istim elementima, kojima zna ponašanje.
 
-Budući da Bootstrap postoji od 2011.\citep{wiki_bs}, na internetu postoji mnoštvo gotovih Bootstrap tema koje se lako mogu ugraditi u vlastitu aplikaciju.
+Budući da Bootstrap postoji od 2011. \citep{wiki_bs}, na internetu postoji mnoštvo gotovih Bootstrap tema koje se lako mogu ugraditi u vlastitu aplikaciju.
 
 \razmakp
 
 React Bootstrap („\emph{react-bootstrap}“) je implementacija Bootstrap-a u React-u.
-Imlementira sve standarizirane Bootstrap CSS klase kao React komponente i eliminira ovisnost kompleksnijih Bootstrap elemenata o jQuery biblioteci\footnote{\url{https://jquery.com/}}.
+Imlementira sve standarizirane Bootstrap-ove CSS klase kao React komponente i eliminira ovisnost kompleksnijih Bootstrap-ovih elemenata o jQuery biblioteci\footnote{\url{https://jquery.com/}}.
 
-U trenutku pisanja ovog rada najnovija verzija React Bootstrap paketa je „1.0.0-beta.9“ koja je kompatibilna s Bootstrap 4.3 stilovima.
-Ranije verzije („<1.0“) su kompatibilne s Bootstrap 3 stilovima\citep{bs_react}.
+U trenutku pisanja ovog rada najnovija verzija paketa React Bootstrap je „1.0.0-beta.9“ koja je kompatibilna s temama Bootstrap verzije 4.3.
+Ranije verzije („<1.0“) su kompatibilne s temama Bootstrap verzije 3 \citep{bs_react}.
 
 
 \razmaks
 % Axios
 \subsection{Axios}
 
-Axios je HTTP klijent baziran na JavaScript \emph{Promise} objektu.
+Axios je HTTP klijent temeljen na JavaScript-ovom \emph{Promise} objektu.
 Paket apstrahira dio logike za slanje XHR (krat. \emph{XMLHttpRequest}\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest}}) mrežnog zahtijeva, nudi sučelje za slanje zahtijeva koje vraća \emph{Promise} objekt i automatski parsira JSON odgovore.
-U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija „0.19“), ali zbog svoje jednostavnosti korištenja i podržanosti na svim modernim web preglednicima je među najpopularnijim paketima na NPM-u, sa skoro pet milijuna tjednih preuzimanja\citep{axios}.
+U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija „0.19“), ali zbog svoje jednostavnosti korištenja i podržanosti na svim modernim internatskim preglednicima je među najpopularnijim paketima na NPM-u, sa skoro pet milijuna tjednih preuzimanja \citep{axios}.
 
 
 
@@ -977,9 +981,9 @@ U trenutku pisanja ovog rada je još uvijek u nestabilnoj fazi razvoja (verzija 
 \section{Model podataka} \label{sec:data}
 
 Podaci u aplikaciji opisani su pomoću relativno jednostavnog modela koji se sastoji od tri agregata: korisnik \engl{user}, zadatak \engl{exercise} i pokušaj \engl{attempt}.
-Korisnik je korisnik aplikacije, zadatak je opis zadatka koji se može rješavati sa svim podacima nužnim za njegov početak i provjeru ispravnosti, dok je pokušaj njihova poveznica.
+Agregat korisnik predstavlja korisnika aplikacije, zadatak je opis zadatka koji se može rješavati sa svim podacima nužnim za njegov početak i provjeru ispravnosti, dok je pokušaj njihova poveznica.
 Pokušaj predstavlja jedno korisnikovo rješavanje zadatka i sadrži u sebi sva stanja, odnosno sve korake koje je korisnik napravio u okviru tog pokušaja.
-Za bolje razumijevanje modela, u isječku koda \ref{lst:schema} nalazi se pojednostavljena verzija (bez validacije, metoda i definicija nekih poddokumenata) Mongoose \emph{Schema} objekata za svaki od modela.
+Za bolje razumijevanje modela, u isječku kôda \ref{lst:schema} nalazi se pojednostavljena verzija (bez validacije, metoda i definicija poddokumenata) Mongoose-ovih \emph{Schema} objekata za svaki od modela.
 
 \razmakp % Pojednostavljena verzija podatkovnih modela, odnosno shema dokumenata spremljenih u Mongo bazi
 \begin{lstlisting}[language=JavaScript, caption={Pojednostavljena verzija podatkovnih modela, odnosno Mongoose shema dokumenata spremljenih u Mongo bazi}, label={lst:schema}]
@@ -1048,23 +1052,23 @@ const attemptModel = mongoose.model('Attempt', attemptSchema);
 % Opis modela
 \subsection{Opis modela}
 
-Pogledom na modele, odnosno sheme Korisnik i Zadatak u isječku koda \ref{lst:schema} može se primijetiti da se oni međusobno referenciraju, odnosno shema Korisnik sadrži listu zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema Zadatak listu korisnija koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
+Sheme Korisnik i Zadatak u isječku kôda \ref{lst:schema} međusobno se referenciraju, odnosno shema Korisnik sadrži listu ključeva zadataka koje je pokušao (\emph{exercisesAttemptedIds}) i uspješno riješio (\emph{exercisesCompletedIds}), a shema Zadatak listu ključeva korisnika koji su pokušali (\emph{usersAttemptedIds}) i uspješno riješili (\emph{usersCompletedIds}) zadatak.
 
-Kako je već spomenuto\footnote{vidi poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li ključevi koji su navedeni u listama.
+Kako je već spomenuto\footnote{poglavlje \ref{sec:mongo}}, ove reference moraju se održavati na aplikacijskoj razini, odnosno ne postoji mehanizam stranih ključeva koji će provjeriti postoje li dokumenti s ključevima koji su navedeni u listama.
 Ovi atributi stoga nisu izvor istine \engl{source of truth} za to je li korisnik pokušao ili riješio zadatak.
-Zaključak da je korisnik sigurno pokušao riješiti zadatak može se dovesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio taj zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
+Zaključak da je korisnik pokušao riješiti zadatak može se izvesti ako i samo ako postoji barem jedan dokument u kolekciji pokušaja (\emph{attempts}) koji za svoje vrijednosti atributa \emph{userId} i \emph{exerciseId} ima odgovarajuće vrijednosti primarnog ključa korisnika i primarnog ključa zadatka, a zaključak da je korisnik uspješno riješio zadatak ako i samo ako postoji barem jedan takav dokument koji pritom ima istinitu vrijednost atributa \emph{isSuccessful}.
 
-Prethodno spomenute liste u shemama Korisnik i Zadatak postoje više za potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
+Prethodno spomenute liste u shemama Korisnik i Zadatak postoje zbog potrebe brzog pristupa i računanja statistike riješenosti zadatka ili statistike korisnikova rješavanja, za koje nije nužno da prikazuju u potpunosti precizne rezultate.
 U slučaju da se želi izvesti precizna analiza statistike, ona bi se izvršavala isključivo nad kolekcijom pokušaja.
 
 \razmakp
 
-Još dvije reference na druge dokumente su atributi \emph{previousAttemptId} i \emph{nextAttemptId} koji sadrže ključ prijašnjeg, odnosno idućeg pokušaja.
-Oba atributa su namijenjeni kasnijoj analizi podataka o pokušajima u slučaju da se želi rekurzivno pretraživati pokušaje za specifičan par ključeva korisnika i zadatka redoslijedom kojim su ti pokušaji nastali.
+Dodatne reference na druge dokumente su atributi \emph{previousAttemptId} i \emph{nextAttemptId} koji sadrže ključ prijašnjeg, odnosno idućeg pokušaja.
+Oba atributa su namijenjena kasnijoj analizi podataka o pokušajima u slučaju da se želi rekurzivno pretraživati pokušaje za specifičan par ključeva korisnika i zadatka redoslijedom kojim su ti pokušaji nastali.
 
 Korisnik za neki zadatak u bilo kojem trenutku može imati samo jedan aktivan pokušaj, a pokušaj je aktivan ako i samo ako atribut \emph{nextAttemptId} nema vrijednost (tj. ako je vrijednost jednaka \emph{null}) i ne postoji završno stanje, odnosno atribut \emph{endState} nema vrijednosti.
 U slučaju da atribut \emph{nextAttemptId} nema vrijednost, ali postoji završno stanje, riječ je o posljednjem pokušaju korisnika za taj zadatak koji je završio.
-U tom slučaju nastavljanje rješavanja zadatka je jedino moguće stvaranjem novog pokušaja.
+U tom je slučaju nastavljanje rješavanja zadatka jedino moguće stvaranjem novog pokušaja.
 Stvaranjem novog pokušaja atributu \emph{nextAttemptId} od prijašnjeg zadnjeg pokušaja pridružuje se vrijednost primarnog ključa novonastalog pokušaja, a novonastalom pokušaju atributu \emph{previousAttemptId} vrijednost primarnog ključa tog prijašnjeg zadnjeg pokušaja.
 
 Drugim riječima, za neki zadatak kojeg je specifičan korisnik barem jednom pokušao rješavati, nužno postoji jedan dokument koji nema vrijednost \emph{previousAttemptId} i predstavlja prvi pokušaj, i jedan dokument koji nema vrijednost \emph{nextAttemptId} i predstavlja posljednji pokušaj (dokumenti nisu međusobno isključivi).
@@ -1073,19 +1077,19 @@ Drugim riječima, za neki zadatak kojeg je specifičan korisnik barem jednom pok
 % Rasprava o modelu
 \subsection{Rasprava o modelu}
 
-Do sada opisane karakteristike modela podataka moglo se jednostavno riješiti i u relacijskom modelu podataka.
-U kontekstu relacijskog modeliranja kolekcija pokušaja nije ništa drugo nego N:M poveznica između korisnika i zadataka, stoga do sada opisani model ne zahtijeva ništa kompleksnije rješenje u relacijskoj bazi, no razlog za izbor dokument baze podataka je u jednostavnoj proširivosti opisanih modela.
+Do sada opisane karakteristike modela podataka moglo se jednostavno implementirati i u relacijskom modelu podataka.
+U kontekstu relacijskog modeliranja kolekcija pokušaja nije ništa drugo nego N:M veza između korisnika i zadataka, stoga do sada opisani model ne zahtijeva ništa kompleksnije rješenje u relacijskoj bazi, no razlog za izbor dokument baze podataka je u jednostavnoj proširivosti opisanih modela.
 
 \razmakp
 
-Ponovnim pregledom shema u isječku koda \ref{lst:schema} može se primijetiti da svaka shema ima barem jedan kompleksniji objekt, odnosno poddokument ugniježđen u sebe.
+Ponovnim pregledom shema u isječku kôda \ref{lst:schema} može se primijetiti da svaka shema ima barem jedan kompleksniji objekt, odnosno poddokument.
 Model korisnika mora biti nadogradiv s obzirom na osobne informacije korisnika (\emph{personalData}) i podatke koje se tiču specifičnog tipa korisnika (\emph{studentData} i \emph{teacherData}).
 U tradicionalnom relacijskom modelu\footnote{
     neki moderni relacijski sustavi baza podataka mogu sadržavati kao atribute zapisa slobodne tipove kao što je JSON, takav tip se kosi s atomarnosti stupaca koje zahtijeva prva normalna forma, stoga se modeliranje relacija s takvim tipovima u kontekstu ove rečenice ne smatra „tradicionalnim relacijskim modelom“
 } trebalo bi precizno definirati svaki od atributa tih podataka i potencijalno model razbiti na više tablica s obzirom na tip korisnika.
 
 Budući da u trenutnoj fazi razvoja većina atributa, odnosno potrebnih podataka nije poznata, korištenje dokument baze omogućuje da se trenutni model korisnika može jednostavno proširiti u budućnosti, bez pisanja ikakve migracije podataka.
-Dovoljno je samo proširiti Mongoose shemu, a čak i to je opcionalno ako ne treba implementirati nikakvu validacijsku logiku za atribute tih objekata.
+Dovoljno je samo proširiti Mongoose-ovu shemu, a čak i to je opcionalno ako ne treba implementirati nikakvu validacijsku logiku za atribute tih objekata.
 
 \razmakp
 
@@ -1101,7 +1105,7 @@ Ukratko, nešto što bi u relacijskom modelu zahtijevalo spajanje tri tablice na
 Model pokušaj sadrži najbolji primjer argumenta za odabir dokument baze, a to je shema stanja (\emph{stateSchema}) koju koristi u nekoliko atributa.
 Stanje je objekt koji sadrži stanje mehanizma dijagrama (spremljeno u \emph{serializedGraph}) i stanja dijagrama sačuvanog u klijentskoj aplikaciji (spremljeno u \emph{diagramState}), odnosno dva tipa podatka čiji format ovisi isključivo o implementaciji klijenta i u niti jednom trenutku se ne koristi u logici poslužiteljske aplikacije.
 
-Korištenjem dokument baze da se stanje aplikacije spremi onakvo kakvo je, oslobađa poslužiteljsku stranu od ovisnosti logike koja se koristi u klijentskoj aplikaciji, odnosno moguće je u budućnosti implementirati u potpunosti drugačiji mehanizam izgradnje dijagrama bez da se mora intervenirati i prilagođavati kod poslužitelja toj promjeni.
+Korištenjem dokument baze da se stanje aplikacije spremi onakvo kakvo je, oslobađa poslužiteljsku stranu od ovisnosti logike koja se koristi u klijentskoj aplikaciji, odnosno moguće je u budućnosti implementirati u potpunosti drugačiji mehanizam izgradnje dijagrama bez da se mora intervenirati i prilagođavati kôd poslužitelja toj promjeni.
 
 
 \razmakp
@@ -1117,7 +1121,7 @@ Projekt \emph{server} pokreće se iz korijenskog direktorija naredbom „\emph{n
 } pod istoimenom varijablom.
 Ako varijabla nije definirana, zadana vrijednost je 3003.
 Također, \emph{client} projekt očekuje da će poslužitelj biti pokrenut na tim pristupnim vratima, tako da u slučaju druge vrijednosti je nužno promijeniti vrijednost pristupnih vrata u \emph{proxy} atributu klijentske \emph{package.json} datoteke.
-Atribut \emph{proxy} je konfiguracijski atribut koji otkriva Create React App predložak\footnote{vidi poglavlje \ref{sec:cra}}.
+Atribut \emph{proxy} je konfiguracijski atribut koji otkriva Create React App predložak\footnote{poglavlje \ref{sec:cra}}.
 Predložak čita atribut pri u skripti koja pokreće razvojni poslužitelj \engl{development server} Webpack i postavlja da HTTP zahtjevi iz aplikacije, koja je pokrenuta u tom posredničkom \engl{proxy} razvojnom poslužitelju, idu na zadanu \emph{proxy} putanju.
 Spomenuta skripta za pokretanje \emph{client} projekta pokreće se iz korijenskog direktorija naredbom „\emph{npm run start-client}“.
 Pristupna vrata na kojima se pokreće razvojni poslužitelj klijentske aplikacije u pravilu nije bitan, predložak je konfiguriran tako da su mu zadana vrata 3000, ali će odabrati prva sljedeća slobodna vrata u slučaju da su ta zauzeta te u naredbenoj liniji iz koje je skripta pokrenuta ispisati na kojoj se putanji aplikacija nalazi.
@@ -1127,7 +1131,7 @@ Prije pokretanja poslužitelja nužno je promijeniti varijablu okruženja \emph{
     u slučaju da se ruta \emph{client/build} direktorija promjeni, treba ažurirati putanju produkcijskih ruta u \emph{server/config/routes.config.js} datoteci
 }.
 Poslužitelj se sada može pokrenuti naredbom „\emph{npm start}“.
-Ova naredba pokretanja poslužitelja drukčija je od prijašnje naredbe po tome da pokreće Node proces izravno, dok je prethodna koristila \emph{nodemon} paket\footnote{\url{https://www.npmjs.com/package/nodemon}} koji osluškuje promjene u kodu i ponovno pokreće poslužitelja ako se neka datoteka u projektu ažurira (ponovno spremi).
+Ova naredba pokretanja poslužitelja drukčija je od prijašnje naredbe po tome da pokreće Node proces izravno, dok je prethodna koristila \emph{nodemon} paket\footnote{\url{https://www.npmjs.com/package/nodemon}} koji osluškuje promjene u kôdu i ponovno pokreće poslužitelja ako se neka datoteka u projektu ažurira (ponovno spremi).
 Ovo ponašanje nije potrebno u produkcijskoj verziji aplikacije jer se pretpostavlja da će ona biti pokrenuta na uređaju gdje se aplikacija isključivo pokreće, odnosno uređaj koji će samo postaviti varijable okruženja i redom pokrenuti \emph{install}, \emph{build} i \emph{start} skripte.
 
 
@@ -1164,10 +1168,10 @@ Jedina iznimka tome su API putanje koje su definirane u datoteci \emph{config/ro
 API poslužitelja sadrži dva korijenska resursa, jedan za korisnika i drugi za zadatak.
 Za svaki od korijenskih resursa postoji prikladna \emph{routes} i \emph{controllers} datoteka.
 Podaci o pokušaju dostupni su putem resursa zadatak, budući da je za sve funkcionalnosti koje se tiču pokušaja uvijek nužno znati o kojem je zadatku riječ.
-Za pokušaj nužno znati i o kojem je korisniku riječ, no taj podatak klijentska šalje kao dio zahtjeva kojeg \engl{response} autentifikacijski sloj (metoda koju izvozi datoteka \emph{middleware/authentication.middleware.js}) validira i stavlja u lokalne podatke odgovora (\emph{res.locals}) prije nego krene obrada zahtijeva u upravljačkom sloju\footnote{vidi isječak koda \ref{lst:auth}}.
+Za pokušaj nužno znati i o kojem je korisniku riječ, no taj podatak klijentska šalje kao dio zahtjeva kojeg \engl{response} autentifikacijski sloj (metoda koju izvozi datoteka \emph{middleware/authentication.middleware.js}) validira i stavlja u lokalne podatke odgovora (\emph{res.locals}) prije nego krene obrada zahtijeva u upravljačkom sloju\footnote{isječak kôda \ref{lst:auth}}.
 Podaci o pokušaju dostupni su isključivo korisniku koji je stvorio taj pokušaj, stoga je autentifikacija nužna za svaku putanju koja dohvaća podatke o pokušaju i nema potrebe za implementiranje putanja za dohvaćanje pokušaja nad resursom  korisnik. Dodavanjem tih putanja bi se samo u duplicirao u putanji podatak koji se već nalazi u zahtjevu i svejedno bi bilo potrebno poslati podatak o kojem je zadatku riječ\footnote{
-    ponovnim pogledom na model podataka u isječku koda \ref{lst:schema} može se primijetiti da pokušaji imaju vlastiti primarni ključ, no u implementaciji nikad se ne oslanja isključivo na njega da bi se podaci mogli bolje i jednostavnije validirati
-}, a budući da nema slučaja korištenja u kojem bi takav dohvat rezultirao ponašanjem drugačijim od onog putem resursa zadatka, samo bi se duplicirao kod.
+    ponovnim pogledom na model podataka u isječku kôda \ref{lst:schema} može se primijetiti da pokušaji imaju vlastiti primarni ključ, no u implementaciji nikad se ne oslanja isključivo na njega da bi se podaci mogli bolje i jednostavnije validirati
+}, a budući da nema slučaja korištenja u kojem bi takav dohvat rezultirao ponašanjem drugačijim od onog putem resursa zadatka, samo bi se duplicirao kôd.
 
 Kao što su datoteke s putanjama u odnosu jedan na jedan s datotekama upravljačkog sloja, tako su i datoteke u direktoriju \emph{service} (u daljnjem tekstu servisi) u odnosu jedan na jedan s Mongoose modelima (koji su također svaki u svojoj datoteci).
 Servisi i modeli zajedno čine podatkovni sloj, odnosno servisi unose dodatan sloj apstrakcije za pristup i upravljanje podacima.
@@ -1197,8 +1201,8 @@ Međusobne ovisnosti slojeva aplikacije, odnosno direktorija prikazane su kao di
 
 Autentifikacijska logika sadržana je unutar korisničke sheme i autentifikacijskog posredničkog sloja \engl{middleware}.
 
-Korisnička shema nema jednostavan atribut \emph{password} kako je to prikazano u isječku koda \ref{lst:schema}, već u sebi sadrži metodu postavljanja \engl{setter} koja osigurava da se u bazi ne sprema izravno korisnikova zaporka, već da se generira njen sažetak \engl{hash}.
-Implementacija te metode postavljanja vidljiva je u isječku koda \ref{lst:pwd}.
+Korisnička shema nema jednostavan atribut \emph{password} kako je to prikazano u isječku kôda \ref{lst:schema}, već u sebi sadrži metodu postavljanja \engl{setter} koja osigurava da se u bazu ne sprema izravno korisnikova zaporka, već da se generira njen sažetak \engl{hash}.
+Implementacija te metode postavljanja vidljiva je u isječku kôda \ref{lst:pwd}.
 
 \razmakp % Attribut \emph{password} sheme Korisnik
 \begin{lstlisting}[language=JavaScript, caption={Attribut \emph{password} od sheme Korisnik}, label={lst:pwd}]
@@ -1214,17 +1218,17 @@ password: {
 
 Sažetak se generira pomoću paketa \emph{bcrypt} koji implementira istoimeni algoritam.
 Algoritam zahtijeva \emph{salt} u obliku broja rundi za generiranje sažetka.
-Broj rundi predaje se aplikaciji pomoću varijable okruženja \emph{PWD\_ROUNDS} i eksponencijalno produljuje vrijeme potrebno za generiranje sažetka, stoga se, budući da je za metodu postavljanja potrebno koristiti sinkronu implementaciju, preporučuje koristiti jednoznamenkasti broj za vrijednost \emph{PWD\_ROUNDS}\citep{bcrypt}.
+Broj rundi predaje se aplikaciji pomoću varijable okruženja \emph{PWD\_ROUNDS} i eksponencijalno produljuje vrijeme potrebno za generiranje sažetka, stoga se, budući da je za metodu postavljanja potrebno koristiti sinkronu implementaciju, preporučuje koristiti jednoznamenkasti broj za vrijednost \emph{PWD\_ROUNDS} \citep{bcrypt}.
 Također bitno je za naglasiti da se \emph{salt} sažetka sprema uz sam sažetak, tako da je dobra praksa dodati \emph{pepper} što je nasumično generirani tajni ključ koji se nadodaje na zaporku korisnika prije generiranja sažetka.
-Vrijednost \emph{pepper} čuva se isključivo u varijablama okruženja aplikacije, tako da u slučaju da neautorizirana osoba dobije podatke o sažecima zaporaka korisnika iz baze podataka, bez \emph{pepper} vrijednosti napadač teško može zaključiti koje su bile originalne zaporke korisnika.
+Vrijednost \emph{pepper} čuva se isključivo u varijablama okruženja aplikacije, tako da u slučaju da neautorizirana osoba dobije podatke o sažecima zaporaka korisnika iz baze podataka, bez \emph{pepper} vrijednosti teško može zaključiti koje su bile originalne zaporke korisnika.
 
-Ovo ne osigurava aplikaciju od napada ako koristi tu istu bazu zaporaka, ali barem osigurava korisnika od toga da se njegova zaporka upotrebi negdje drugdje u slučaju da koristi istu zaporku na više mjesta (što velik broj korisnika radi).
+Ovo ne osigurava aplikaciju od napada ako koristi tu istu bazu zaporaka, ali barem osigurava korisnika od toga da se njegova zaporka upotrijebi negdje drugdje ako koristi istu zaporku na više mjesta (što velik broj korisnika radi).
 
 \razmakp
 
-Opisana metoda koristi se samo pri stvaranju stvaranju korisnika, dok se za provjeru zaporke korisnika koristi metoda \emph{isPasswordValid} koja je definirana nad shemom Korisnik i poziva se nad instancom modela sheme.
-Implementacija se oslanja na već opisanoj metodi sažimanja i usporedbi rezultata s onim koji piše u bazi, samo što se u ovoj situaciji može koristiti asinkron poziv metode sažimanja tako da proces provjere zaporke ne blokira obradu drugih zahtijeva. 
-Kod metode prikazan je u isječku koda \ref{lst:isPwd}.
+Opisana metoda koristi se samo pri stvaranju korisnika, dok se za provjeru zaporke korisnika koristi metoda \emph{isPasswordValid} koja je definirana nad shemom Korisnik i poziva se nad instancom modela sheme.
+Implementacija se oslanja na već opisanoj metodi sažimanja i usporedbi rezultata s onim koji piše u bazi, samo što se u ovoj situaciji može koristiti asinkroni poziv metode sažimanja tako da proces provjere zaporke ne blokira obradu drugih zahtijeva.
+Kod metode prikazan je u isječku kôda \ref{lst:isPwd}.
 
 \razmakp % Metoda \emph{isPasswordValid} sheme Korisnik
 \begin{lstlisting}[language=JavaScript, caption={Metoda \emph{isPasswordValid} sheme Korisnik}, label={lst:isPwd}]
@@ -1241,7 +1245,7 @@ userSchema.methods.isPasswordValid = async function (password) {
 Nakon što je zaporka korisnika uspješno provjerena, korisnik, odnosno klijentska aplikacija, dobiva \emph{token} koji koristi u svim daljnjih zahtjevima za potrebu autentifikacije korisnika.
 Proces stvaranja \emph{tokena} sličan je procesu stvaranja zaporke, ali se umjesto zaporke sažimaju primarni ključ korisnika i poslužiteljska vremenska oznaka \engl{timestamp} u milisekundama kada je metoda stvaranja tokena pokrenuta.
 Spomenuta vremenska oznaka se na kraju procesa stvaranja \emph{tokena} sprema u bazi na mjestu atributa \emph{tokenTimestamp}, dok se samo \emph{token} ne sprema na poslužitelju nigdje, već samo šalje klijentskoj aplikaciji.
-Implementacije metoda stvaranja, provjere i brisanja tokena mogu se pronaći u isječku koda \ref{lst:token}.
+Implementacije metoda stvaranja, provjere i brisanja tokena mogu se pronaći u isječku kôda \ref{lst:token}.
 
 \razmakp % Metode stvaranja, provjere i brisanja tokena sheme Korisnik
 \begin{lstlisting}[language=JavaScript, caption={Metode stvaranja, provjere i brisanja tokena sheme Korisnik}, label={lst:token}]
@@ -1270,11 +1274,11 @@ userSchema.methods.clearToken = async function () {
 \end{lstlisting}
 \razmaks
 
-Na svakoj putanji koja zahtijeva autentifikaciju, odnosno gdje u obradi cjevovoda prije metode upravljačkog sloja stoji metoda \emph{authenticate}, klijentska aplikacija mora u zaglavlju zahtijeva imati adresu elektroničku pošte korisnika i \emph{token} tog korisnika.
+Na svakoj putanji koja zahtijeva autentifikaciju, odnosno u zahtjevu u čijem se cjevovodu obrade zahtjeva prije metode upravljačkog sloja poziva metoda \emph{authenticate}, klijentska aplikacija mora u zaglavlju zahtjeva imati adresu elektroničku pošte i \emph{token} korisnika.
 Adresa elektroničke pošte je jedinstvena za svakog korisnika i koristi se kao identifikator pomoću kojeg se korisnik dohvaća.
-Za svrhu očuvanja jedinstvenosti i brz dohvat korisnika pomoću tog atributa koristi se \emph{unique index} implementacija Mongo sustava\citep{mongo} dostupna u Mongoose API-ju kao svojstvo pri definiciji atributa\citep{mongoose}.
-U slučaju da zahtjev ne sadrži spomenute podatke ili je neki od njih neispravan, klijentskoj aplikaciji se šalje HTTP status kod 401 (\emph{Unauthorized}).
-Implementacija metode \emph{authenticate} prikazana je u isječku koda \ref{lst:auth}.
+Za svrhu očuvanja jedinstvenosti i brz dohvat korisnika pomoću tog atributa koristi se \emph{unique index} implementacija Mongo sustava \citep{mongo} dostupna u Mongoose API-ju kao svojstvo pri definiciji atributa \citep{mongoose}.
+U slučaju da zahtjev ne sadrži spomenute podatke ili je neki od njih neispravan, klijentskoj aplikaciji se šalje HTTP status kôd 401 (\emph{Unauthorized}).
+Implementacija metode \emph{authenticate} prikazana je u isječku kôda \ref{lst:auth}.
 
 \razmakp % Implementacija \emph{authenticate} metode u \emph{authentication.middleware.js}
 \begin{lstlisting}[language=JavaScript, caption={Implementacija \emph{authenticate} metode u \emph{authentication.middleware.js}}, label={lst:auth}]
@@ -1317,20 +1321,20 @@ const authenticate = async (req, res, next) => {
 Ulazna datoteka klijentske aplikacije je \emph{index.tsx} u direktoriju \emph{src}.
 U korijenu direktorija \emph{src} nalaze se još dvije TypeScript datoteke, \emph{App.tsx} i \emph{serviceWorker.ts}.
 
-Datoteka \emph{serviceWorker.ts} ostala je nepromijenjena od inicijalizacije Create React App predloška \footnote{vidi poglavljle \ref{sec:cra}} i nudi gotovu \emph{Service Worker API} konfiguraciju.
-Riječ je o API-ju koju implementiraju moderni web preglednici prvenstveno za potrebe čuvanja privremene memorije \engl{cache} u slučaju sporog interneta ili za ostvarivanje offline web aplikacije\footnote{
+Datoteka \emph{serviceWorker.ts} ostala je nepromijenjena od inicijalizacije Create React App predloška \footnote{poglavljle \ref{sec:cra}} i nudi gotovu \emph{Service Worker API} konfiguraciju.
+Riječ je o API-ju koju implementiraju moderni internetski preglednici prvenstveno za potrebe čuvanja privremene memorije \engl{cache} u slučaju sporog interneta ili za ostvarivanje offline web-aplikacije\footnote{
     aplikacija koja se mora samo učitati pri prvom korištenju, a dalje funkcionira offline
 }.
 
 U datoteci \emph{App.tsx} definirana je korijenska React komponenta koja predstavlja cijelu aplikaciju\footnote{
-    korijenska React komponenta je ustvari React Redux \emph{Provider} (vidi isječak koda \ref{lst:redux}) koji dodaje \emph{store} na kontekst aplikacije i kao svoje izravno i jedino dijete ima \emph{App} komponentu.
+    korijenska React komponenta je ustvari React Redux \emph{Provider} (isječak kôda \ref{lst:redux}) koji dodaje \emph{store} na kontekst aplikacije i kao svoje izravno i jedino dijete ima \emph{App} komponentu.
 } i koju uvozi \engl{import} spomenuta \emph{index.jsx} datoteka i prikazuje \engl{render} na mjestu korijenskog \emph{div} elementa koji je izravno dijete HTML \emph{body} elementa.
 
 \razmakp
 
 Osim direktorija \emph{src}, postoji \emph{public} direktorij u kojem su definirane sve statičke datoteke, odnosno resursi koji ne prolaze kroz proces izgradnje \engl{build}, već ostaju onakvi kakvi jesu.
-To su korijenska \emph{index.html} datoteka, prva datoteka koju preglednik učitava; \emph{manifest.json}, manifest web aplikacije koji je potreban za PWA\footnote{
-    \emph{Progressive Web App} -- web aplikacija koja se, na operacijskim sustavima koji ih podržavaju, može ponašati poput nativne, naizgled samostalne aplikacije (u pozadini web preglednik pokreće aplikaciju, ali se ne prikazuje sučelje tog preglednika), \url{https://developers.google.com/web/progressive-web-apps}
+To su korijenska \emph{index.html} datoteka, prva datoteka koju preglednik učitava; \emph{manifest.json}, manifest web-aplikacije koji je potreban za PWA\footnote{
+    \emph{Progressive Web App} -- web-aplikacija koja se, na operacijskim sustavima koji ih podržavaju, može ponašati poput nativne, naizgled samostalne aplikacije (u pozadini internetski preglednik pokreće aplikaciju, ali se ne prikazuje sučelje tog preglednika), \url{https://developers.google.com/web/progressive-web-apps}
 }; \emph{favicon} ikona; slike, fontovi i ikone korištene u aplikaciji; te statičke JavaScript i CSS datoteke koje nema potrebe uvoziti u razvojnom dijelu aplikacije, u slučaju ovog rada to je \emph{bootstrap.min.css} koji sadrži Bootstrap temu koja se koristi u ovoj aplikaciji.
 Datoteka \emph{index.html} je jedina HTML datoteka u projektu, odakle i naziv jednostranična aplikacija \engl{single page application}.
 Datoteka definira vanjske ovisnosti (dostupne na vanjskom poslužitelju), ovisnosti koje se nalaze u \emph{public} direktoriju i minimalno ili gotovo ništa sadržaja, odnosno \emph{body} element sadrži samo \emph{noscript} i prazan \emph{div} element s vrijednosti \emph{id} atributa jednakom „root“.
@@ -1342,7 +1346,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
 
 \begin{itemize}
     \item \emph{components} -- sadrži sve ponovno iskoristive React komponente, odnosno sve komponente koje se koriste na više različitih putanja, tj. u više \emph{scenes} poddirektorija
-    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji i direktorij \emph{routes} koji sadrži poslužiteljske API putanje (\emph{constants/routes/api.ts}) i putanje web aplikacije (\emph{constants/routes/client.ts})
+    \item \emph{constants} -- sadrži datoteke s konstantama koje se koriste u aplikaciji i direktorij \emph{routes} koji sadrži poslužiteljske API putanje (\emph{constants/routes/api.ts}) i putanje web-aplikacije (\emph{constants/routes/client.ts})
     \item \emph{engine} -- apstrakcija mehanizma izgradnje dijagrama, datoteka \emph{engine/index.ts} izvozi samo one objekte, metode i tipove koji su potrebni ostatku aplikacije da koriste mehanizam dijagrama, dok je sva ostala potrebna logika i ovisnost na STORM React Diagrams paket sadržana u okviru ovog direktorija
     \item \emph{enums} -- sadrži sve enumeracije koje se koriste u aplikaciji, TypeScript za razliku od JavaScript-a ima podršku za enumeracije koje se stvaraju pomoću ključne riječi \emph{enum}, ali je u konfiguraciji ovog rada bitno paziti da se ne koristi \emph{const enum} tip jer ga prevoditelj Babel ne podržava
     \item \emph{models} -- sadrži definicije, odnosno klase i sučelja podatkvnih modela koji se koriste za forme (\emph{formModels} direktorij), šalju poslužitelju (\emph{requestModels} direktorij), primaju s poslužitelja (\emph{viewModels} direktorij), drže u \emph{localStorage} globalnom objektu (\emph{localStorage.model.ts} datoteka), ili općenito koriste u više slojeva aplikacije, a da nisu modeli stanja aplikacije (oni se nalaze u \emph{state} direktoriju)
@@ -1351,7 +1355,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
     \item \emph{styles} -- sadrži SCSS\footnote{
         SCSS je jedna od dvije moguće sintakse za Sass jezik (druga se zove baš \emph{Sass}) koja je sličnija CSS-u, odnosno SCSS je nadogradnja \engl{superset} je nad standardnom CSS-om slično kako je TypeScript nadogradnja nad JavaScript-om
     } datoteke koje definiraju dizajn aplikacije, u procesu izgradnje prevode se u zajedničku CSS datoteku
-    \item \emph{typings} -- sadrži TypeScript deklaracijske datoteke\footnote{vidi poglavlje \ref{sec:ts}}
+    \item \emph{typings} -- sadrži TypeScript deklaracijske datoteke\footnote{poglavlje \ref{sec:ts}}
     \item \emph{utils} -- sadrži pomoćne metode koje se koriste u više slojeva aplikacije ili ne pripadaju prirodno nekom od slojeva, abecednim redom to su:
     \begin{itemize}
         \item \emph{action.util.ts} -- sadrži logiku obrade HTTP grešaka unutar Redux akcija, izvozi metodu s kojom se omotava svaka Redux akcija koja radi poziv na poslužitelj
@@ -1371,7 +1375,7 @@ To je zato što sav sadržaj generira izgrađena JavaScript datoteka koja se u p
 % Mehanizam dijagrama
 \subsection{Mehanizam dijagrama} \label{sec:diagram}
 
-Mehanizam dijagrama uvelike se oslanja na zadane \engl{default} elemente biblioteke STORM React Diagrams\footnote{vidi poglavlje \ref{sec:storm}}.
+Mehanizam dijagrama uvelike se oslanja na zadane \engl{default} elemente biblioteke STORM React Diagrams\footnote{poglavlje \ref{sec:storm}}.
 Ti modeli su prošireni kako bi se ostvarila logika nužna za ispravno funkcioniranje dijagrama.
 Specifično proširen je entitet čvora.
 
@@ -1389,7 +1393,7 @@ Na primjeru razreda \emph{SelectNodeModel} objekt postavki u sebi sadrži listu 
 Metoda \emph{run} u tom slučaju pri primanju ulaznog parametra tablice stvara novu tablicu koja sadrži iste retke kao i primljena, samo bez stupaca koji nisu navedeni u objektu postavki čvora nad kojim je metoda pozvana. 
 Ključna stvar za svaku \emph{run} metodu je da je ona čista funkcija \emph{pure function}, odnosno da njeno pozivanje ne mijenja ni ulazne parametre ni unutarnje stanje objekta nad kojim je pozvana.
 
-Ostali \emph{default} entiteti nisu zahtijevali proširivanje svojih razreda, ali zato razred \emph{DiagramModel} je.
+Ostali zadani \engl{default} entiteti nisu zahtijevali proširivanje svojih razreda, ali zato razred \emph{DiagramModel} je.
 Razred \emph{DiagramModel} proširen je razredom \emph{CustomDiagramModel} koji reimplementira deserijalizaciju dijagrama kako bi ona bila usklađena s implementacijom u \emph{AbstractNodeModel} razredu.
 Specifično u procesu deserijalizacije čvorova nužno je iščitati tip čvora kako bi se mogao instancirati ispravan čvor.
 
@@ -1434,7 +1438,7 @@ Akcije koje se izvoze iz \emph{actions} datoteka nisu Redux akcije već kompleks
 One pozivaju http zahtjeve i stvaraju Redux akcije, pomoću stvaratelja akcija, koje šalju \engl{dispatch} funkcijama sažimanja.
 Korištenje paketa \emph{redux-think} kao Redux međusloja za definiranje i pozivanje akcija omogućava da se unutar jedne akcije može stvoriti i poslati više Redux akcija.
 Svaka Redux akcija ima prikladan tip akcije po kojem funkcija sažimanja zna o kojoj je akciji riječ.
-Sloj stvaratelja akcija prvenstveno služi da bi se pomoću njega definirala TypeScript sučelja koja u sebi sadrže informaciju o podatkovnom tipu korisnog tereta \engl{payload} Redux akcije kako bi on bio poznat za specifičan tip akcije u funkciji sažimanja u trenutku prevođenja koda i tako potencijalno otkrio greške u implementaciji.
+Sloj stvaratelja akcija prvenstveno služi da bi se pomoću njega definirala TypeScript sučelja koja u sebi sadrže informaciju o podatkovnom tipu korisnog tereta \engl{payload} Redux akcije kako bi on bio poznat za specifičan tip akcije u funkciji sažimanja u trenutku prevođenja kôda i tako potencijalno otkrio greške u implementaciji.
 
 Jedini dio podstanja koji nema definiranu datoteku s akcijama, već samo sa stvarateljima akcija je \emph{http}.
 Razlog je u tome što akcije na taj dio stanja se ne šalju iz komponenti već iz datoteke \emph{utils/http.util.ts} pri početku i završetku neku od metodi poziva HTTP zahtijeva, a te metode nemaju pristup \emph{dispatch} metodi i automatskom povezivanju \emph{dispatch} na akcije kako je to ostvareno u komponentama pomoću \emph{react-redux} paketa. To znači da datoteka mora uvesti globalni \emph{store} objekt za slati Redux akcije koje stvara pomoću stvaratelja akcija, odnosno akcije se moraju definirati unutar te datoteke.
@@ -1442,8 +1446,8 @@ Razlog je u tome što akcije na taj dio stanja se ne šalju iz komponenti već i
 \razmakp
 
 Podstanje \emph{user} sadrži korisničke podatke i akcije tog podstanja povezane su uz autorizaciju, odnosno registraciju i prijavu korisnika.
-Budući da osvježavanje stranice u web pregledniku osvježi i Redux stanje ako neki oblik perzistencije nije implementiran, \emph{user} akcije uz ažuriranje Redux stanja ažuriraju i brinu se o autorizacijskim podacima unutar \emph{localStorage} globalnog objekta, specifično riječ je o adresi elektroničke pošte i tokenu koji su nužni dijelovi zaglavlja većine HTTP zahtijeva\footnote{vidi poglavlje \ref{sec:auth}}.
-Nikoji drugi podaci nisu perzistirani već će se dohvatiti pri osvježavanju stranice budući da komponente za dohvat svih tih podataka pozivaju prikladne akcije unutar svojih \emph{componentDidMount} metoda\footnote{vidi poglavlje \ref{sec:react}}.
+Budući da osvježavanje stranice u internetskom pregledniku osvježi i Redux stanje ako neki oblik perzistencije nije implementiran, \emph{user} akcije uz ažuriranje Redux stanja ažuriraju i brinu se o autorizacijskim podacima unutar \emph{localStorage} globalnog objekta, specifično riječ je o adresi elektroničke pošte i tokenu koji su nužni dijelovi zaglavlja većine HTTP zahtijeva\footnote{poglavlje \ref{sec:auth}}.
+Nikoji drugi podaci nisu perzistirani već će se dohvatiti pri osvježavanju stranice budući da komponente za dohvat svih tih podataka pozivaju prikladne akcije unutar svojih \emph{componentDidMount} metoda\footnote{poglavlje \ref{sec:react}}.
 Neperzistencija Redux stanja je namjerna jer osigurava mogućnost osvježavanja aplikacije s ispravnim stanjem s poslužitelja umjesto učitavanja starog stanja koje je potencijalno neispravno zbog neke nepredviđene greške.
 Također, konstantno održavanje cijelog Redux stanja bi potencijalno narušilo performanse jer su akcije pisanja u \emph{localStorge} objekt sinkrone, a u slučaju da ih se ubaci unutar asinkronih metoda bi otvorilo mogućnost greške u redoslijedu pisanja stanja u \emph{localStorge} objekt.
 
@@ -1454,7 +1458,7 @@ Ono definira akcije koje su usko vezane uz mehanizam dijagrama i održava proči
 
 \razmakp
 
-Definicja sučelja za opisan model stanja aplikacije, odnosno sučelja za sva podstanja aplikacija prikazana su u isječku koda \ref{lst:state}.
+Definicja sučelja za opisan model stanja aplikacije, odnosno sučelja za sva podstanja aplikacija prikazana su u isječku kôda \ref{lst:state}.
 
 \razmakp % Pojednostavljena verzija sučelja stanja aplikacije
 \begin{lstlisting}[language=TypeScript, caption={Pojednostavljena verzija sučelja stanja aplikacije}, label={lst:state}]
@@ -1522,6 +1526,141 @@ interface UserState {
     \item \emph{dataByNode} -- rječnik svih čvorova koji sadrže podatake, odnosno imaju izlaznu tablicu; čvor sadrži podatke samo ako svi njegovi prethodnici sadrže podatke, odnosno ako su svi prethodnici spojeni sa \emph{StartNodeModel} čvorovima i imaju ispravan objekt postavki
 \end{itemize}
 
+
+\newpage
+% Primjer korištenja aplikacije
+\section{Primjer korištenja aplikacije}
+
+Dolaskom na web-stranicu aplikacije korisniku će se prikazati forma za prijavu u sustav.
+Nakon prijave bit će preusmjeren na tablicu sa zadacima koje može rješavati i može kliknuti na bilo koji od zadataka kako bi započeo ili nastavio rješavanje odabranog zadatka. Ako je rješavanje tek započelo, sučelje za rješavanje će izgledati kao na slici \ref{fig:screen1}.
+
+\begin{figure}[!htb] % Sučelje za rješavanje zadatka na početku rješavanja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen1.png}
+  \caption{Sučelje za rješavanje zadatka na početku rješavanja}
+  \label{fig:screen1}
+  \razmaks
+\end{figure}
+
+Na vrhu sučelja nalazi se naziv zadatka i gumbi koji omogućavaju predaju rješenja \engl{submit solution}, odnosno povratak na tablicu sa zadacima.
+U oba će slučaja trenutno stanje dijagrama ostati sačuvano. 
+U sredini sučelja je prostor za izgradnju dijagrama čiji lijevi rub sadrži gumbe koji omogućavaju stvaranje novih čvorova u dijagramu.
+Ispod tog prostora nalazi se opis zadatka i ispod njega su na lijevoj strani postavke za trenutno odabrani čvor u dijagramu, a na desnoj stanje podataka, tj. tablica s podacima u tom čvoru dijagrama.
+Na slici \ref{fig:screen1} niti jedan čvor nije odabran stoga nema postavki i podataka ispod opisa zadatka, ali na slici \ref{fig:screen2} je prikazan primjer s dodanim čvorom \emph{Start}.
+
+\begin{figure}[!htb] % Sučelje za rješavanje zadatka s dodanim čvorom \emph{Start}
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen2.png}
+  \caption{Sučelje za rješavanje zadatka s dodanim čvorom \emph{Start}}
+  \label{fig:screen2}
+  \razmaks
+\end{figure}
+
+\newpage
+\noindent Tekst zadatka prikazanog na slikama u ovom poglavlju glasi:
+
+\begin{quotation}
+    Prikaži redni broj, ime, prezime, i datum rođenja svih muških učenika koji su visoki barem 132 cm i imaju ispod 31 kg te svih ženskih učenica koje su visoke barem 131 cm i imaju ispod 30 kg
+\end{quotation}
+
+\noindent Na početku zadatka ponuđena je tablica učenika koja sadrži stupce: redni broj, ime, prezime prosjek, dan rođenja, mjesec rođenja, datum rođenja, spol, visina, i težina.
+
+\razmakp
+
+\noindent Slike u nastavku prikazuju odabrane korake izgradnje jednog mogućeg točnog rješenja zadatka:
+
+\begin{enumerate}
+    \item filtriranje svih učenika s vrijednosti visina većom ili jednakom 132 (slika \ref{fig:screen3})
+    \item filtriranje svih muških učenika s vrijednosti visina većom ili jednakom 132 i vrijednosti težina manjom od 31 (slika \ref{fig:screen4})
+    \item dodavanje čvora za uniju dosad izgrađene grane i one koja nedostaje (slika \ref{fig:screen5})
+    \item filtriranje svih ženskih učenica s vrijednosti visina većom ili jednakom 131 i vrijednosti težina manjom od 30 (slika \ref{fig:screen6})
+    \item spajanje novoizgrađene grane s čvorom Unija čime taj čvor sada sadrži sve retke koji su dani u uvjetu zadatka (slika \ref{fig:screen7})
+    \item selekcija isključivo stupaca koji su zadani u opisu zadatka (slika \ref{fig:screen8})
+    \item dodavanje čvora \emph{End} kako bi rješenje bilo spremno za predaju, tj. provjeru ispravnosti (slika \ref{fig:screen9})
+\end{enumerate}
+
+\razmaks
+
+\noindent Konačno stanje rješenja prikazano je na slici \ref{fig:screen10}.
+
+\razmakp
+
+\begin{figure}[!htb] % Prvi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen3.png}
+  \caption{Prvi odabrani korak izgradnje rješenja}
+  \label{fig:screen3}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Drugi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen4.png}
+  \caption{Drugi odabrani korak izgradnje rješenja}
+  \label{fig:screen4}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Treći odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen5.png}
+  \caption{Treći odabrani korak izgradnje rješenja}
+  \label{fig:screen5}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Četvrti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen6.png}
+  \caption{Četvrti odabrani korak izgradnje rješenja}
+  \label{fig:screen6}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Peti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen7.png}
+  \caption{Peti odabrani korak izgradnje rješenja}
+  \label{fig:screen7}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Šesti odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen8.png}
+  \caption{Šesti odabrani korak izgradnje rješenja}
+  \label{fig:screen8}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Sedmi odabrani korak izgradnje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen9.png}
+  \caption{Sedmi odabrani korak izgradnje rješenja}
+  \label{fig:screen9}
+  \razmaks
+\end{figure}
+
+\begin{figure}[!htb] % Konačno stanje rješenja
+  \razmaks
+  \centering
+  \includegraphics[width=14.4cm]{images/screen10.png}
+  \caption{Konačno stanje rješenja}
+  \label{fig:screen10}
+  \razmaks
+\end{figure}
+
+
+
 % Zaključak
 \chapter{Zaključak}
 
@@ -1529,24 +1668,25 @@ U ovom radu dan je pregled razvijenog sustava za učenje koncepata deklarativne 
 Veliki naglasak u razvoju sustava je dan na arhitekturi i modelu kako bi i on i alat bili jednostavno proširivi novim zadacima, funkcionalnostima i operacijama u budućnosti.
 Iz istog razloga veliki dio ovog rada posvećen je objašnjavanju te arhitekture i korištenih tehnologija čije razumijevanje je ključno da bi se razumjelo implementaciju i odluke donesene pri osmišljavanju implementacije sustava.
 
-Alat se u budućnosti može vrlo jednostavno proširiti s operacijom kao što je grupiranje -- dovoljno je dodati čvor s prikladnom logikom za takvu operaciju -- a s minimalnim preinakama na implementaciju mogu se dodati i puno napredniji koncepti kao što je spajanje raznovrsnih tablica s obzirnom na dani uvjet.
-Jedna naprednija funkcionalnost koja se može uvesti u sustavu, a da se koristi izgrađeni mehanizam dijagrama, je mogućnost spremanja kombinacije blokova, tj. operacija, u jedan jedinstven ponovno iskoristiv blok, odnosno izgradnja osobnih spremljenih procedura za kasnije korištenje.
-Sam sustav može se proširiti naprednim opcijama i interaktivnim načinom izgradnje zadataka gdje se ti zadaci potom mogu kategorizirati i ciljano dijeliti s drugim korisnicima. Jedna jednostavna funkcionalnost koja se može uvesti u sustavu s postojećom implementacijom je naprednije praćenje osobne statistike rješavanja zadataka, te praćenje te iste karakteristike za druge korisnike od strane korisnika koji je označen kao učitelj tih korisnika.
+Alat se u budućnosti može vrlo jednostavno proširiti operacijom kao što je grupiranje -- dovoljno je dodati čvor s prikladnom logikom za takvu operaciju -- a s minimalnim preinakama mogu se dodati i puno napredniji koncepti kao što je spajanje raznovrsnih tablica s obzirnom na dani uvjet.
+Jedna naprednija funkcionalnost koja se može uvesti u sustav, a da se koristi izgrađeni mehanizam dijagrama, je mogućnost spremanja kombinacije blokova, tj. operacija, u jedan jedinstven ponovno iskoristiv blok, odnosno izgradnja osobnih spremljenih procedura za kasnije korištenje.
+Sam sustav može se proširiti naprednim opcijama i interaktivnim načinom izgradnje zadataka gdje se ti zadaci potom mogu kategorizirati i ciljano dijeliti s drugim korisnicima.
+Također, unutar postojeće implementacije može se jednostavno dodati naprednije praćenje osobne statistike rješavanja zadataka, te praćenje te iste karakteristike za druge korisnike od strane korisnika koji je označen kao učitelj tih korisnika.
 
 Nadalje, u modeliranju podataka je mnogo odluka doneseno u svrhu što detaljnijeg i lakšeg praćenja koraka koje korisnici rade u rješavanju zadataka za kasniju analizu.
-Budući da je ideja da se ovakav sustav može uvesti kao dodatak u nastavi ili izvannastavnim obrazovnim aktivnostima, mogućnost analiziranja takvih podataka je ključna da bi se mogla procijeniti ne samo korisnost sustava, već da bi se analizom uzoraka ponašanja u pristupu rješavanja zadataka moglo uočiti i procijeniti gdje i na koji način je potrebno sustav poboljšati, odnosno prepoznati koji koncepti deklarativnog programiranja su učenicima problematični i teški te proširiti vježbe i zadatke u cilju razjašnjavanja tih koncepata.
+Budući da je ideja da se ovakav sustav može uvesti kao dodatak u nastavi ili izvannastavnim obrazovnim aktivnostima, mogućnost analiziranja takvih podataka je ključna da bi se mogla procijeniti ne samo korisnost sustava, već da bi se analizom uzoraka ponašanja u pristupu rješavanja zadataka moglo uočiti i procijeniti gdje i na koji način poboljšati sustav, odnosno prepoznati koji su koncepti deklarativnog programiranja učenicima problematični i teški te proširiti vježbe i zadatke u cilju razjašnjavanja tih koncepata.
 
 \razmakp
 
 Opisane mogućnosti proširenja samo su neke od opcija koje se mogu implementirati ovisno o korištenju sustava u budućnosti.
 Okvir za njihovu implementaciju dan je u ovom radu, a sam sustav je spreman za testiranje nad ciljanom skupinom korisnika -- djecom u ranim razredima osnovne škole.
-Ovakav sustav bilo bi korisno prezentirati i dati na korištenje učenicima koji se unutar svog programa informatike još nisu susreli s proračunskim tablicama kako bi se mogla analizirati korisnost sustava u olakšavanju stjecanja znanja za korištenje takvih alata, budući da je alat koji se koristi trenutnom sustavu prvenstveno inspiriran kao interaktivna i jednostavna verzija alata za manipulaciju tabličnih podataka.
+Ovakav sustav bilo bi korisno prezentirati i dati na korištenje učenicima koji se unutar svog programa informatike još nisu susreli s proračunskim tablicama kako bi se mogla analizirati korisnost sustava u olakšavanju stjecanja znanja za korištenje takvih alata.
 
 Naravno, sustav je otvoren i za korištenje u bilo kojem drugom okruženju gdje bi se mogao smatrati korisnim ili zanimljivim, a interaktivan alat koji mu je ključan dio je lako izdvojiv za kopiranje i implementiranje u nekom drugom sustavu gdje bi se takav alat mogao smatrati korisnim.
 
 \razmakp
 
-Cilj ovog rada je uspješno postignut, ostvareni su opisani sustav i alat, a mogućnosti daljnjeg rada i nadogradnji sustava su detaljno razložene.
+Cilj ovog rada je uspješno postignut, ostvareni su opisani sustav i alat, a mogućnosti daljnjeg rada i nadogradnji sustava detaljno su razložene.
 Idući korak za ovaj sustav je njegovo korištenje nad testnom skupinom, kako bi se korisnost alata mogla detaljno analizirati te kako bi prioriteti daljnjeg rada i nadogradnje bili što jasniji.
 
 
@@ -1560,7 +1700,7 @@ Idući korak za ovaj sustav je njegovo korištenje nad testnom skupinom, kako bi
 \begin{sazetak}
 Postoji velik broj interaktivnih okruženja i alata vizualnog programiranja za učenje proceduralne programske paradigme.
 U ovom radu razvijeno je interaktivno okruženje za podršku učenju deklarativne paradigme.
-Interaktivno okruženje ostvareno je kao web aplikacija i bazirano je na izgradnji dijagrama toka podataka gdje su čvorovi dijagrama operacije deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru.
+Interaktivno okruženje ostvareno je kao web-aplikacija i bazirano je na izgradnji dijagrama toka podataka gdje su čvorovi dijagrama operacije deklarativnog programskog jezika napravljenog po uzoru na relacijsku algebru.
 Informaciji sustav razvijen u ovom radu u kojem se nalazi interaktivno okruženje namijenjen je za korištenje na mobilnim i desktop uređajima, prvenstveno od strane mlađih uzrasta u ranoj fazi formalnog obrazovanja.
 
 
